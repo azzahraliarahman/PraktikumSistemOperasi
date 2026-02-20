@@ -1,6 +1,7 @@
-# Project Title
+# Praktikum OS 1
 
-Simple overview of use/purpose.
+<h6>Nama : Azzahra Aulia Rahman</h6>
+<h6>NIM : 254107020227</h6>
 
 ## Description
 
