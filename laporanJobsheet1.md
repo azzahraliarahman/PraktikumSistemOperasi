@@ -15,7 +15,7 @@
 
 ## 1.7.6. Praktik: Manual Partitioning
 
-## Post-installation file System Commands
+### Post-installation file System Commands
 
 1. Check disk usage (df -h)
    
@@ -47,4 +47,31 @@
 *  sudo mount /dev/sdb1 /mnt/data
   
  <img width="652" height="150" alt="Screenshot 2026-02-21 143335" src="https://github.com/user-attachments/assets/122a68dc-2edc-40b7-aa0d-a3870fdc06f4" />
+ 
+<img width="610" height="144" alt="Screenshot 2026-02-21 192542" src="https://github.com/user-attachments/assets/0e5709e7-b20d-4c79-816b-ba7bc0d99049" />
+
+5.  Permanent mount- edit /etc/fstab
+   * cat /etc/fstab
+     
+<img width="843" height="200" alt="Screenshot 2026-02-21 193020" src="https://github.com/user-attachments/assets/14854f93-dc0b-4fc5-be4c-351793c8eef8" />
+6.  UUID-based mount (preferred)
+
+*  UUID=xxx-xxx-xxx /data ext4 defaults 0 2
+<img width="824" height="238" alt="Screenshot 2026-02-21 194115" src="https://github.com/user-attachments/assets/3a23b9bd-ba4c-4cc7-bfbc-f502807602d9" />
+
+## 1.10. Latihan
+
+## 1.10.1. Latihan Konseptual
+
+* Latihan 1.1
+
+ 5 fungsi utama Sistem Operasi beserta contohnya :
+ 1. Process management :
+    OS bertugas mengatur aplikasi apa yang boleh berjalan, kapan waktunya, dan berapa banyak tenaga CPU yang boleh dipakai.
+    * Windows : Menggunakan task manager.
+    * Linux : Menggunakan perintah "systemctl status ssh" untuk mengecek apakah proses layanan SSH sedang berjalan di latar belakang.
+  2. Memori management :
+     OS mengatur 
+    
+
 
