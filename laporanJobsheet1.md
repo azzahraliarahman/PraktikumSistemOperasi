@@ -114,8 +114,37 @@
      * Development : Sistemnya berbasis Unix namun lebih ramah pengguna.
      * Enterprise : Banyak ditemukan pada perusahaan startup  atau agensi kreatif karena durabilitas perangkat kerasnya yang tinggi.
      * Server & Gaming : Memiliki keterbatasan dukungan perangkat keras pihak ketiga.
-
-     
     
+     ## 1.10.2. Latihan Praktikal
 
+* Latihan 1.3
+
+     Install Ubuntu Server 22.04 LTS di VirtualBox :
+
+     <img width="1238" height="1352" alt="Screenshot 2026-02-22 143441" src="https://github.com/user-attachments/assets/f24536d9-87d5-482d-91e8-a24d7ba9b223" />
+
+* Latihan 1.4
+
+  Setelah instalasi Ubuntu Server, lakukan tasks berikut:
+
+
+   1. Update package list: sudo apt update
+      
+  <img width="1044" height="879" alt="Screenshot 2026-02-22 144159" src="https://github.com/user-attachments/assets/a5d5d4e7-8a6e-4f84-bea4-826a5866b2ca" />
+
+   2. Upgrade packages: sudo apt upgrade
+   
+<img width="580" height="197" alt="Screenshot 2026-02-22 144352" src="https://github.com/user-attachments/assets/f24b12f4-698e-4b95-a1b0-e1328cdc889a" />
+
+   3. Install neofetch: sudo apt install neofetch
+
+<img width="549" height="181" alt="Screenshot 2026-02-22 144515" src="https://github.com/user-attachments/assets/c712d277-80a6-460f-9fb9-74796f6139c9" />
+
+   4. Check disk usage dengan df-h
+
+<img width="626" height="206" alt="Screenshot 2026-02-22 144655" src="https://github.com/user-attachments/assets/b4b8bcef-1d64-4a23-ae23-92def3f7aa8e" />
+
+   5. Check memory dengan free-h
+
+  <img width="741" height="105" alt="Screenshot 2026-02-22 144853" src="https://github.com/user-attachments/assets/8695530e-d141-4bdf-9211-16b9ebd69756" />
 
