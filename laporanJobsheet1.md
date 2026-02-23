@@ -150,7 +150,9 @@
 
   * Latihan 1.5 
 Eksplorasi sistem yang baru diinstall: 
+
 1. Tampilkan informasi OS: cat /etc/os-release 
+
 <img width="748" height="323" alt="Screenshot 2026-02-22 193640" 
 src="https://github.com/user-attachments/assets/489a2894-0c0b-4413-8e44
 f3dcab89fdab" />
@@ -160,21 +162,25 @@ f3dcab89fdab" />
 <img width="271" height="75" alt="Screenshot 2026-02-22 194241" 
 src="https://github.com/user-attachments/assets/4ebc0311-d348-417d-be64
 6de7243d2a16" /> 
+
 3. List partisi: lsblk
    
 <img width="567" height="192" alt="Screenshot 2026-02-22 194426" 
 src="https://github.com/user-attachments/assets/5968fb97-40dd-41db-9723
 b63ad83f9c2b" /> 
+
 4. Check network connectivity: ping-c 4 google.com
    
 <img width="631" height="91" alt="Screenshot 2026-02-22 194624" 
 src="https://github.com/user-attachments/assets/56055db7-a6df-46be-8204
 79bf97432ec6" /> 
+
 5.  Install dan jalankan htop untuk melihat resource usage
 
 <img width="1149" height="898" alt="Screenshot 2026-02-22 195039" 
 src="https://github.com/user-attachments/assets/64d32279-76b6-4a87-a27a
 161f0925d283" /> 
+
 6. Laporan Konfigurasi Sistem - Ubuntu Server
    
 Nama User: zahra 
@@ -183,9 +189,14 @@ Sistem Operasi: Ubuntu 24.04.4 LTS
 
 Versi Kernel: 6.8.0-100-generic. 
 
-Penyimpanan: Terdeteksi partisi disk melalui perintah lsblk. 
+Penyimpanan: 25 GB 
 
-Konektivitas: Jaringan berfungsi dengan baik (berhasil ping ke google.com). 
+Konektivitas: Jaringan berfungsi dengan baik. 
 
 Resource Usage: Pemantauan sistem dilakukan menggunakan tool htop.
 
+## 1.10.3. Latihan Refleksi
+
+* Latihan 1.6
+
+ <h4> Saya biasa menggunakan windows, Dari saya sekolah dasar sampai sekarang, saya suka windows karena lebih umum dipakai kebanyakan orang. Dan lebih fleksibel. Tidak ada tantangan yang saya hadapi atau lebih tepatnya saya lupa. saya pernah menggunakan linux dan menurut saya pengoprasiannya lebih susah untuk dimengerti daripada windows. Tidak ada yang ingin saya coba karena menurut saya MacOS adalah sebuah obsesi terhadap apple</h4>
