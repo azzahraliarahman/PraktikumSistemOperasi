@@ -25,11 +25,11 @@
 
 2. Check disk partitions
 
-*lsblk
+* lsblk
 
 <img width="568" height="168" alt="Screenshot 2026-02-21 141752" src="https://github.com/user-attachments/assets/59ce8893-cac3-4fe9-8019-7a7d43bce9a2" />
 
-*sudo fdisk -l
+* sudo fdisk -l
 
 
 <img width="770" height="106" alt="Screenshot 2026-02-21 141849" src="https://github.com/user-attachments/assets/1e3299c5-7e8a-4744-a71e-d0bb9e77cff8" />
@@ -147,4 +147,45 @@
    5. Check memory dengan free-h
 
   <img width="741" height="105" alt="Screenshot 2026-02-22 144853" src="https://github.com/user-attachments/assets/8695530e-d141-4bdf-9211-16b9ebd69756" />
+
+  * Latihan 1.5 
+Eksplorasi sistem yang baru diinstall: 
+1. Tampilkan informasi OS: cat /etc/os-release 
+<img width="748" height="323" alt="Screenshot 2026-02-22 193640" 
+src="https://github.com/user-attachments/assets/489a2894-0c0b-4413-8e44
+f3dcab89fdab" />
+
+2. Tampilkan versi kernel: uname -r
+
+<img width="271" height="75" alt="Screenshot 2026-02-22 194241" 
+src="https://github.com/user-attachments/assets/4ebc0311-d348-417d-be64
+6de7243d2a16" /> 
+3. List partisi: lsblk
+   
+<img width="567" height="192" alt="Screenshot 2026-02-22 194426" 
+src="https://github.com/user-attachments/assets/5968fb97-40dd-41db-9723
+b63ad83f9c2b" /> 
+4. Check network connectivity: ping-c 4 google.com
+   
+<img width="631" height="91" alt="Screenshot 2026-02-22 194624" 
+src="https://github.com/user-attachments/assets/56055db7-a6df-46be-8204
+79bf97432ec6" /> 
+5.  Install dan jalankan htop untuk melihat resource usage
+
+<img width="1149" height="898" alt="Screenshot 2026-02-22 195039" 
+src="https://github.com/user-attachments/assets/64d32279-76b6-4a87-a27a
+161f0925d283" /> 
+6. Laporan Konfigurasi Sistem - Ubuntu Server
+   
+Nama User: zahra 
+
+Sistem Operasi: Ubuntu 24.04.4 LTS 
+
+Versi Kernel: 6.8.0-100-generic. 
+
+Penyimpanan: Terdeteksi partisi disk melalui perintah lsblk. 
+
+Konektivitas: Jaringan berfungsi dengan baik (berhasil ping ke google.com). 
+
+Resource Usage: Pemantauan sistem dilakukan menggunakan tool htop.
 
