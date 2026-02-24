@@ -132,6 +132,16 @@ Deskripsi : Perangkat ini adalah Intel Corporation 82540EM Gigabit Ethernet Cont
 
 <img width="526" height="114" alt="Screenshot 2026-02-24 104245" src="https://github.com/user-attachments/assets/110f4ac6-0a9f-4027-af49-6d581fdc8161" />
 
+## Praktikum 2.4 — Melihat Modul Aktif dan Informasinya 
+
+Tujuan: mengenal modul aktif dan keterkaitannya dengan perangkat.
+
+Langkah-langkah:
+
+1. Cek versi kernel:
+
+ *uname -r
+
 
 
 
