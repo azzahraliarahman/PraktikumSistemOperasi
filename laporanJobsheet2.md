@@ -574,3 +574,57 @@ WARN, ERROR. Gunakan grep untuk menampilkan hanya baris ERROR
 
 ### Jawaban latihan 2.C
 
+<img width="1034" height="159" alt="Screenshot 2026-02-24 232313" src="https://github.com/user-attachments/assets/3fbbd7ea-70f7-4003-ac18-9efda8aa4e3a" />
+
+### Pertanyaan Latihan 2.D
+
+Gunakan sed untuk mengganti semua kata server menjadi node pada file
+latihan. Tunjukkan sebelum dan sesudah.
+
+### Jawaban Latihan 2.D
+
+sebelum :
+
+<img width="386" height="67" alt="Screenshot 2026-02-24 233023" src="https://github.com/user-attachments/assets/592cc9d1-18f7-460f-8737-3fab6eeada51" />
+
+sesudah :
+
+<img width="573" height="53" alt="Screenshot 2026-02-24 233114" src="https://github.com/user-attachments/assets/54a36ec4-9b79-450b-8c06-3860bf75314e" />
+
+### Pertanyaan Latihan 2.E
+
+Gunakan df-h lalu awk untuk menampilkan filesystem yang penggunaan disk
+di atas 70%
+
+### Jawaban latihan 2.E
+
+Berikut adalah perintah untuk menampilkan filesystem yang penggunaan disknya di atas 70%:
+
+
+* df -h | awk 'NR==1 || ($5+0) > 70 {print $1, $5, $6}'
+
+### Pertanyaan Latihan 2.F
+
+Jalankan sleep 600 &. Temukan PID-nya dengan ps. Hentikan dengan
+SIGTERM. Jelaskan beda SIGTERM vs SIGKILL
+
+### Jawaban Latihan 2.F
+
+
+<img width="761" height="135" alt="Screenshot 2026-02-24 233951" src="https://github.com/user-attachments/assets/9da693cf-b9e1-4863-a952-fca49a0ce58a" />
+
+Perbedaan  SIGTERM vs SIGKILL :
+
+Sigterm memberhentikan secara perlahan sedangkan Sigkill memberhentikan secara paksa.
+
+### Pertanyaan Latihan 2.G
+
+Gunakan systemctl–failed. Jika tidak ada yang gagal, pilih satu service
+aktif (misal ssh) dan tampilkan status serta 30 baris log terakhirnya.
+
+### Jawaban latihan 2.G
+
+
+
+<img width="700" height="281" alt="Screenshot 2026-02-24 234606" src="https://github.com/user-attachments/assets/77de4479-c8b9-4f39-adc2-b5c666af9d67" />
+
