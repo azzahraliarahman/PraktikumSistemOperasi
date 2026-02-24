@@ -94,6 +94,7 @@ Langkah-langkah:
 5. Lihat topologi USB (tree):
 
 * lsusb -t
+  
 <img width="696" height="166" alt="Screenshot 2026-02-24 102236" src="https://github.com/user-attachments/assets/832d8458-20ed-40db-9813-e454e6adcce6" />
 
 ### Perintah Latihan 2.2
@@ -211,18 +212,49 @@ Langkah-langkah:
 
 1. Lihat detail salah satu disk (sesuaikan dengan perangkat Anda, misal sda):
 
-* ls-l /dev/sda
+* ls -l /dev/sda
 
 <img width="519" height="61" alt="Screenshot 2026-02-24 170951" src="https://github.com/user-attachments/assets/46c12eb8-420d-46b0-942f-d53cec82ba6a" />
 
-## Getting Started
+2. Lihat detail device terminal:
 
-### Dependencies
+* ls-l /dev/tty
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+<img width="462" height="93" alt="Screenshot 2026-02-24 194913" src="https://github.com/user-attachments/assets/92cc7ed7-4031-4b7a-bae0-9babb875b6dc" />
 
-![A beautiful sunset over the ocean](images/sunset.jpeg "Golden Hour matahari")
+3. Lihat disk dan partisi untuk mengaitkan dengan /dev:
+
+* lsblk
+  
+<img width="568" height="224" alt="Screenshot 2026-02-24 195112" src="https://github.com/user-attachments/assets/32f87277-23e2-45fd-b422-64f331aca6ef" />
+
+### Pertanyaan Latihan 2.3 
+
+Dari output ls-l, jelaskan perbedaan penanda file untuk block device dan
+character device. (Hint: karakter pertama pada permission string)
+
+### Jawaban latihan 2.3
+
+Karakter palimg kiri pada output ls -l. Jika diawali c, maka itu adalah Character Device. Jika diawali dengan b, maka itu adalah block device.
+
+## Praktikum 2.7 — Melihat Informasi udev
+
+Tujuan: melihat metadata yang dipakai udev untuk membuat device node.
+
+Langkah-langkah:
+
+1. Cek atribut udev untuk disk:
+
+* udevadm info--query=all--name=/dev/sda | head-n 30
+
+<img width="709" height="528" alt="Screenshot 2026-02-24 200211" src="https://github.com/user-attachments/assets/21b6e728-e743-46c7-a676-7a4dcd62aaf5" />
+
+2. (Opsional) monitor event udev (jalankan, lalu colok/lepas USB pada mesin
+fisik):
+
+* sudo udevadm monitor
+
+<img width="842" height="636" alt="Screenshot 2026-02-24 200641" src="https://github.com/user-attachments/assets/75306952-3500-496b-a1b3-6dcbb24dc252" />
 
 ### Installing
 
