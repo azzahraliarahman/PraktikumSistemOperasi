@@ -8,13 +8,26 @@
 ## Praktikum 2.1 — Identifikasi CPU dan Memori
 
 Tujuan: memahami spesifikasi CPU dan kondisi memori pada server/VM.
+
 Langkah-langkah:
 
 1. Tampilkan informasi CPU:
    
 *  lscpu
 
-<img width="1265" height="913" alt="Screenshot 2026-02-23 175539" src="https://github.com/user-attachments/assets/ef8e58ab-72d7-45f2-ad58-2e88773f2f66" /> 1
+<img width="600" height="913" alt="Screenshot 2026-02-23 175539" src="https://github.com/user-attachments/assets/ef8e58ab-72d7-45f2-ad58-2e88773f2f66" /> 1
+
+2. Tampilkan ringkasan memori:
+
+* free-h
+
+<img width="600" height="162" alt="Screenshot 2026-02-24 082757" src="https://github.com/user-attachments/assets/3c2dbde7-d687-4a22-b61c-f60dbddfaf44" />
+ram 1.9 swap 2.00
+
+3. (Opsional) cek informasi hardware dari DMI/BIOS (butuh sudo):
+* sudo dmidecode-t system
+
+
 
 ## Description
 
