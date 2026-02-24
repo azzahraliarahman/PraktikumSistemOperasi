@@ -71,6 +71,48 @@ Langkah-langkah:
 
 <img width="1054" height="219" alt="Screenshot 2026-02-24 095647" src="https://github.com/user-attachments/assets/688b9013-0df3-495c-8bb9-2bda353eea52" />
 
+2. Lihat perangkat PCI beserta driver kernel yang digunakan:
+
+* lspci -nnk
+
+
+<img width="1180" height="526" alt="Screenshot 2026-02-24 095912" src="https://github.com/user-attachments/assets/200eac48-2fa3-46e5-9238-e054234e3aa8" />
+
+
+3. Fokus pada NIC (Ethernet) untuk mencari modul driver:
+   
+* lspci-nnk | grep-A3-i ethernet
+
+<img width="965" height="138" alt="Screenshot 2026-02-24 100430" src="https://github.com/user-attachments/assets/836f2452-c43b-4ea9-9de6-314679a662d5" />
+
+4. Lihat perangkat USB:
+
+* lsusb
+
+<img width="555" height="128" alt="Screenshot 2026-02-24 102144" src="https://github.com/user-attachments/assets/3fef1d31-e2a4-4f12-a331-3fb6554c1877" />
+
+5. Lihat topologi USB (tree):
+
+* lsusb -t
+<img width="696" height="166" alt="Screenshot 2026-02-24 102236" src="https://github.com/user-attachments/assets/832d8458-20ed-40db-9813-e454e6adcce6" />
+
+### Perintah Latihan 2.2
+
+Temukan 1 perangkat PCI (misal NIC) dan tuliskan: Vendor:Device ID (angka
+heksadesimal), nama driver/modul kernel, dan deskripsi singkat fungsinya
+
+### Jawaban Latihan 2.2
+
+Identifikasi Perangkat PCI (NIC)
+
+Vendor:Device ID: 8086:100e.
+
+Nama Driver/Modul Kernel: e1000.
+
+Deskripsi : Perangkat ini adalah Intel Corporation 82540EM Gigabit Ethernet Controller yang disimulasikan oleh VirtualBox. Fungsinya adalah sebagai kartu jaringan (Network Interface Card) yang mengelola komunikasi data antara sistem operasi Ubuntu dengan jaringan luar atau internet. Driver e1000 bertugas mengontrol perangkat keras tersebut agar kernel Linux dapat mengirim dan menerima paket data secara efisien.
+
+
+
 
 
 
