@@ -140,9 +140,35 @@ Langkah-langkah:
 
 1. Cek versi kernel:
 
- *uname -r
+* uname -r
 
 
+<img width="266" height="93" alt="Screenshot 2026-02-24 161507" src="https://github.com/user-attachments/assets/b4e40dd0-a468-419d-9e43-2f4731f54684" />
+
+2. Tampilkan daftar modul aktif:
+
+* lsmod | head
+
+<img width="449" height="203" alt="Screenshot 2026-02-24 161937" src="https://github.com/user-attachments/assets/c7c4356d-194a-4988-aab8-7adab828456c" />
+
+3. Pilih salah satu modul (contoh aman: loop) dan lihat detailnya:
+
+* modinfo loop
+
+<img width="695" height="203" alt="Screenshot 2026-02-24 162135" src="https://github.com/user-attachments/assets/087a7c10-1f1b-46d4-8913-aeb489dc537a" />
+
+4. Muat modul (jika belum aktif), lalu verifikasi:
+
+* sudo modprobe loop
+  
+* lsmod | grep -i loop
+
+
+<img width="341" height="115" alt="Screenshot 2026-02-24 162556" src="https://github.com/user-attachments/assets/8a37860f-568b-43bd-bd12-5d7313bd3a80" />
+
+5. (Opsional) lihat pesan kernel terbaru:
+
+* dmesg -T | tail -n 20
 
 
 ## Description
