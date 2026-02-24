@@ -528,3 +528,49 @@ Port 22 merupakan port standar yang dialokasikan untuk protokol SSH (Secure Shel
 
 ## 1.9 Latihan
 
+### Pertanyaan Latihan 2.A
+
+Jalankan lspci-nnk. Pilih 1 perangkat PCI dan tuliskan: nama perangkat,
+ID vendor:device, dan kernel driver in use.
+
+### Jawab Latihan 2.A
+
+
+
+<img width="1193" height="845" alt="Screenshot 2026-02-24 230952" src="https://github.com/user-attachments/assets/e85dd5bb-c635-4017-80bb-02487e1953e3" />
+
+
+Nama Perangkat: Ethernet controller: Intel Corporation 82540EM Gigabit Ethernet Controller.
+
+ID Vendor:Device: [8086:100e].
+
+Kernel Driver in Use: e1000.
+
+### Pertanyaan Latihan 2.B
+
+Tentukan device root filesystem dengan findmnt /. Lalu cocokkan dengan
+lsblk-f dan tuliskan tipe filesystem serta UUID-nya
+
+### Jawaban Latihan 2.B
+
+1. Identifikasi Device Root Filesystem
+Berdasarkan struktur pada output lsblk -f, perangkat yang dikonfigurasi sebagai root filesystem (ditandai dengan mountpoint /) adalah:
+
+Nama Device: ubuntu--vg-ubuntu--lv
+
+Source Path: /dev/mapper/ubuntu--vg-ubuntu--lv
+
+2. Tipe Filesystem dan UUID
+Melalui pencocokan data pada kolom FSTYPE dan UUID di output lsblk -f, diperoleh rincian sebagai berikut:
+
+Tipe Filesystem: ext4
+
+UUID: 0df36a76-4aa1-4495-97b0-1236988a8a7e
+
+### Pertanyaan Latihan 2.C
+
+Buat file server.log berisi minimal 10 baris dengan variasi kata: INFO,
+WARN, ERROR. Gunakan grep untuk menampilkan hanya baris ERROR
+
+### Jawaban latihan 2.C
+
