@@ -19,14 +19,14 @@ Langkah-langkah:
 
 2. Tampilkan ringkasan memori:
 
-* free-h
+* free -h
 
 <img width="600" height="162" alt="Screenshot 2026-02-24 082757" src="https://github.com/user-attachments/assets/3c2dbde7-d687-4a22-b61c-f60dbddfaf44" />
 ram 1.9 swap 2.00
 
 3. (Opsional) cek informasi hardware dari DMI/BIOS (butuh sudo):
 
-* sudo dmidecode-t system
+* sudo dmidecode -t system
 
 <img width="676" height="300" alt="Screenshot 2026-02-24 092118" src="https://github.com/user-attachments/assets/435651f7-4fdc-41b4-ac9e-5b18ca5cdb3a" />
 
@@ -131,6 +131,8 @@ Deskripsi : Perangkat ini adalah Intel Corporation 82540EM Gigabit Ethernet Cont
 * findmnt /
 
 <img width="526" height="114" alt="Screenshot 2026-02-24 104245" src="https://github.com/user-attachments/assets/110f4ac6-0a9f-4027-af49-6d581fdc8161" />
+
+
 
 
 ## Description
