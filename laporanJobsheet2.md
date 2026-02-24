@@ -25,7 +25,38 @@ Langkah-langkah:
 ram 1.9 swap 2.00
 
 3. (Opsional) cek informasi hardware dari DMI/BIOS (butuh sudo):
+
 * sudo dmidecode-t system
+
+<img width="676" height="300" alt="Screenshot 2026-02-24 092118" src="https://github.com/user-attachments/assets/435651f7-4fdc-41b4-ac9e-5b18ca5cdb3a" />
+
+### Perintah Latihan 2.1
+
+Catat: (1) jumlah CPU(s), core/thread, (2) total RAM, (3) total swap. Je
+laskan perbedaan RAM vs swap dalam 2–3 kalimat
+
+### Jawaban latihan 2.1
+
+1. Informasi Prosesor
+   
+Jumlah CPU(s): 2.
+
+Core per Socket: 2.
+
+Thread per Core: 1.
+
+Model CPU: Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz.
+
+2. Informasi Memori
+   
+Total RAM: 1.9 GiB.
+
+Total Swap: 2.0 GiB.
+
+Perbedaan RAM vs Swap :
+
+RAM (Random Access Memory) adalah memori utama yang sangat cepat dan digunakan untuk menyimpan data aktif yang sedang diproses oleh CPU, namun sifatnya sementara (volatil). Sementara itu, Swap adalah ruang cadangan pada disk (HDD/SSD) yang digunakan sistem operasi sebagai "memori tambahan" ketika RAM fisik sudah penuh, meskipun kecepatannya jauh lebih lambat dibandingkan RAM fisik.
+
 
 
 
