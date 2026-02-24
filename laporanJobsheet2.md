@@ -330,3 +330,44 @@ WARN dari data.log. (Hint: gunakan grep-E dengan pola alternatif)
 * grep -E "INFO|WARN" data.log
 
 <img width="562" height="65" alt="Screenshot 2026-02-24 210103" src="https://github.com/user-attachments/assets/1e13cee6-7d41-4aad-9e9f-d65ded72e4c6" />
+
+### Praktikum 2.10 — Substitusi dengan sed (Aman di File Latihan)
+
+Langkah-langkah:
+
+1. Siapkan file konfigurasi latihan:
+
+* cat > config.txt << ’EOF’
+* PORT=8080
+* MODE=dev
+* SERVICE_NAME=myserver
+* EOF
+* cat config.txt
+
+
+
+  <img width="582" height="210" alt="Screenshot 2026-02-24 210812" src="https://github.com/user-attachments/assets/26615008-387a-48c5-a9aa-3d6de040cf22" />
+
+ 2. Ganti dev menjadi prod (tanpa mengubah file asli):
+
+ * sed ’s/MODE=dev/MODE=prod/’ config.txt
+
+<img width="640" height="94" alt="Screenshot 2026-02-24 211137" src="https://github.com/user-attachments/assets/9f1fb54a-15d4-4ec2-ae35-3b7dc602e2fd" />
+
+3. Terapkan perubahan langsung ke file (-i):
+
+* sed-i ’s/MODE=dev/MODE=prod/’ config.txt
+* cat config.txt
+
+
+<img width="656" height="107" alt="Screenshot 2026-02-24 211532" src="https://github.com/user-attachments/assets/655e0892-2293-482e-8f75-09de0857db76" />
+
+4. Ganti semua kemunculan kata (g untuk global), contoh ubah myserver menjadi
+node:
+* sed-i ’s/myserver/node/g’ config.txt
+* cat config.txt
+
+
+<img width="630" height="116" alt="Screenshot 2026-02-24 211830" src="https://github.com/user-attachments/assets/c8207f4b-b006-488a-8335-7a40b4a1ef61" />
+
+
