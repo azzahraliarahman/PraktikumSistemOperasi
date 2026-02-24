@@ -306,7 +306,27 @@ Langkah-langkah:
 2. Cari tanpa memperhatikan huruf besar/kecil:
 * grep-i "error" data.log
 
+<img width="520" height="52" alt="Screenshot 2026-02-24 205530" src="https://github.com/user-attachments/assets/acf1ef1f-eed0-4139-b064-d14d29f4e9e1" />
+
+3. Tampilkan nomor baris:
+
+* grep-n "WARN" data.log
+
 <img width="527" height="54" alt="Screenshot 2026-02-24 204620" src="https://github.com/user-attachments/assets/da31fc0b-4a30-4b6e-999b-a3e3abbcdaf5" />
 
+4. Tampilkan baris yang tidak cocok (invert match):
 
+* grep-v "INFO" data.log
 
+<img width="525" height="76" alt="Screenshot 2026-02-24 205713" src="https://github.com/user-attachments/assets/99733458-c9ee-456b-b7c8-543b4549f5c6" />
+
+### Pertanyaan Latihan 2.4
+
+Gunakan grep untuk menampilkan hanya baris yang mengandung INFO atau
+WARN dari data.log. (Hint: gunakan grep-E dengan pola alternatif)
+
+### jawaban Latihan 2.4
+
+* grep -E "INFO|WARN" data.log
+
+<img width="562" height="65" alt="Screenshot 2026-02-24 210103" src="https://github.com/user-attachments/assets/1e13cee6-7d41-4aad-9e9f-d65ded72e4c6" />
