@@ -114,14 +114,23 @@ Deskripsi : Perangkat ini adalah Intel Corporation 82540EM Gigabit Ethernet Cont
 ## Praktikum 2.3 — Identifikasi Storage dan Filesystem
 
 1. Lihat daftar disk/partisi:
-* lsblk-f
+* lsblk -f
 
 
 <img width="1045" height="226" alt="Screenshot 2026-02-24 103830" src="https://github.com/user-attachments/assets/631dab05-c8b0-4615-bbc0-e6c4d318adc6" />
 
 
+2. Tampilkan UUID dan tipe filesystem:
 
+* sudo blkid
+  
+<img width="1260" height="175" alt="Screenshot 2026-02-24 104041" src="https://github.com/user-attachments/assets/5d2eb2b2-7513-49e8-b18f-de1b2dac9bc1" />
 
+3. Lihat mount point untuk root filesystem:
+
+* findmnt /
+
+<img width="526" height="114" alt="Screenshot 2026-02-24 104245" src="https://github.com/user-attachments/assets/110f4ac6-0a9f-4027-af49-6d581fdc8161" />
 
 
 ## Description
