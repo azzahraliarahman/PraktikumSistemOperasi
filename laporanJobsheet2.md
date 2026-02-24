@@ -170,10 +170,50 @@ Langkah-langkah:
 
 * dmesg -T | tail -n 20
 
+<img width="716" height="180" alt="Screenshot 2026-02-24 165331" src="https://github.com/user-attachments/assets/fa52951c-d60a-4ae8-9b09-04cd3dca0c50" />
 
-## Description
+## Praktikum 2.5 — Konfigurasi Auto-load dan Blacklist
 
-An in-depth paragraph about your project and overview of use.
+Tujuan: memahami cara membuat modul otomatis dimuat atau diblokir.
+
+Fungsi konfigurasi:
+
+• /etc/modules-load.d/*.conf: daftar modul yang di-load saat boot.
+
+• /etc/modprobe.d/*.conf: aturan modprobe, termasuk blacklist modul.
+
+Langkah demo (gunakan modul aman, contoh loop):
+
+1. Buat file auto-load:
+
+* echo "loop" | sudo tee /etc/modules-load.d/loop.conf
+
+<img width="716" height="180" alt="Screenshot 2026-02-24 165331" src="https://github.com/user-attachments/assets/2c9679cd-8779-4d60-817a-efdf4c3b6809" />
+
+2. Simulasikan verifikasi (tanpa reboot) dengan memastikan modul sudah aktif:
+
+* lsmod | grep-i loop
+
+<img width="320" height="75" alt="Screenshot 2026-02-24 170014" src="https://github.com/user-attachments/assets/e7c0101e-a0f4-489d-a83d-be507df1c22a" />
+
+3. (Opsional, konsep) blacklist modul:
+
+* #echo "blacklist loop" | sudo tee /etc/modprobe.d/
+blacklist-loop.conf
+
+<img width="714" height="44" alt="Screenshot 2026-02-24 170448" src="https://github.com/user-attachments/assets/cdee978c-4ccb-4333-9807-d3aa5fa2c636" />
+
+## Praktikum 2.6 — Mengenali Block vs Character Device
+
+Tujuan: membedakan perangkat disk vs terminal.
+
+Langkah-langkah:
+
+1. Lihat detail salah satu disk (sesuaikan dengan perangkat Anda, misal sda):
+
+* ls-l /dev/sda
+
+<img width="519" height="61" alt="Screenshot 2026-02-24 170951" src="https://github.com/user-attachments/assets/46c12eb8-420d-46b0-942f-d53cec82ba6a" />
 
 ## Getting Started
 
