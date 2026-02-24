@@ -370,4 +370,161 @@ node:
 
 <img width="630" height="116" alt="Screenshot 2026-02-24 211830" src="https://github.com/user-attachments/assets/c8207f4b-b006-488a-8335-7a40b4a1ef61" />
 
+## Praktikum 2.11 — Ekstraksi Kolom dengan awk
+
+1. Lihat output df-h:
+   
+* df-h
+
+
+<img width="659" height="191" alt="Screenshot 2026-02-24 215748" src="https://github.com/user-attachments/assets/5fdb6ad6-d55b-4717-aaf3-b281dbfecde8" />
+
+2. Ambil kolom filesystem dan persentase pemakaian:
+
+* df-h | awk ’NR==1 {print $1, $5, $6} NR>1 {print $1,
+$5, $6}’
+* df-h | awk ’NR==1 || ($5+0) > 80 {print $1, $5, $6}’
+
+<img width="821" height="210" alt="Screenshot 2026-02-24 220152" src="https://github.com/user-attachments/assets/21023d3e-1b51-440d-8238-ec8108473e0c" />
+
+<img width="869" height="179" alt="Screenshot 2026-02-24 220739" src="https://github.com/user-attachments/assets/e85d8c13-9779-45cc-bb5d-8dd3af0554b9" />
+
+### Praktikum 2.12 — Melihat Proses dengan ps
+
+Langkah-langkah:
+
+1. Tampilkan semua proses (format BSD):
+
+* ps aux | head
+
+<img width="869" height="179" alt="Screenshot 2026-02-24 220739" src="https://github.com/user-attachments/assets/f7402cc5-7399-4c79-a6f5-694e3f2f199c" />
+
+2. Cari proses tertentu (misal sshd):
+
+* ps aux | grep-i sshd
+<img width="918" height="70" alt="Screenshot 2026-02-24 221805" src="https://github.com/user-attachments/assets/e96113f3-4810-4f7c-82d4-389062a32310" />
+
+## Praktikum 2.13 — Monitoring Real-time dengan top
+
+Langkah-langkah:
+1. Jalankan top:
+
+* top
+
+<img width="1112" height="800" alt="Screenshot 2026-02-24 222048" src="https://github.com/user-attachments/assets/d2d1f972-32da-4f03-9ead-7017bb4902f8" />
+
+## Praktikum 2.14 — Menghentikan Proses dengan kill
+
+Langkah-langkah:
+
+1. Jalankan proses dummy di background:
+
+* sleep 300 &
+
+<img width="417" height="48" alt="Screenshot 2026-02-24 222554" src="https://github.com/user-attachments/assets/6ee639ef-2b17-4b31-a10c-d2dad8dc1c2a" />
+
+2. Cari PID proses sleep:
+   
+* ps aux | grep-E "sleep 300" | grep-v grep
+  
+<img width="657" height="69" alt="Screenshot 2026-02-24 222853" src="https://github.com/user-attachments/assets/52550187-b710-4764-b60b-60caaea5d385" />
+
+3. Hentikan dengan SIGTERM:
+
+* kill <PID_ANDA>
+
+<img width="437" height="91" alt="Screenshot 2026-02-24 223148" src="https://github.com/user-attachments/assets/73800501-a7c0-4a00-8904-6eb74fc903d7" />
+
+
+<img width="797" height="200" alt="Screenshot 2026-02-24 224142" src="https://github.com/user-attachments/assets/b9af6198-fd93-4881-8a7e-1df463993dc9" />
+
+4. Verifikasi proses berhenti:
+
+* ps aux | grep-E "sleep 300" | grep-v grep
+
+<img width="793" height="66" alt="Screenshot 2026-02-24 223349" src="https://github.com/user-attachments/assets/cec9424b-208d-4310-9872-cf41ee0928b7" />
+
+5. (Opsional) Jika proses sulit untuk dihentikan dan Anda membutukan untuk
+menghentikan proses tersebut, gunakan SIGKILL:
+
+* kill-9 <PID_ANDA>
+
+<img width="445" height="82" alt="Screenshot 2026-02-24 224316" src="https://github.com/user-attachments/assets/c77fd15f-6812-47e1-a1cf-0e30e291c71e" />
+
+## Praktikum 2.15 — Cek Disk, Load, dan Service
+
+Langkah-langkah:
+
+1. Cek penggunaan disk:
+
+* df-h
+
+<img width="627" height="196" alt="Screenshot 2026-02-24 224509" src="https://github.com/user-attachments/assets/cea97505-bddb-4bbe-b4ca-72d464d63d94" />
+
+2. Cari direktori yang besar (contoh pada /var):
+
+* sudo du-sh /var/* 2>/dev/null | sort-h | tail-n 10
+
+
+<img width="798" height="253" alt="Screenshot 2026-02-24 224737" src="https://github.com/user-attachments/assets/ce262fc6-fb3d-4927-a07e-15378957b6d6" />
+
+3. Cek load dan uptime:
+
+* uptime
+
+<img width="634" height="83" alt="Screenshot 2026-02-24 224854" src="https://github.com/user-attachments/assets/9c35684d-0f44-4e02-9e5d-5c757c8d7948" />
+
+4. Cek service yang gagal:
+
+* systemctl--failed
+
+<img width="541" height="123" alt="Screenshot 2026-02-24 225028" src="https://github.com/user-attachments/assets/452f27d0-0acd-4c6a-8c8c-5d312c066ac7" />
+
+5. Ambil log error terbaru (jika ada indikasi masalah):
+
+* journalctl -xe | tail-n 50
+
+<img width="1236" height="808" alt="Screenshot 2026-02-24 225154" src="https://github.com/user-attachments/assets/d7957b4a-dee5-48a8-ac96-00d2b4fb2537" />
+
+## Praktikum 2.16 — Monitoring Port dan Koneksi
+(Network Basics)
+
+Tujuan: melihat interface, routing, dan port yang sedang listen (berguna untuk
+troubleshooting service).
+
+Langkah-langkah:
+1. Lihat interface dan IP:
+
+* ip a
+
+<img width="846" height="293" alt="Screenshot 2026-02-24 225705" src="https://github.com/user-attachments/assets/852c33f7-5e8f-4761-af54-04ff00916a0c" />
+
+2. Lihat routing table:
+
+* ip r
+
+<img width="644" height="125" alt="Screenshot 2026-02-24 225900" src="https://github.com/user-attachments/assets/3b6b79c6-939b-45b6-8210-4fdc24bc5ab0" />
+
+3. Lihat port yang sedang listening:
+
+* sudo ss-tulpn
+
+
+<img width="1193" height="252" alt="Screenshot 2026-02-24 230038" src="https://github.com/user-attachments/assets/b691eded-bf93-44ea-827c-503a761273a1" />
+
+### Pertanyaan Latihan 2.5
+
+Pilih satu port yang listening dari output ss-tulpn(misal port 22), lalu
+secara singkat.
+tuliskan service/proses yang membukanya. Jelaskan kegunaan port tersebut
+
+### Jawaban Latihan 2.5
+
+1. Identitas Proses yang Membuka Port
+Layanan yang bertanggung jawab membuka port 22 adalah sshd (Secure Shell Daemon). Dalam struktur sistem operasi Linux, daemon ini berjalan sebagai proses latar belakang yang secara konsisten memantau permintaan koneksi masuk pada antarmuka jaringan. Hal ini dapat diverifikasi pada kolom Process yang menampilkan nama program beserta Process ID (PID) uniknya.
+
+2. Kegunaan dan Fungsi Protokol
+Port 22 merupakan port standar yang dialokasikan untuk protokol SSH (Secure Shell). Fungsi utamanya adalah menyediakan jalur komunikasi data yang aman melalui enkripsi tingkat tinggi. Protokol ini memungkinkan administrator untuk melakukan login jarak jauh (remote login) dan mengelola konfigurasi server secara efisien tanpa harus berada di depan konsol fisik mesin. Selain itu, port ini juga memfasilitasi transfer berkas secara aman menggunakan sub-protokol seperti SFTP atau SCP.
+
+## 1.9 Latihan
 
