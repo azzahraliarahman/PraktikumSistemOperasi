@@ -57,6 +57,21 @@ Perbedaan RAM vs Swap :
 
 RAM (Random Access Memory) adalah memori utama yang sangat cepat dan digunakan untuk menyimpan data aktif yang sedang diproses oleh CPU, namun sifatnya sementara (volatil). Sementara itu, Swap adalah ruang cadangan pada disk (HDD/SSD) yang digunakan sistem operasi sebagai "memori tambahan" ketika RAM fisik sudah penuh, meskipun kecepatannya jauh lebih lambat dibandingkan RAM fisik.
 
+## Praktikum 2.2 — Identifikasi Perangkat PCI/USB dan
+Driver
+
+Tujuan: mengenali perangkat PCI/USB dan melihat driver/modul yang dipakai.
+
+Langkah-langkah:
+
+1. Lihat daftar perangkat PCI:
+
+* lspci
+
+
+<img width="1054" height="219" alt="Screenshot 2026-02-24 095647" src="https://github.com/user-attachments/assets/688b9013-0df3-495c-8bb9-2bda353eea52" />
+
+
 
 
 
