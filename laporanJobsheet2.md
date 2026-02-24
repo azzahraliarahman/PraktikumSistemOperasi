@@ -256,50 +256,57 @@ fisik):
 
 <img width="842" height="636" alt="Screenshot 2026-02-24 200641" src="https://github.com/user-attachments/assets/75306952-3500-496b-a1b3-6dcbb24dc252" />
 
-### Installing
+## Praktikum 2.8 — Membuat Workspace Praktikum
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+Tujuan: membuat area kerja aman untuk semua latihan bab ini.
 
-### Executing program
+Langkah-langkah:
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+1. Buat direktori praktikum dan masuk ke dalamnya:
 
-## Help
+* mkdir-p ~/praktikum-os/week02
+* cd ~/praktikum-os/week02
+* pwd
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
+<img width="393" height="112" alt="Screenshot 2026-02-24 202754" src="https://github.com/user-attachments/assets/c11f643a-dd7f-49fb-8c15-d31f1e62503a" />
 
-## Authors
+2. Buat beberapa file contoh:
+* touch notes.txt data.log config.txt
+* ls-lah
 
-Contributors names and contact info
+<img width="665" height="400" alt="Screenshot 2026-02-24 203201" src="https://github.com/user-attachments/assets/83ce3ffb-c07c-4ee7-9c0d-b0a8286ce32d" />
 
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+3. Isi file log contoh (simulasi):
 
-## Version History
+* echo "INFO: service started" >> data.log
+*  echo "WARN: disk usage high" >> data.log
+* echo "ERROR: failed to connect" >> data.log
+* cat data.log
 
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
+<img width="622" height="71" alt="Screenshot 2026-02-24 203414" src="https://github.com/user-attachments/assets/f865a2ac-340c-4853-8b4f-98c299f295c4" />
 
-## License
+<img width="746" height="212" alt="Screenshot 2026-02-24 203838" src="https://github.com/user-attachments/assets/3b78b14b-5afe-4042-bd9d-7309eb6d1ffe" />
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+4. Baca file dengan less:
 
-## Acknowledgments
+* less data.log
 
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+<img width="488" height="128" alt="Screenshot 2026-02-24 203955" src="https://github.com/user-attachments/assets/6f936941-0342-46dc-acfa-6ae9046f71dd" />
+
+## Praktikum 2.9 — Pencarian Pola dengan grep
+
+Langkah-langkah:
+
+1. Cari baris yang mengandung ERROR pada data.log:
+
+* grep "ERROR" data.log
+
+<img width="495" height="68" alt="Screenshot 2026-02-24 204416" src="https://github.com/user-attachments/assets/f0d832ff-e984-49ee-9a02-f052ef834bf5" />
+
+2. Cari tanpa memperhatikan huruf besar/kecil:
+* grep-i "error" data.log
+
+<img width="527" height="54" alt="Screenshot 2026-02-24 204620" src="https://github.com/user-attachments/assets/da31fc0b-4a30-4b6e-999b-a3e3abbcdaf5" />
+
+
+
