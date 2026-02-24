@@ -111,6 +111,13 @@ Nama Driver/Modul Kernel: e1000.
 
 Deskripsi : Perangkat ini adalah Intel Corporation 82540EM Gigabit Ethernet Controller yang disimulasikan oleh VirtualBox. Fungsinya adalah sebagai kartu jaringan (Network Interface Card) yang mengelola komunikasi data antara sistem operasi Ubuntu dengan jaringan luar atau internet. Driver e1000 bertugas mengontrol perangkat keras tersebut agar kernel Linux dapat mengirim dan menerima paket data secara efisien.
 
+## Praktikum 2.3 — Identifikasi Storage dan Filesystem
+
+1. Lihat daftar disk/partisi:
+* lsblk-f
+
+
+<img width="1045" height="226" alt="Screenshot 2026-02-24 103830" src="https://github.com/user-attachments/assets/631dab05-c8b0-4615-bbc0-e6c4d318adc6" />
 
 
 
