@@ -19,8 +19,10 @@ Buatlah script yang:
 
 
 ```
-sudo find /var/log/ -type f -exec du -ah {} + 2> error.log | sort -rh | head -n 10 | tee large-logs.txt
+ls -lh /var/log/ 2> error.log | sort -k5 -rh | head -10 | tee large-logs.txt
 
 ```
+
+
 
 
