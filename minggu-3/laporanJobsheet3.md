@@ -15,6 +15,12 @@ Buatlah script yang:
 3. Menampilkan output juga di terminal menggunakan tee
 4. Menangani error dengan redirect ke error.log
 
+### Jawaban Latihan 3.1
 
+
+```
+sudo find /var/log/ -type f -exec du -ah {} + 2> error.log | sort -rh | head -n 10 | tee large-logs.txt
+
+```
 
 
