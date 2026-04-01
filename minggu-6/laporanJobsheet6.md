@@ -38,6 +38,7 @@ lihat?
 
 ### Jawaban Latihan 6.1
 1. Total proses yang ada, ada 101 baris, tapi yang sebenarnya ada 100 baris karena baris pertama adalah header. Proses yang memiliki PID terkecil yaitu 1 adalah /sbin/init.
-2. 
+2. Induk (PPID) dari proses bash  adalah login dengan nomor PID 994.
+3. ps aux menampilkan daftar proses. Sedangkan ps aux -L Menampilkan daftar thread. Dan ada kolom tambahan LWP (Light Weight Process / ID Thread) dan NLWP (Jumlah total thread).
 
 
