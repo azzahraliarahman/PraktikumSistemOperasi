@@ -24,4 +24,18 @@ ps-p $$-f
 ```
 4. Lihat hierarki proses secara visual:
 
+```
+pstree -p
+```
+### Pertanyaan Latihan 6.1
+Jalankan ps aux dan amati outputnya:
+1. Berapa total proses yang berjalan? Proses apa yang memiliki PID
+terkecil?
+2. Jalankan pstree-p dan temukan proses bash Anda. Proses apa yang
+menjadi induk (PPID) dari bash tersebut?
+3. Bandingkan output ps aux dan ps aux-L. Apa perbedaan yang Anda
+lihat?
+
+### Jawaban Latihan 6.1
+
 
