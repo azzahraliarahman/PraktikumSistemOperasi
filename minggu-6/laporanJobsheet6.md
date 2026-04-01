@@ -37,5 +37,7 @@ menjadi induk (PPID) dari bash tersebut?
 lihat?
 
 ### Jawaban Latihan 6.1
+1. Total proses yang ada, ada 101 baris, tapi yang sebenarnya ada 100 baris karena baris pertama adalah header. Proses yang memiliki PID terkecil yaitu 1 adalah /sbin/init.
+2. 
 
 
