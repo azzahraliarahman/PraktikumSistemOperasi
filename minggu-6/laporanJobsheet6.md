@@ -66,7 +66,7 @@ apa yang ditampilkan? Mengapa proses sleep berada di kondisi tersebut?
 code masing-masing. Pola apa yang Anda temukan?
 
 ### Jawaban Latihan 6.2
-1. Kodisi yang ditampilkan adalah **S**_(Interruble Sleep)_. Proses sleep dalam keadaan tersebut karena proses sleep tidak membutuhka tenaga processor(CPU). Proses ini menunggu 120 detik.
+1. Kodisi yang ditampilkan adalah **S**_ (Interruble Sleep)_. Proses sleep dalam keadaan tersebut karena proses sleep tidak membutuhkan tenaga processor(CPU). Proses ini menunggu 120 detik.
 
 2. Perintah berhasil : ls /tmp menghasilkan exit code 0
    Perintah gagal : ls /direktori-tidak-ada
