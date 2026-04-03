@@ -41,4 +41,38 @@ lihat?
 2. Induk (PPID) dari proses bash  adalah login dengan nomor PID 994.
 3. ps aux menampilkan daftar proses. Sedangkan ps aux -L Menampilkan daftar thread. Dan ada kolom tambahan LWP (Light Weight Process / ID Thread) dan NLWP (Jumlah total thread).
 
+## Praktikum 6.2 — Mengamati Siklus Hidup Proses
+
+1. Buat proses di background dan amati kondisinya:
+
+```
+sleep 60 &
+ps aux | grep sleep
+```
+2. Amati perubahan exit code dari perintah yang berhasil dan gagal:
+
+```
+ls /tmp
+echo "Sukses: $?"
+ls /direktori-tidak-ada
+echo "Gagal: $?"
+```
+### Pertanyaan Latihan 6.2
+
+1. Jalankan sleep 120 & dan amati kolom STAT pada ps aux. Kondisi
+apa yang ditampilkan? Mengapa proses sleep berada di kondisi tersebut?
+
+2. Jalankan beberapa perintah yang berhasil dan yang gagal, lalu catat exit
+code masing-masing. Pola apa yang Anda temukan?
+
+### Jawaban Latihan 6.2
+1. Kodisi yang ditampilkan adalah **S**_(Interruble Sleep)_. Proses sleep dalam keadaan tersebut karena proses sleep tidak membutuhka tenaga processor(CPU). Proses ini menunggu 120 detik.
+
+2. Perintah berhasil : ls /tmp menghasilkan exit code 0
+   Perintah gagal : ls /direktori-tidak-ada
+   - Pola yang ditemukan :
+     * Angka 0 menunjukkan kesuksesan tanpa ada kesalahan
+     * Angka bukan 0 (1 ++) : Ex : 2, menunjukkan bahwa perintah gagal dieksekusi.
+
+
 
