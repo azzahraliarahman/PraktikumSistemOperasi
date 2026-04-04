@@ -124,7 +124,7 @@ Linux membatasi hal ini untuk user biasa?
 
    * Kolom STAT: Terdapat huruf N. Dalam kode status Linux, N adalah Low-     priority ( nilai Nice positif).
 
-   *Artinya Sistem berhasil menerima instruksi untuk menaruh proses sleep ini di antrean bawah CPU.
+   * Artinya Sistem berhasil menerima instruksi untuk menaruh proses sleep ini di antrean bawah CPU.
    
 2. Terminal akan mencetak pesan old priority 5, new priority 10. Saat dicek dengan ps, angka di kolom NI terbukti sudah berubah dari 5 menjadi 10.
    
@@ -137,6 +137,41 @@ Linux membatasi hal ini untuk user biasa?
 *Keamanan Dasar: Ini adalah mekanisme anti-DoS (Denial of Service). Aturan Kernel Linux menetapkan bahwa user biasa hanya boleh mengalah (menaikkan nilai NI ke angka positif), tapi dilarang menyerobot antrean CPU (angka negatif).
 
 *Otoritas Root: Hanya superuser (menggunakan sudo) yang boleh menggunakan prioritas negatif, karena administrator dianggap bertanggung jawab penuh atas stabilitas server.
+
+## Praktikum 6.4 — Mengirim Sinyal ke Proses
+
+1. Buat proses percobaan:
+sleep 500 &
+sleep 600 &
+sleep 700 &
+ps aux | grep-v grep | grep sleep
+Kode 1.13: Membuat proses percobaan
+2. Hentikan satu proses dengan SIGTERM dan verifikasi:
+kill <PID-sleep-500>
+ps aux | grep-v grep | grep sleep
+Kode 1.14: Menghentikan proses dengan SIGTERM
+3. Jeda dan lanjutkan proses dengan SIGSTOP/SIGCONT:
+kill-SIGSTOP <PID-sleep-600>
+ps aux | grep sleep
+# amati kolom STAT: berubah
+menjadi T
+kill-SIGCONT <PID-sleep-600>
+ps aux | grep sleep
+# STAT kembali ke S
+Kode 1.15: Menjeda dan melanjutkan proses
+4. Hentikan semua proses sleep sekaligus:
+pkill sleep
+Kode 1.16: Menghentikan semua proses sleep
+
+### Pertanyaan Latihan 6.4
+1. Jalankan sleep 400 &, kirim SIGSTOP, dan amati perubahan kolom
+STAT. Kondisi apa yang muncul?
+2. Kirim SIGCONT dan verifikasi proses kembali berjalan.
+3. Hentikan proses dengan SIGTERM lalu verifikasi sudah tidak ada. Kapan
+Anda memilih SIGKILL daripada SIGTERM?
+
+### Jawaban Latihan 6.4
+
 
 
 
