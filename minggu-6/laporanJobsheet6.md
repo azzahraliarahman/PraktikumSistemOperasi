@@ -131,6 +131,7 @@ Linux membatasi hal ini untuk user biasa?
 3. Perintah gagal dan terminal memunculkan pesan error: Permisssion denied.
 
  **User biasa dibatasi karena :**
+ 
 *Pencegahan Monopoli CPU: Nilai NI negatif berarti prioritas tinggi. Jika user biasa diizinkan memberi nilai negatif, mereka bisa menyedot seluruh kapasitas CPU untuk program mereka sendiri. Akibatnya, server akan hang karena proses sistem lain tidak mendapat jatah CPU.
 
 *Keamanan Dasar: Ini adalah mekanisme anti-DoS (Denial of Service). Aturan Kernel Linux menetapkan bahwa user biasa hanya boleh mengalah (menaikkan nilai NI ke angka positif), tapi dilarang menyerobot antrean CPU (angka negatif).
