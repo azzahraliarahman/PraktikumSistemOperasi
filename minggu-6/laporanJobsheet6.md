@@ -73,6 +73,51 @@ code masing-masing. Pola apa yang Anda temukan?
    - Pola yang ditemukan :
      * Angka 0 menunjukkan kesuksesan tanpa ada kesalahan
      * Angka bukan 0 (1 ++) : Ex : 2, menunjukkan bahwa perintah gagal dieksekusi.
+    
+## Praktikum 6.3 — Mengatur Prioritas Proses
+
+1. Jalankan proses dengan prioritas rendah:
+   
+```
+nice-n 10 sleep 300 &
+```
+Kode 1.8: Menjalankan proses dengan nice +10
+
+2. Verifikasi nilai nice pada kolom NI:
+   
+```
+ps aux | grep sleep
+```
+Kode 1.9: Melihat nilai nice
+
+3. Ubah nilai nice proses yang sudah berjalan:
+
+```
+renice-n 15-p <PID>
+ps-p <PID>-o pid,ni,cmd
+```
+Kode 1.10: Mengubah nice dengan renice
+
+4. Bersihkan proses percobaan:
+   
+```
+kill %1
+```
+Kode 1.11: Menghentikan proses percobaan
+
+### Pertanyaan Latihan 6.3
+
+1. Jalankan nice-n 5 sleep 200 & dan verifikasi nilai NI-nya dengan
+ps.
+2. Ubah nilai nice menjadi 10 menggunakan renice, lalu verifikasi kembali.
+3. Coba ubah nilai nice menjadi-5 tanpa sudo. Apa yang terjadi? Mengapa
+Linux membatasi hal ini untuk user biasa?
+
+### Jawaban Latihan 6.3
+
+
+
+
 
 
 
