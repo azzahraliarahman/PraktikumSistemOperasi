@@ -31,14 +31,18 @@ pstree -p
 Jalankan ps aux dan amati outputnya:
 1. Berapa total proses yang berjalan? Proses apa yang memiliki PID
 terkecil?
+
 2. Jalankan pstree-p dan temukan proses bash Anda. Proses apa yang
 menjadi induk (PPID) dari bash tersebut?
+
 3. Bandingkan output ps aux dan ps aux-L. Apa perbedaan yang Anda
 lihat?
 
 ### Jawaban Latihan 6.1
 1. Total proses yang ada, ada 101 baris, tapi yang sebenarnya ada 100 baris karena baris pertama adalah header. Proses yang memiliki PID terkecil yaitu 1 adalah /sbin/init.
+   
 2. Induk (PPID) dari proses bash  adalah login dengan nomor PID 994.
+
 3. ps aux menampilkan daftar proses. Sedangkan ps aux -L Menampilkan daftar thread. Dan ada kolom tambahan LWP (Light Weight Process / ID Thread) dan NLWP (Jumlah total thread).
 
 ## Praktikum 6.2 — Mengamati Siklus Hidup Proses
@@ -107,16 +111,31 @@ Kode 1.11: Menghentikan proses percobaan
 
 ### Pertanyaan Latihan 6.3
 
-1. Jalankan nice-n 5 sleep 200 & dan verifikasi nilai NI-nya dengan
+1. Jalankan nice -n 5 sleep 200 & dan verifikasi nilai NI-nya dengan
 ps.
+
 2. Ubah nilai nice menjadi 10 menggunakan renice, lalu verifikasi kembali.
-3. Coba ubah nilai nice menjadi-5 tanpa sudo. Apa yang terjadi? Mengapa
+
+3. Coba ubah nilai nice menjadi -5 tanpa sudo. Apa yang terjadi? Mengapa
 Linux membatasi hal ini untuk user biasa?
 
 ### Jawaban Latihan 6.3
-1. s
-2. s
-3. s
+1. * Kolom NI:  Terdapat angka 5. Ini adalah Nice Value nya.
+
+   * Kolom STAT: Terdapat huruf N. Dalam kode status Linux, N adalah Low-     priority ( nilai Nice positif).
+
+   *Artinya Sistem berhasil menerima instruksi untuk menaruh proses sleep ini di antrean bawah CPU.
+   
+2. Terminal akan mencetak pesan old priority 5, new priority 10. Saat dicek dengan ps, angka di kolom NI terbukti sudah berubah dari 5 menjadi 10.
+   
+3. Perintah gagal dan terminal memunculkan pesan error: Permisssion denied.
+
+ **User biasa dibatasi karena :**
+*Pencegahan Monopoli CPU: Nilai NI negatif berarti prioritas tinggi. Jika user biasa diizinkan memberi nilai negatif, mereka bisa menyedot seluruh kapasitas CPU untuk program mereka sendiri. Akibatnya, server akan hang karena proses sistem lain tidak mendapat jatah CPU.
+
+*Keamanan Dasar: Ini adalah mekanisme anti-DoS (Denial of Service). Aturan Kernel Linux menetapkan bahwa user biasa hanya boleh mengalah (menaikkan nilai NI ke angka positif), tapi dilarang menyerobot antrean CPU (angka negatif).
+
+*Otoritas Root: Hanya superuser (menggunakan sudo) yang boleh menggunakan prioritas negatif, karena administrator dianggap bertanggung jawab penuh atas stabilitas server.
 
 
 
