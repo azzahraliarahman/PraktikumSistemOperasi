@@ -145,14 +145,14 @@ Linux membatasi hal ini untuk user biasa?
 sleep 500 &
 sleep 600 &
 sleep 700 &
-ps aux | grep-v grep | grep sleep
+ps aux | grep -v grep | grep sleep
 ```
 Kode 1.13: Membuat proses percobaan
 
 2. Hentikan satu proses dengan SIGTERM dan verifikasi:
 ```
 kill <PID-sleep-500>
-ps aux | grep-v grep | grep sleep
+ps aux | grep -v grep | grep sleep
 ```
 Kode 1.14: Menghentikan proses dengan SIGTERM
 
@@ -182,6 +182,10 @@ STAT. Kondisi apa yang muncul?
 Anda memilih SIGKILL daripada SIGTERM?
 
 ### Jawaban Latihan 6.4
+1. Perubahan STAT yang berubah yang tadinya STATnya adalah S (stop) menjadi T (stopped).
+2. ketika SIGCONT berjalan seharusnya STAT berubah menjadi S kembali. Dan benar, STATE berubah kembali menjadi S setelah tadi di stop.
+3. Sudah dihentikan da veriikasi sudah tidak ada. Memilih SIGKILL daripada SIGTERM ketika SIGTERM sudah dicoba tapi tidak bisa atau gagal. Barulah kita berhak memakai SIGKILL (kill -9 [PID]).
+
 
 
 
