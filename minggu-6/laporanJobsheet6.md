@@ -141,16 +141,23 @@ Linux membatasi hal ini untuk user biasa?
 ## Praktikum 6.4 — Mengirim Sinyal ke Proses
 
 1. Buat proses percobaan:
+```
 sleep 500 &
 sleep 600 &
 sleep 700 &
 ps aux | grep-v grep | grep sleep
+```
 Kode 1.13: Membuat proses percobaan
+
 2. Hentikan satu proses dengan SIGTERM dan verifikasi:
+```
 kill <PID-sleep-500>
 ps aux | grep-v grep | grep sleep
+```
 Kode 1.14: Menghentikan proses dengan SIGTERM
+
 3. Jeda dan lanjutkan proses dengan SIGSTOP/SIGCONT:
+```
 kill-SIGSTOP <PID-sleep-600>
 ps aux | grep sleep
 # amati kolom STAT: berubah
@@ -158,9 +165,13 @@ menjadi T
 kill-SIGCONT <PID-sleep-600>
 ps aux | grep sleep
 # STAT kembali ke S
+```
 Kode 1.15: Menjeda dan melanjutkan proses
+
 4. Hentikan semua proses sleep sekaligus:
+```
 pkill sleep
+```
 Kode 1.16: Menghentikan semua proses sleep
 
 ### Pertanyaan Latihan 6.4
