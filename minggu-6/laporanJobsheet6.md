@@ -186,6 +186,45 @@ Anda memilih SIGKILL daripada SIGTERM?
 2. ketika SIGCONT berjalan seharusnya STAT berubah menjadi S kembali. Dan benar, STATE berubah kembali menjadi S setelah tadi di stop.
 3. Sudah dihentikan da veriikasi sudah tidak ada. Memilih SIGKILL daripada SIGTERM ketika SIGTERM sudah dicoba tapi tidak bisa atau gagal. Barulah kita berhak memakai SIGKILL (kill -9 [PID]).
 
+## Praktikum 6.5 — Manajemen Job Foreground dan Background
+
+1. Jalankan tiga job di background:
+```
+sleep 200 &
+sleep 300 &
+sleep 400 &
+jobs
+```
+Kode 1.17: Membuat tiga job di background
+
+2. Bawa job pertama ke foreground, jeda, lalu kembalikan ke background:
+```
+fg %1
+# Tekan Ctrl+Z untuk menjeda
+bg %1
+jobs
+```
+Kode 1.18: Memindahkan job antar foreground-background
+
+3. Hentikan semua job:
+```
+kill %1 %2 %3
+jobs
+```
+Kode 1.19: Menghentikan semua job 
+
+### Pertanyaan Latihan 6.5
+
+1. Jalankan top di foreground. Apa yang terjadi di terminal?
+2. Tekan Ctrl+Z dancek statusnya dengan jobs. Kondisi apa yang
+ditampilkan?
+3. Pindahkan ke background dengan bg. Apakah top dapat berjalan dengan
+baik di background? Mengapa?
+4. Kembalikan ke foreground dengan fg, lalu keluar dengan q
+
+### Jawaban Latihan 6.5
+1.
+
 
 
 
