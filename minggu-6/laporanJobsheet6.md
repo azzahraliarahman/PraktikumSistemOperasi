@@ -20,7 +20,7 @@ ps aux-L
 
 ```
 echo $$
-ps-p $$-f
+ps -p $$ -f
 ```
 4. Lihat hierarki proses secara visual:
 
@@ -79,7 +79,7 @@ code masing-masing. Pola apa yang Anda temukan?
 1. Jalankan proses dengan prioritas rendah:
    
 ```
-nice-n 10 sleep 300 &
+nice -n 10 sleep 300 &
 ```
 Kode 1.8: Menjalankan proses dengan nice +10
 
@@ -93,8 +93,8 @@ Kode 1.9: Melihat nilai nice
 3. Ubah nilai nice proses yang sudah berjalan:
 
 ```
-renice-n 15-p <PID>
-ps-p <PID>-o pid,ni,cmd
+renice -n 15 -p <PID>
+ps -p <PID> -o pid,ni,cmd
 ```
 Kode 1.10: Mengubah nice dengan renice
 
@@ -114,6 +114,9 @@ ps.
 Linux membatasi hal ini untuk user biasa?
 
 ### Jawaban Latihan 6.3
+1. s
+2. s
+3. s
 
 
 
