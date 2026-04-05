@@ -223,11 +223,10 @@ baik di background? Mengapa?
 4. Kembalikan ke foreground dengan fg, lalu keluar dengan q
 
 ### Jawaban Latihan 6.5
-1.
-
-
-
-
+1. Terminal akan langsung diambil alih oleh antarmuka top. Layar akan menampilkan tabel pemantauan sistem (Penggunaan CPU, RAM, dan daftar proses) yang terus berubah dan diperbarui secara real-time. Selama top menguasai foreground, terminal tidak bisa diketikkan perintah.
+2. saat menekan CTRL + Z, proses top dibekukan paksa oleh sistem dan terminal bisa diketik saat mengecek dengan jobs , kondisi yang akan ditampilkan adalah status stopped.
+3. Tidak dapat berjalan. Karena top adalah program interaktif yang secara mutlak membutuhkan akses layar utama untuk menampilkan data. Aturan keamanan linux melarang program di background untuk mencetak teks dan mengacaukan layar utama, Sehingga proses tersebut langsung dihentikan lagi dengan status Stopped.
+4. Tabel pemnatauan top akan kembali berjalan secara real-time. Ketika menekan tombol q di keyboard , proses akan mati secara normal.
 
 
 
