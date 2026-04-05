@@ -228,6 +228,45 @@ baik di background? Mengapa?
 3. Tidak dapat berjalan. Karena top adalah program interaktif yang secara mutlak membutuhkan akses layar utama untuk menampilkan data. Aturan keamanan linux melarang program di background untuk mencetak teks dan mengacaukan layar utama, Sehingga proses tersebut langsung dihentikan lagi dengan status Stopped.
 4. Tabel pemnatauan top akan kembali berjalan secara real-time. Ketika menekan tombol q di keyboard , proses akan mati secara normal.
 
+## Praktikum 6.6 — Pemantauan Proses
+
+1. Temukan proses dengan penggunaan CPU dan memori tertinggi:
+```
+ps aux--sort=-%cpu | head-10
+ps aux--sort=-%mem | head-10
+```
+Kode 1.22: Proses dengan resource tertinggi
+
+2. Jalankan top dan eksplorasi shortcut-nya:
+top
+```
+# Tekan M, P, 1, u secara bergantian
+# Tekan q untuk keluar
+```
+Kode 1.23: Eksplorasi top
+
+3. Instal dan jalankan htop:
+```
+sudo apt install-y htop
+htop
+# Tekan F6 untuk pilih kolom pengurutan
+# Tekan F10 atau q untuk keluar
+```
+
+Kode 1.24: Menggunakan htop
+
+### Pertanyaan Latihan 6.6
+
+1. Gunakan_ ps aux –sort=%mem_ untuk menemukan proses yang menggu
+nakan memori paling banyak di VM Anda. Proses apa itu?
+.Apayang berubah pada tampilan? Mengapa
+2. Di dalam top, tekan 1
+informasi ini berguna?
+3. Di dalam _htop_, navigasikan ke proses _sshd_ menggunakan tombol panah.
+Tekan F9 danamati opsi sinyal yang tersedia.
+
+### Jawaban Latihan 6.6
+
 
 
 
