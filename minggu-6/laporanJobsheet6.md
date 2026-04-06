@@ -326,7 +326,7 @@ Berapa job yang tersisa?
 
 2. <img width="370" height="135" alt="Screenshot 2026-04-06 204654" src="https://github.com/user-attachments/assets/d4a6da55-5f42-43e9-bae6-5c731b6ebfcc" />
 
-3. 1, yaitu sleep 300 &
+3. Yang tersisa ada 2 job, yaitu No 2 & 3.
 
 
 ### Pertanyaan latihan 6.C
@@ -339,6 +339,14 @@ Proses mana yang kini lebih diprioritaskan scheduler?
 SIGCONT. Akhiri semua proses percobaan dengan pkill sleep.
 
 ### jawaban Latihan 6.C
+
+1. <img width="322" height="199" alt="Screenshot 2026-04-06 205204" src="https://github.com/user-attachments/assets/c132b2d8-78eb-42f6-97d6-4be83d6fb605" />
+
+2. Yang diprioritaskan adalah proses PID 978 yang bernilai +10 dibandingkan proses kedua yang bernilai +15. Hal ini dikarenakan sistem Linux, nilai nice yang lebih rendah secara numerik memiliki prioritas penjadwalan yang lebih tinggi.
+
+3. <img width="523" height="280" alt="Screenshot 2026-04-06 210724" src="https://github.com/user-attachments/assets/e2f78dd7-cb9f-4d45-b7d9-6c6a0cb45dff" />
+
+
 
 
 
