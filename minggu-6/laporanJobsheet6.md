@@ -287,7 +287,7 @@ Tekan F9 danamati opsi sinyal yang tersedia.
 ### Pertanyaan Latihan 6.A
 Eksplorasi Proses Sistem
 
-1. Jalankan ps aux–forest dan temukan proses dengan PID 1. Apa
+1. Jalankan ps aux –forest dan temukan proses dengan PID 1. Apa
 nama dan fungsi proses tersebut dalam sistem Linux modern?
 
 2. Hitung berapa proses yang dimiliki oleh user root dan berapa yang
@@ -297,6 +297,20 @@ dimiliki oleh user Anda. Mengapa root memiliki lebih banyak proses?
 besar proses di sistem berada dalam kondisi ini?
 
 ### Jawaban Latihan 6.A
+
+1. Nama proses dengan PID 1 adalah systemd. fungsinya adalah sebagai induk dari segala proses, yaitu program level pengguna pertamayang dieksekusimutlak oleh kernel linux saat sistem baru menyala (booting).
+
+Tugas utamanya :
+1. Menjalankan dan mengelola seluruh layanan sistem (services/daemons).
+2. Menjadi nenek moyang (akar dari pohon direktori --forest) bagi semua proses lain yang berjalan di OS.
+3. Mengadopsi proses  orphan process yang ditinggal mati oleh proses pembuatnya agar tidak menjadi zombie.
+
+2. proses yang dimiliki oleh root ada 85 (_ps -U root | wc -l_), proses yang dimiliki adalah user adalah 6(_ps -U zalia | wc -l_). root lebih banyak proses karena ia memikul seluruh beban infrastruktur  sistem operasi, sedangkan user hanya menjalankan proses didalam user space yang sangat sempit.
+
+3. Sebagian besar proses berada dalam kondisi S karena secara teknis program lebih banyak menghabiskan waktu untuk menunggu interaksi daripada melakukan pemprosesan data untuk efisiensi energi dan CPU.
+
+
+
 
 
 
