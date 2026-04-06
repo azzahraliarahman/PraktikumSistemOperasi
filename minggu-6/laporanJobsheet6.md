@@ -309,6 +309,30 @@ Tugas utamanya :
 
 3. Sebagian besar proses berada dalam kondisi S karena secara teknis program lebih banyak menghabiskan waktu untuk menunggu interaksi daripada melakukan pemprosesan data untuk efisiensi energi dan CPU.
 
+### Pertanyaan Latihan 6.B
+Simulasi Manajemen Job
+1. Jalankan tiga perintah sleep dengan durasi 100, 200, dan 300 detik di
+background. Verifikasi ketiganya dengan jobs.
+2. Bawa job kedua ke foreground, jeda dengan Ctrl+Z , lalu kembalikan
+ke background dengan bg.
+3. Hentikan job pertama dengan kill %1. Tampilkan kembali daftar job.
+Berapa job yang tersisa?
+
+### Jawaban Latihan 6.B
+
+### Pertanyaan latihan 6.C
+Prioritas dan Sinyal
+1. Jalankan dua proses sleep: satu dengan nice +5 dan satu dengan nice
++15. Verifikasi nilai NI keduanya dengan ps.
+2. Gunakan renice untuk mengubah nice proses pertama menjadi +10.
+Proses mana yang kini lebih diprioritaskan scheduler?
+3. Kirim SIGSTOP ke salah satu proses, verifikasi kondisi T-nya, lalu kirim
+SIGCONT. Akhiri semua proses percobaan dengan pkill sleep.
+
+### jawaban Latihan 6.C
+
+
+
 
 
 
