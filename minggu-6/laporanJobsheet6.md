@@ -281,7 +281,22 @@ Tekan F9 danamati opsi sinyal yang tersedia.
 *2 SIGINT: Sinyal interupsi (setara dengan menekan Ctrl+C).
 
 *1 SIGHUP: Sinyal hangup (biasanya untuk menyuruh program me-restart konfigurasi).
-   
+
+## 1.8 Latihan
+
+### Pertanyaan Latihan 6.A
+Eksplorasi Proses Sistem
+
+1. Jalankan ps aux–forest dan temukan proses dengan PID 1. Apa
+nama dan fungsi proses tersebut dalam sistem Linux modern?
+
+2. Hitung berapa proses yang dimiliki oleh user root dan berapa yang
+dimiliki oleh user Anda. Mengapa root memiliki lebih banyak proses?
+
+3. Temukan semua proses yang berada dalam kondisi S. Mengapa sebagian
+besar proses di sistem berada dalam kondisi ini?
+
+### Jawaban Latihan 6.A
 
 
 
