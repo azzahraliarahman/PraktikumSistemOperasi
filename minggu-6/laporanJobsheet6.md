@@ -259,13 +259,29 @@ Kode 1.24: Menggunakan htop
 
 1. Gunakan_ ps aux –sort=%mem_ untuk menemukan proses yang menggu
 nakan memori paling banyak di VM Anda. Proses apa itu?
-.Apayang berubah pada tampilan? Mengapa
-2. Di dalam top, tekan 1
-informasi ini berguna?
+
+2. Di dalam top, tekan 1 .Apayang berubah pada tampilan?
+Mengapa informasi ini berguna?
+
 3. Di dalam _htop_, navigasikan ke proses _sshd_ menggunakan tombol panah.
 Tekan F9 danamati opsi sinyal yang tersedia.
 
 ### Jawaban Latihan 6.6
+
+1. Memori yang paling banyak adalah 1.3 prosesnya adalah /sbin/multipathd -d -s
+
+2. Yang berubah pada tampilan %Cpu (s) terpecah menampilkan setiap core CPU yang ada di VM (ex : %Cpu0, %Cpu1, %Cpu2, sdt). Informasi berguna agar kita tidak hanya melihat rata2 CPU secara umum, tapi secara detail. (ex : kamu bisa melihat Core 0 bekerja 100%, sedangkan Core 1, 2, 3).
+
+3. Sinyal yang tersedia :
+
+*15 SIGTERM: Sinyal bawaan (default) untuk meminta proses berhenti secara normal dan aman.
+
+*9 SIGKILL: Sinyal paksa untuk membunuh proses seketika tanpa ampun (digunakan jika proses hang).
+
+*2 SIGINT: Sinyal interupsi (setara dengan menekan Ctrl+C).
+
+*1 SIGHUP: Sinyal hangup (biasanya untuk menyuruh program me-restart konfigurasi).
+   
 
 
 
