@@ -310,15 +310,24 @@ Tugas utamanya :
 3. Sebagian besar proses berada dalam kondisi S karena secara teknis program lebih banyak menghabiskan waktu untuk menunggu interaksi daripada melakukan pemprosesan data untuk efisiensi energi dan CPU.
 
 ### Pertanyaan Latihan 6.B
+
 Simulasi Manajemen Job
 1. Jalankan tiga perintah sleep dengan durasi 100, 200, dan 300 detik di
 background. Verifikasi ketiganya dengan jobs.
+
 2. Bawa job kedua ke foreground, jeda dengan Ctrl+Z , lalu kembalikan
 ke background dengan bg.
+
 3. Hentikan job pertama dengan kill %1. Tampilkan kembali daftar job.
 Berapa job yang tersisa?
 
 ### Jawaban Latihan 6.B
+1. <img width="218" height="131" alt="Screenshot 2026-04-06 204456" src="https://github.com/user-attachments/assets/94660edf-5bbc-4de7-9dbf-6644f5360fb1" />
+
+2. <img width="370" height="135" alt="Screenshot 2026-04-06 204654" src="https://github.com/user-attachments/assets/d4a6da55-5f42-43e9-bae6-5c731b6ebfcc" />
+
+3. 1, yaitu sleep 300 &
+
 
 ### Pertanyaan latihan 6.C
 Prioritas dan Sinyal
