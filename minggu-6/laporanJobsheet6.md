@@ -24,4 +24,8 @@ ps-p $$-f
 ```
 4. Lihat hierarki proses secara visual:
 
+```
+pstree-p
+```
+
 
