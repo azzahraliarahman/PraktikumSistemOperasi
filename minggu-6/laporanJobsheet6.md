@@ -5,7 +5,6 @@
 <h4>Kelas : TI-1H<h4>
 
 ## Praktikum 6.1 — Melihat Proses dan Thread
-
 1. Tampilkan semua proses yang berjalan:
 
 ```
