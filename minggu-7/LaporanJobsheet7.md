@@ -17,5 +17,22 @@ hari. Agar pekerjaan lebih efisien dan konsisten, ia perlu memiliki toolkit Bash
 • membuat minimal 2 alias yang membantu kerja harian,
 • membuat minimal 1 fungsi shell yang berguna untuk administrasi
 
+3. Buat satu script sederhana di direktori bin pribadi, misalnya script untuk
+menampilkan ringkasan sistem.
+4. Uji dari direktori yang berbeda untuk memastikan script dapat dipanggil tanpa
+menuliskan path lengkap.
+5. Simpan bukti pengujian ke file toolkit-bash-report.txt.
+Minimal luaran:
+• isi blok konfigurasi yang ditambahkan ke .bashrc,
+• output echo $PATH,
+• output type untuk alias, fungsi, dan script,
+• file laporan toolkit-bash-report.txt
+
 ### Jawaban (Langkah-langkah) :
+1. <img width="692" height="328" alt="Screenshot 2026-04-14 111137" src="https://github.com/user-attachments/assets/7e8af400-3527-419c-a231-745372d7a4f0" />
+2. <img width="287" height="135" alt="image" src="https://github.com/user-attachments/assets/64ea1afe-830b-4cd2-a323-24a113a922be" />
+3. Buat satu script sederhana di direktori bin pribadi, misalnya script untuk
+menampilkan ringkasan sistem
+
+
 
