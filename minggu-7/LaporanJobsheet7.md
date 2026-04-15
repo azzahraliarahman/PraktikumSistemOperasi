@@ -118,7 +118,7 @@ Minimal luaran:
 • penjelasan singkat fungsi tiap bagian script.
 
 
+Jawaban :
 
-
-
+1. 
 
