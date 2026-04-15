@@ -30,9 +30,13 @@ Minimal luaran:
 
 ### Jawaban (Langkah-langkah) :
 1. <img width="692" height="328" alt="Screenshot 2026-04-14 111137" src="https://github.com/user-attachments/assets/7e8af400-3527-419c-a231-745372d7a4f0" />
+
 2. <img width="287" height="135" alt="image" src="https://github.com/user-attachments/assets/64ea1afe-830b-4cd2-a323-24a113a922be" />
+
 3. <img width="452" height="314" alt="Screenshot 2026-04-14 114038" src="https://github.com/user-attachments/assets/0d06d58e-a3d2-4564-9891-f06f6360e871" />
+
 4. <img width="710" height="232" alt="Screenshot 2026-04-14 115243" src="https://github.com/user-attachments/assets/bb24386c-2411-4cc5-938d-89b6c55bba3b" />
+
 5.<img width="948" height="171" alt="Screenshot 2026-04-14 142343" src="https://github.com/user-attachments/assets/b10b376a-255d-4636-9287-1d51077ab665" />
 
 ## Tugas Praktikum 2 — Audit File Konfigurasi dan Logging Aman
@@ -76,6 +80,42 @@ stdout dan stderr penting dalam audit sistem.
 5. <img width="533" height="794" alt="Screenshot 2026-04-15 080203" src="https://github.com/user-attachments/assets/560b32b8-e2b9-4f2d-92a5-cfaaf558d8a1" />
 
 6. <img width="933" height="106" alt="Screenshot 2026-04-15 081414" src="https://github.com/user-attachments/assets/1c0f4b23-40d6-47f1-a856-a353e86dc623" />
+
+## Tugas Praktikum 3 — Mini Health Check Harian Server
+
+
+### Konteks & Instruksi
+
+Konteks riil: administrator perlu membuat pemeriksaan cepat (health check) untuk
+mengetahui kondisi dasar server sebelum dan sesudah maintenance.
+
+Instruksi tugas:
+1. Buat script Bash bernama daily-healthcheck pada direktori bin pribadi.
+2. Script minimal harus menampilkan:
+• tanggal dan waktu,
+• hostname,
+• user aktif,
+• shell aktif,
+• uptime,
+• penggunaan memori,
+• penggunaan filesystem root,
+• 10 baris terakhir history command yang relevan dengan pengecekan.
+3. Simpan hasil ke file log harian, misalnya healthcheck-$(date +%F).log.
+4. Tampilkan hasil ke terminal dan ke file secara bersamaan.
+5. Jika Anda menggunakan pipeline dengan tee, cek juga status exit command utama.
+
+Syarat konsep yang harus muncul:
+
+• environment variable,
+• PATH,
+• alias atau fungsi pendukung,
+• history,
+• tee,
+• penanganan error dasar.
+Minimal luaran:
+• file script yang executable,
+• contoh isi file log hasil eksekusi,
+• penjelasan singkat fungsi tiap bagian script.
 
 
 
