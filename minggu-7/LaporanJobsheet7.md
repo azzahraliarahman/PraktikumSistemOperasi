@@ -71,7 +71,13 @@ stdout dan stderr penting dalam audit sistem.
 
 3. <img width="796" height="152" alt="Screenshot 2026-04-15 075541" src="https://github.com/user-attachments/assets/065e4c9c-f457-4048-9178-6b39c0ca927c" />
 
-4.
+4. nomor 4 sudah ada di no 2 _"2> audit-error.log_"
+
+5. <img width="533" height="794" alt="Screenshot 2026-04-15 080203" src="https://github.com/user-attachments/assets/560b32b8-e2b9-4f2d-92a5-cfaaf558d8a1" />
+
+6. <img width="933" height="106" alt="Screenshot 2026-04-15 081414" src="https://github.com/user-attachments/assets/1c0f4b23-40d6-47f1-a856-a353e86dc623" />
+
+
 
 
 
