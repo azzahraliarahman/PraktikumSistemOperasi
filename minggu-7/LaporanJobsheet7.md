@@ -120,5 +120,8 @@ Minimal luaran:
 
 Jawaban :
 
-1. 
+<img width="947" height="496" alt="Screenshot 2026-04-15 191459" src="https://github.com/user-attachments/assets/b677373d-070e-4dcd-a50c-4390f04d1bcc" />
+
+## 
+
 
