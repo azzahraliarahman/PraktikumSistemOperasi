@@ -63,5 +63,16 @@ stdout dan stderr penting dalam audit sistem.
 • perintah yang digunakan,
 • analisis singkat hasil audit.
 
+### Jawaban :
+
+1. <img width="896" height="576" alt="Screenshot 2026-04-14 180937" src="https://github.com/user-attachments/assets/22e3ea53-ddd6-483c-b0a6-13d42d882bc6" />
+
+2. <img width="762" height="173" alt="Screenshot 2026-04-15 075052" src="https://github.com/user-attachments/assets/b81e6a21-7d62-4118-8400-7b70964de79a" />
+
+3. <img width="796" height="152" alt="Screenshot 2026-04-15 075541" src="https://github.com/user-attachments/assets/065e4c9c-f457-4048-9178-6b39c0ca927c" />
+
+4.
+
+
 
 
