@@ -122,6 +122,47 @@ Jawaban :
 
 <img width="947" height="496" alt="Screenshot 2026-04-15 191459" src="https://github.com/user-attachments/assets/b677373d-070e-4dcd-a50c-4390f04d1bcc" />
 
-## 
+## Tugas Praktikum 4 — Penanganan File dengan Nama Kompleks dan Arsip Aman
 
+### Konteks & Instruksi
+
+* Konteks riil: file hasil backup, ekspor, atau laporan sering memiliki nama yang
+mengandung spasi atau karakter khusus. Administrator harus tetap dapat memproses
+file-file tersebut tanpa salah target.
+
+* Instruksi tugas:
+1. Buat minimal 4 file contoh dengan nama yang bervariasi, termasuk:
+• nama file yang mengandung spasi,
+• nama file yang mengandung tanda kurung siku atau karakter khusus,
+• file dengan pola nama serupa untuk diuji dengan wildcard.
+2. Tunjukkan perbedaan hasil jika file diakses tanpa quoting dan dengan quoting
+yang benar.
+3. Lakukan preview wildcard dengan echo sebelum dipakai untuk operasi nyata.
+4. Salin file-file tersebut ke direktori backup dengan nama yang aman.
+5. Buat arsip tar.gz dari hasil backup.
+6. Simpan riwayat perintah yang Anda gunakan ke file riwayat-arsip.txt.
+Syarat konsep yang harus muncul:
+
+• single quote, double quote, dan escaping,
+1.9 Rangkuman
+• wildcard,
+• variabel path,
+• history,
+• operasi file lanjutan yang aman.
+Minimal luaran:
+• daftar file awal,
+• daftar file hasil backup,
+• file arsip tar.gz,
+• file riwayat-arsip.txt,
+• refleksi singkat tentang pentingnya quoting di Bash
+
+### Jawaban :
+1.![Uploading Screenshot 2026-04-15 193457.png…]()
+
+2.
+![Uploading Screenshot 2026-04-15 193727.png…]()
+
+
+3. 
+<img width="806" height="207" alt="Screenshot 2026-04-15 193857" src="https://github.com/user-attachments/assets/738b2045-baf3-4f6e-bbdc-82c37599be3f" />
 
