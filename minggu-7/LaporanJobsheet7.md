@@ -35,3 +35,33 @@ Minimal luaran:
 4. <img width="710" height="232" alt="Screenshot 2026-04-14 115243" src="https://github.com/user-attachments/assets/bb24386c-2411-4cc5-938d-89b6c55bba3b" />
 5.<img width="948" height="171" alt="Screenshot 2026-04-14 142343" src="https://github.com/user-attachments/assets/b10b376a-255d-4636-9287-1d51077ab665" />
 
+## Tugas Praktikum 2 — Audit File Konfigurasi dan Logging Aman
+
+### Konteks & Instruksi
+
+Konteks riil: saat troubleshooting, administrator sering perlu menginventarisasi
+file konfigurasi dan memisahkan output normal dari pesan error.
+
+Instruksi tugas:
+1. Buat file laporan bernama audit-konfigurasi-$(date +%F).txt.
+2. Cari file *.conf di dalam /etc dan simpan hasilnya ke file laporan.
+3. Catat jumlah total file konfigurasi yang ditemukan.
+4. Jika ada pesan error, simpan ke file terpisah, misalnya audit-error.log.
+5. Tampilkan isi laporan ke terminal dan sekaligus simpan menggunakan tee.
+6. Tambahkan ringkasan singkat 3–5 baris yang menjelaskan mengapa pemisahan
+stdout dan stderr penting dalam audit sistem.
+
+* Syarat konsep yang harus muncul:
+1.8 Tugas Praktikum
+• redirection >, 2>, atau &>,
+• pipeline,
+• tee,
+• penggunaan variabel atau command substitution.
+* Minimal luaran:
+• file laporan audit,
+• file log error,
+• perintah yang digunakan,
+• analisis singkat hasil audit.
+
+
+
