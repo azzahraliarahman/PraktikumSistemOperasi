@@ -52,4 +52,50 @@ gunakan tee yang sudah dipelajari di bab sebelumnya.
 ### Jawaban Latihan 9.1
 <img width="597" height="253" alt="Screenshot 2026-04-22 173728" src="https://github.com/user-attachments/assets/d2b57fb3-fd73-4225-9002-39d7f328cf1a" />
 
+## Praktikum 7.2 Script Info Sistem dengan Argumen
+
+1. Buat script:
+   ```
+   nano ~/praktikum-os/week09/scripts/info-sistem.sh
+   ```
+2. Ketik isi berikut:
+
+ ```
+#!/bin/bash
+# Penggunaan: ./info-sistem.sh [nama-admin] [batas
+disk-persen]
+ADMIN=${1:-"Tidak dikenal"}
+BATAS=${2:-80}
+TANGGAL=$(date '+%F %T')
+DISK_PERSEN=$(df / | awk 'NR==2 {print $5}' | tr-d '%
+')
+echo "Admin : $ADMIN"
+echo "Tanggal : $TANGGAL"
+echo "Disk / : ${DISK_PERSEN}% terpakai"
+echo "Batas : ${BATAS}%"
+if [ "$DISK_PERSEN"-gt "$BATAS" ]; then
+echo "STATUS : PERINGATAN-disk melebihi batas!
+"
+else
+SISA=$((BATAS- DISK_PERSEN))
+echo "STATUS : Normal (sisa toleransi ${SISA}%)"
+fi
+```
+3. Simpan,beri izin,uji dengan berbagai kombinasi argumen:
+
+```
+   chmod +x ~/praktikum-os/week09/scripts/info-sistem.sh
+./info-sistem.sh
+./info-sistem.sh "Dian" 50
+./info-sistem.sh "Dian" 10
+ ```
+### Latihan 9.2
+Buat script kalkulator.sh yang menerima tiga argumen: <angka1>
+<operator> <angka2> dengan operator +,-, *, atau /. Contoh:
+./kalkulator.sh20+5menghasilkan25.Gunakancaseuntukmemilih
+operasi,danvalidasi jikaargumentidaklengkap.
+
+### Jawaban Latihan 9.2
+
+
 
