@@ -9,7 +9,7 @@ systemctl --failed
 Output:
 
 ```bash
-0 loaded units listed.
+0 load ed units listed.
 ```
 
 Berdasarkan output di atas, tidak terdapat service yang gagal pada sistem. Oleh karena itu, dipilih salah satu service aktif yaitu **SSH** untuk diperiksa statusnya.

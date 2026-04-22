@@ -49,7 +49,7 @@ Model CPU: Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz.
 
 2. Informasi Memori
    
-Total RAM: 1.9 GiB.
+Total RAM: 1.9 GiBn.
 
 Total Swap: 2.0 GiB.
 
@@ -57,8 +57,7 @@ Perbedaan RAM vs Swap :
 
 RAM (Random Access Memory) adalah memori utama yang sangat cepat dan digunakan untuk menyimpan data aktif yang sedang diproses oleh CPU, namun sifatnya sementara (volatil). Sementara itu, Swap adalah ruang cadangan pada disk (HDD/SSD) yang digunakan sistem operasi sebagai "memori tambahan" ketika RAM fisik sudah penuh, meskipun kecepatannya jauh lebih lambat dibandingkan RAM fisik.
 
-## Praktikum 2.2 — Identifikasi Perangkat PCI/USB dan
-Driver
+## Praktikum 2.2 — Identifikasi Perangkat PCI/USB dan Driver
 
 Tujuan: mengenali perangkat PCI/USB dan melihat driver/modul yang dipakai.
 
