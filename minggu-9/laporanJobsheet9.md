@@ -43,9 +43,13 @@ chmod +x laporan-sistem.sh
 ./laporan-sistem.sh
 ```
 
-###  Latihan Latihan 9.1
+###   Latihan 9.1
 
 Modifikasi laporan-sistem.sh agar menyimpan output ke file
 laporan-YYYY-MM-DD.txt sekaligus menampilkannya di terminal. Petunjuk:
 gunakan tee yang sudah dipelajari di bab sebelumnya.
+
+### Jawaban Latihan 9.1
+<img width="597" height="253" alt="Screenshot 2026-04-22 173728" src="https://github.com/user-attachments/assets/d2b57fb3-fd73-4225-9002-39d7f328cf1a" />
+
 
