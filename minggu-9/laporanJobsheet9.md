@@ -96,6 +96,91 @@ Buat script kalkulator.sh yang menerima tiga argumen: <angka1>
 operasi,danvalidasi jikaargumentidaklengkap.
 
 ### Jawaban Latihan 9.2
+* Gambar:
+  <img width="643" height="820" alt="Screenshot 2026-04-23 223327" src="https://github.com/user-attachments/assets/58ac87c0-2a7b-4986-ad5d-bf9196d0a283" />
+
+## Praktikum 7.3 Script Grading dan Menu Interaktif
+
+1. Buat script grading (menggunakan if dan for):
+   
+```
+   nano ~/praktikum-os/week09/scripts/grading-batch.sh
+```
+2. Ketik isi berikut:
+   
+```
+   #!/bin/bash
+# Script: grading-batch.sh
+# Proses daftar nilai mahasiswa
+MAHASISWA=("Andi:92" "Budi:73" "Citra:55" "Deni:80" "
+Eka:45")
+echo "=== HASIL GRADING ==="
+for ENTRI in "${MAHASISWA[@]}"; do
+NAMA=$(echo "$ENTRI" | cut-d:-f1)
+NILAI=$(echo "$ENTRI" | cut-d:-f2)
+if [ "$NILAI"-ge 85 ]; then
+GRADE="A"
+elif [ "$NILAI"-ge 75 ]; then
+GRADE="B"
+elif [ "$NILAI"-ge 65 ]; then
+GRADE="C"
+elif [ "$NILAI"-ge 55 ]; then
+GRADE="D"
+else
+GRADE="E"
+fi
+printf "%-10s %3d %s\n" "$NAMA" "$NILAI" "$GRADE"
+done
+echo "====================="
+ ```
+3. Simpan,beri izin, dan jalankan:
+   
+```
+chmod +x ~/praktikum-os/week09/scripts/grading-batch.
+sh
+./grading-batch.sh
+```
+4. Buat script menu interaktif (while+case):
+
+```
+nano ~/praktikum-os/week09/scripts/menu-sistem.sh
+```
+5.Ketik isi berikut:
+
+```
+#!/bin/bash
+# Menu interaktif pemantauan sistem
+while true; do
+echo ""
+echo "===== MENU MONITOR ====="
+echo "1) Info disk"
+echo "2) Info memori"
+echo "3) Proses teratas"
+echo "4) Keluar"
+echo-n "Pilih [1-4]: "
+read PILIHAN
+
+case $PILIHAN in
+1) df-h ;;
+2) free-h ;;
+3) ps aux--sort=-%cpu | head-6 ;;
+4) echo "Sampai jumpa!"; exit 0 ;;
+*) echo "Pilihan tidak valid." ;;
+esac
+done
+```
+6. Beri izin dan jalankan, coba setiap opsi:
+
+```
+chmod +x ~/praktikum-os/week09/scripts/menu-sistem.sh
+./menu-sistem.sh
+```
+
+### Latihan 9.3
+
+Tambahkan ke script grading-batch.sh sebuah ringkasan di bagian bawah
+yang menampilkan: jumlah mahasiswa per grade (A, B, C, D, E) menggunakan
+perulangan for kedua yang mengiterasi array MAHASISWA.
 
 
 
