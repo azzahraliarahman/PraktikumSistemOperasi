@@ -182,5 +182,150 @@ Tambahkan ke script grading-batch.sh sebuah ringkasan di bagian bawah
 yang menampilkan: jumlah mahasiswa per grade (A, B, C, D, E) menggunakan
 perulangan for kedua yang mengiterasi array MAHASISWA.
 
+* Output :
+  <img width="696" height="434" alt="Screenshot 2026-04-28 221312" src="https://github.com/user-attachments/assets/a2727738-31fe-41de-bee9-2c34b34c7317" />
+
+  ## Praktikum 7.4 Library Fungsi Validasi
+  
+  1. Buat file library:
+  ```
+  nano ~/praktikum-os/week09/scripts/lib-validasi.sh
+  ```
+  2. Ketik isi berikut:
+ ```
+  #!/bin/bash
+# lib-validasi.sh-Library fungsi validasi
+adalah_angka() {
+[[ "$1" =~ ^[0-9]+$ ]]
+}
+
+file_bisa_dibaca() {
+[-f "$1" ] && [-r "$1" ]
+}
+error_exit() {
+echo "ERROR: $1" >&2
+exit 1
+}
+info() { echo "[INFO] $1"; }
+sukses() { echo "[OK] $1"; }
+```
+3. Buat script yang menggunakan library:
+```
+nano ~/praktikum-os/week09/scripts/pakai-library.sh
+```
+4.Ketik isi berikut:
+```
+#!/bin/bash
+# Muat library (seperti import di Java)
+source ~/praktikum-os/week09/scripts/lib-validasi.sh
+ANGKA=$1
+FILE=$2
+[-z "$ANGKA" ] || [-z "$FILE" ] && \
+error_exit "Penggunaan: $0 <angka> <path-file>"
+if adalah_angka "$ANGKA"; then
+sukses "Input '$ANGKA' adalah angka valid"
+else
+error_exit "'$ANGKA' bukan angka"
+fi
+if file_bisa_dibaca "$FILE"; then
+sukses "File '$FILE' bisa dibaca"
+info "Jumlah baris: $(wc-l < "$FILE")"
+else
+error_exit "File '$FILE' tidak ada atau tidak bisa
+dibaca"
+fi
+```
+5. Beri izin dan uji semua skenario:
+```
+chmod +x ~/praktikum-os/week09/scripts/pakai-library.
+sh
+./pakai-library.sh 42 /etc/hostname
+./pakai-library.sh abc /etc/hostname
+./pakai-library.sh 42 /tidak-ada.txt
+./pakai-library.sh
+```
+
+###  Latihan 9.4
+
+Tambahkan fungsi konfirmasi() ke lib-validasi.sh.
+Fungsi ini
+menampilkan pertanyaan, membaca input Y/N dari user, mengembalikan
+0 jika Y dan 1 jika N. Buat script demo yang memanggil fungsi ini sebelum
+menghapus sebuah file.
+
+### Jawaban :
+<img width="912" height="316" alt="Screenshot 2026-04-28 224733" src="https://github.com/user-attachments/assets/f78d4648-5e64-4616-baa3-93e5f5ff8014" />
+
+## Praktikum 7.5 Script Backup dengan Opsi
+
+1. Buat script:
+   ```
+   nano ~/praktikum-os/week09/scripts/backup-data.sh
+   ```
+2. Ketik isi berikut:
+```
+#!/bin/bash
+# Penggunaan: ./backup-data.sh [-v] [-c] [-l logfile]
+<sumber> <tujuan>
+VERBOSE=false
+COMPRESS=false
+LOG_FILE=""
+while getopts "vcl:" OPSI; do
+case $OPSI in
+v) VERBOSE=true ;;
+c) COMPRESS=true ;;
+l) LOG_FILE="$OPTARG" ;;
+*) echo "Penggunaan: $0 [-v] [-c] [-l logfile]
+<sumber> <tujuan>"
+exit 1 ;;
+esac
+done
+shift $((OPTIND- 1))
+SUMBER=$1
+TUJUAN=$2
+log() {
+local MSG="[$(date '+%T')] $1"
+echo "$MSG"
+[-n "$LOG_FILE" ] && echo "$MSG" >> "$LOG_FILE"
+}
+[-z "$SUMBER" ] || [-z "$TUJUAN" ] && {
+echo "ERROR: sumber dan tujuan wajib diisi"; exit
+1; }
+[ !-d "$SUMBER" ] && { log "ERROR: $SUMBER tidak ada"
+; exit 2; }
+mkdir-p "$TUJUAN"
+TANGGAL=$(date '+%F-%H%M%S')
+[ "$VERBOSE" = true ] && log "Sumber: $SUMBER | Tujuan
+: $TUJUAN"
+if [ "$COMPRESS" = true ]; then
+ARSIP="$TUJUAN/backup-$(basename "$SUMBER")
+$TANGGAL.tar.gz"
+tar-czf "$ARSIP"-C "$(dirname "$SUMBER")" "$(
+basename "$SUMBER")"
+log "Arsip: $ARSIP ($(du-sh "$ARSIP" | cut-f1))"
+else
+cp-r "$SUMBER" "$TUJUAN/backup-$(basename "
+$SUMBER")-$TANGGAL"
+log "Backup selesai."
+fi
+```
+3. Beri izin dan uji:
+
+  ```
+chmod +x ~/praktikum-os/week09/scripts/backup-data.sh
+cd ~/praktikum-os/week09/scripts
+# Tanpa opsi
+./backup-data.sh ~/praktikum-os/week09/data ~/
+praktikum-os/week09/logs
+# Dengan verbose dan kompresi + log ke file
+./backup-data.sh-v-c-l ../logs/backup.log \
+~/praktikum-os/week09/data ~/praktikum-os/week09/
+logs
+cat ../logs/backup.log
+```
+## Praktikum 7.6 Debugging Script
+
+
+
 
 
