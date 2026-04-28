@@ -325,7 +325,63 @@ cat ../logs/backup.log
 ```
 ## Praktikum 7.6 Debugging Script
 
+1. Buat script untuk dianalisis:
+```
+nano ~/praktikum-os/week09/scripts/debug-latihan.s
+```
+2. Ketik isi berikut:
+```
+#!/bin/bash
+# Script: debug-latihan.sh
+# Penggunaan: ./debug-latihan.sh <direktori> <batas-MB
+>
+DIREKTORI=$1
+BATAS=$2
+if [ $#-ne 2 ]; then
+echo "Penggunaan: $0 <direktori> <batas-MB>"
+exit 1
+fi
+UKURAN=$(du-sm "$DIREKTORI" | cut-f1)
+echo "Direktori : $DIREKTORI"
+echo "Ukuran : ${UKURAN} MB"
+echo "Batas : ${BATAS} MB"
+if [ "$UKURAN"-gt "$BATAS" ]; then
+echo "PERINGATAN: Ukuran melebihi batas!"
+echo "Kelebihan: $((UKURAN-BATAS)) MB"
+else
+echo "Status: Normal (sisa: $((BATAS-UKURAN)) MB
+)"
+fi
+```
+3. Cek sintaks, lalu jalankan dengan tracing:
+```
+chmod +x ~/praktikum-os/week09/scripts/debug-latihan.
+sh
+bash-n debug-latihan.sh && echo "Sintaks OK"
+bash-x debug-latihan.sh /etc 10
+./debug-latihan.sh /var 50
+./debug-latihan.sh
+```
 
+### Latihan 9.5
+Script debug-latihan.sh tidak menangani direktori yang tidak ada.Perbaiki
+dengan menambahkan:
+•set -e di baris kedua
+•Pengecekan -d "$DIREKTORI" sebelum memanggil du
+•Pesan error yang informatif jika direktori tidak ditemukan
+Uji dengan direktori yang tidak ada.
 
+### Jawab Latihan 9.5
+<img width="939" height="452" alt="Screenshot 2026-04-28 232357" src="https://github.com/user-attachments/assets/d45429a0-109f-43b1-a36b-7f6aebf00ae2" />
+
+## 1.8 Tugas Praktikum
+
+### Tugas 1 Script Absensi Kelas
+
+<img width="957" height="377" alt="Screenshot 2026-04-28 233314" src="https://github.com/user-attachments/assets/aab49804-33fa-4490-b584-0c3dfaee7e54" />
+
+### Tugas 2 Script Health Check Sistem
+
+<img width="794" height="891" alt="Screenshot 2026-04-28 233721" src="https://github.com/user-attachments/assets/b9108f44-8ef2-43ed-b623-12a5509ad116" />
 
 
