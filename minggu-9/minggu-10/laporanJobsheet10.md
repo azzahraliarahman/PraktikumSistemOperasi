@@ -118,3 +118,67 @@ AVAIL=$(free | awk '/Mem/ {printf "%d", $7/$2*100}')
 if [ "$AVAIL" -lt "$THRESHOLD" ]; then
 echo "PERINGATAN: Memori tersedia hanya ${AVAIL}%!"
 else
+echo "Status: Memori tersedia ${AVAIL}% (normal)"
+fi
+echo
+echo "--- 5 Proses Memori Tertinggi---"
+ps aux --sort=-%mem | head -n 6 | tail -n 5
+```
+
+## Studi Kasus 10.2 Gagal Akses File
+
+Skenario: Program tidak dapat membaca file konfigurasi. Penyebab umum: file
+tidak ada, path salah, atau permission tidak sesuai. Kita akan mensimulasikan
+kondisi ini dan mengamati pesan error yang dihasilkan.
+
+Langkah 1: Buat direktori dan file konfigurasi contoh.
+
+```
+mkdir-p ~/praktikum-os/week10-memory/syscall-case
+cd ~/praktikum-os/week10-memory/syscall-case
+echo "PORT=8080" > app.conf
+ls -l app.conf
+cat app.conf
+```
+Langkah 2: Simulasikan permission bermasalah
+```
+chmod 000 app.conf
+cat app.conf
+```
+Langkah 3: Kembalikan permission dan verifikasi
+```
+chmod 644 app.conf
+cat app.conf
+```
+
+### Analisis:
+1. Mengapa cat menghasilkan Permission denied setelah chmod 000? System
+call apa yang gagal?
+2. Apa perbedaan pesan error Permission denied vs No such file or directory?
+Coba rm app.conf lalu cat app.conf untuk melihat perbedaannya.
+3. Permission 644 berarti apa untuk owner, group, dan others?
+
+### Jawaban analisis
+1. Karena chmod 000 melucuti seliruh permission bit secara absolut menjadi --- --- ---, tidak ada hak akses apa pun untuk siapa pun, bahkan usernya sendiri. System call yang gagal adalah open() atau openat().
+
+   
+2. Permission denied muncul karena file tersebut terbukti eksis secara fisik pada storage. Sistem file menemukan direktori entri(dentry) yang valid yang merujuk pada sebuah inocode(struktur data file). Sedangkan,  No such file or directory , saat menjalankan rm app.conf, artinya menghapus tautan(unlink) antara nama "app.conf" dengan inocodenya di dalam harddisk. Ketika menjalankan cat app.conf, system call open() app.conf idak merujuk data manapun. karena file tersebut telah dihapus.
+
+3. 644 merupakan angka desimal representasi oktal dari mask biner (bitmask) 110 100 100.
+
+* Digit pertama : 6 (pemilik)
+  4(read) + 2(write) = 6
+  - Secara simbolik menjadi rw-. Pemilik file memiliki hak otonom penuh untuk melihat isi file(read) dan memodifikasi atau menghapus isinya(write). tetapi file tersebut tidak executable.
+
+  * digit kedua : 4 (Group)
+    4(read)
+   - Secara simbolik menjadi r--. Pengguna lain yang tergabung dalam group kepemilikan file tersebut hanya mode read. hanya bisa membaca tanpa hak untuk mengubah satu byte pun.
+
+  * digit ketiga : 4 (Pengguna lain)
+    4(read)
+   - secara simbolik mejadi r--, ini adalah lapisan terluar. Siapapun pengguna di dalam sistem operasi yang bukan pemilik dan bukan anggota group file tersebut hanya bisa mode read.
+
+
+
+
+
