@@ -169,14 +169,85 @@ Coba rm app.conf lalu cat app.conf untuk melihat perbedaannya.
 * Digit pertama : 6 (pemilik)
   4(read) + 2(write) = 6
   - Secara simbolik menjadi rw-. Pemilik file memiliki hak otonom penuh untuk melihat isi file(read) dan memodifikasi atau menghapus isinya(write). tetapi file tersebut tidak executable.
-
-  * digit kedua : 4 (Group)
+    
+* digit kedua : 4 (Group)
     4(read)
    - Secara simbolik menjadi r--. Pengguna lain yang tergabung dalam group kepemilikan file tersebut hanya mode read. hanya bisa membaca tanpa hak untuk mengubah satu byte pun.
 
-  * digit ketiga : 4 (Pengguna lain)
+* digit ketiga : 4 (Pengguna lain)
     4(read)
    - secara simbolik mejadi r--, ini adalah lapisan terluar. Siapapun pengguna di dalam sistem operasi yang bukan pemilik dan bukan anggota group file tersebut hanya bisa mode read.
+
+ ## Praktikum 10.6 Mengamati System Call dengan strace
+
+Langkah 1: Lihat 30 baris pertama system call dari perintah ls.
+
+```
+strace ls 2>&1 | head -n 30
+```
+Langkah 2: Lihat ringkasan statistik dan bandingkan dua direktori berbeda
+
+```
+strace -c ls
+strace -c ls /etc 2>&1 | tail -5
+```
+
+### Analisis
+1. Dari output Langkah 1, identifikasi minimal 4 system call berbeda. Jelaskan
+fungsi singkat masing-masing berdasarkan argumen yang terlihat.
+2. Dari ringkasan strace-c, system call mana yang paling sering dipanggil?
+Mengapa?
+3. Apakah ada system call dengan errors lebih dari 0? Apakah itu berarti
+program bermasalah, ataukah bagian normal dari logika program?
+4. Apakah jumlah system call berbeda antara ls dan ls /etc? Faktor apa yang
+menyebabkan perbedaan tersebut?
+
+### Jawaban Analisis
+
+1. Identifikasi 4 System Call (Berdasarkan gambar head -n 30)
+
+Dari log eksekusi, anatomi awal program ls sangat bergantung pada proses dynamic linking. Berikut 4 system call yang bisa langsung diidentifikasi dari argumennya:
+
+* execve("/usr/bin/ls", ["ls"], ...)
+    Ini adalah pemicu utamanya. Program meminta kernel untuk mengganti proses saat ini dengan program baru, yaitu mengeksekusi file binary yang berada di path /usr/bin/ls.
+
+* openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|... )
+    Meminta izin kernel untuk membuka file cache shared library sistem. Argumen O_RDONLY menegaskan bahwa file ini dibuka murni hanya untuk dibaca, tidak untuk dimodifikasi. Kernel merespons dengan memberikan File Descriptor 3.
+
+* fstat(3, {st_mode=S_IFREG|0644, st_size=22439...})
+    Meminta metadata atau informasi detail dari file yang sedang dipegang oleh File Descriptor 3. Argumen outputnya menunjukkan kernel mengembalikan data berupa ukuran file (22439 byte) dan hak aksesnya (0644).
+
+* mmap(NULL, 8192, PROT_READ|PROT_WRITE, ...)
+    Meminta kernel untuk memetakan blok memori virtual (alokasi memori). Argumen 8192 menunjukkan sistem meminta ruang sebesar 8 Kilobyte di RAM dengan hak akses untuk dibaca (PROT_READ) dan ditulisi (PROT_WRITE).
+
+2. System Call Paling Sering Dipanggil
+
+system call yang paling sering dipanggil di awal adalah mmap, mprotect, read, atau close. Alasannya: sebelum ls bisa mencetak nama file, ia harus memuat banyak sekali modul shared library (seperti libc.so.6) dari hardisk ke dalam memori secara sepotong-sepotong.
+3. Makna Error > 0 pada System Call
+
+Ya, ada error. Pada baris keempat gambar kedua, terekam jelas:
+access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+Di ringkasan strace -c juga tercatat ada 4 hingga 5 akumulasi error.
+
+Faktanya, ini bukan berarti program ls bermasalah atau gagal. Ini adalah bagian normal dari mekanisme fallback logika program. Saat pertama kali berjalan, sistem mencoba mengecek (menggunakan access()) apakah ada file konfigurasi opsional bernama ld.so.preload yang ingin dimuat oleh admin. Karena file itu memang default-nya tidak ada di Ubuntu, kernel melempar error ENOENT. Program ls dirancang untuk mengantisipasi penolakan ini, mengabaikannya dengan tenang, lalu melangkah ke instruksi pemuatan library standar berikutnya.
+4. Perbedaan Jumlah System Call: ls vs ls /etc
+
+Untuk membaca isi sebuah direktori, ls harus memanggil system call bernama getdents64 (Get Directory Entries). Jika  menjalankan ls di direktori ~ yang hanya berisi 5 file, kernel hanya butuh sedikit siklus memori. Namun jika kamu menjalankan ls /etc, di mana folder /etc/ biasanya menampung ratusan file konfigurasi, program harus melakukan perulangan system call getdents64 (dan mungkin lstat untuk mengecek warna/tipe masing-masing file) berkali-kali lipat lebih banyak sampai seluruh daftar file habis dibaca.
+
+## 1.6 Tugas Praktikum
+
+Instruksi Umum: Kerjakan seluruh tugas pada direktori berikut.
+```
+mkdir -p ~/praktikum-os/week10-memory
+cd ~/praktikum-os/week10-memory
+```
+
+### Tugas 10.1 Audit Penggunaan Memori Sistem
+
+Instruksi:Buat script memory-audit.sh yang menghasilkan laporan kondisi mem
+ori sistem secara otomatis.
+
+ 
 
 
 
