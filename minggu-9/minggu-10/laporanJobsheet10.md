@@ -288,12 +288,48 @@ SwapFree?
 
 ### Jawaban
 
+1. Available: 1696104 kB
 
+   Total: 2015312 kB
+
+Perhitungan: (1696104 / 2015312) × 100% = 84.16% (Atau 84.21% jika menggunakan pembulatan 1.6 / 1.9 GiB dari perintah free).
+
+Jadi, ketersediaan memori sebanyak ~84% menunjukkan mesin virtual memiliki space yang sangat lega, dan tidak memiliki beban pemrosesan(idle).
+
+2. Buff/Cache tidak dihitung sebagai Used (Terpakai) karena ia hanya berisi salinan data sementara yang bisa langsung dibuang oleh sistem kapan saja tanpa menyebabkan error. Karena ruang tersebut bisa diambil alih sewaktu-waktu dengan aman, sistem menganggapnya masih berstatus Available (Tersedia) untuk aplikasi lain
+
+3. SwapTotal lebih besar dari 0 yaitu sebanyak SwapTotal: 2097148 kB, Nilai swap free sebanyak 2097148 kB. Karena RAM masih tersisa 84% sehingga sistem tidak perlu memindahkan data apapun dari RAM ke hardisk(Swap). 
+
+### Tugas 10.2 Identifikasi Proses dengan Memori Tertinggi
+
+Instruksi: Simpan daftar 10 proses pengguna memori terbesar ke file.
+
+```
+ps aux --sort=-%mem | head -n 10 > top-memory-process.txt
+cat top-memory-process.txt
+```
+
+### Analisis
+1. Proses apa di urutan pertama? Catat nilai %MEM dan RSS.
+2. Konversikan RSS ke MB (bagi 1024). Apakah wajar?
+3. Jumlahkan %MEM dari 5 proses teratas. Berapa persen RAM yang mereka
+gunakan bersama?
+
+### jawaban
+1. Proses pertama : /usr/libexec/fwupd/fwupd (program latar belakang yang bertugas mengecek pembaruan firmware/hardware)
+* Nilai %Mem : 2.0
+* Nilai RSS :42200 KB
+
+2. Konversi : 42200 KB / 1024 = 41.21 MB
+* Layanan sistem seperti fwupd yang mengisi ruang sekitar 41 MB adalah batas yang sangat wajar dan efisien.
+
+3. Hitung : 2.0 + 1.3 + 1.1 + 0.6 + 0.6 = 5.6%
+* Lima proses terberat di sistemmu secara kolektif hanya mengkonsumsi 5.6% dari total kapasitas RAM fisik.  ini membuktikan dan mengonfirmasi perhitungan free -h ubuntu dalam keadaan tanpa beban berat (idle) dan sangat sehat.
 
 
 
  
-
+ 
 
 
 
