@@ -247,6 +247,51 @@ cd ~/praktikum-os/week10-memory
 Instruksi:Buat script memory-audit.sh yang menghasilkan laporan kondisi mem
 ori sistem secara otomatis.
 
+```
+nano ~/praktikum-os/week10-memory/memory-audit.sh
+```
+
+```
+#!/bin/bash
+set-euo pipefail
+LAPORAN="memory-report.txt"
+{
+echo "=== LAPORAN MEMORI SISTEM ==="
+date
+echo
+echo "--- Ringkasan free-h---"
+free-h
+echo
+echo "--- /proc/meminfo---"
+cat /proc/meminfo | head-n 20
+} > "$LAPORAN"
+echo "Laporan disimpan ke: $LAPORAN"
+cat "$LAPORAN"
+```
+
+Simpan: Ctrl+O→Enter→keluar: Ctrl+X.
+
+```
+chmod +x ~/praktikum-os/week10-memory/memory-audit.sh
+cd ~/praktikum-os/week10-memory
+bash memory-audit.sh
+```
+
+### Analisis
+
+1.Hitungpersentasememori tersedia(available / total × 100%).Apakah
+sistem dalam kondisi normal?
+2. Mengapa buff/cache tidak dihitung sebagai memori yang terpakai dari sudut
+pandang ketersediaan untuk aplikasi?
+3. Dari /proc/meminfo, apakah SwapTotal lebih besar dari 0? Berapa nilai
+SwapFree?
+
+### Jawaban
+
+
+
+
+
  
 
 
