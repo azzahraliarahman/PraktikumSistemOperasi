@@ -361,7 +361,39 @@ cat swap-check.txt
 
 3. * Fungsi permission 600(rw-------) penting karena berfungsi untuk menjamin hanya pemilik file yaitu root(sistem inti operasi) yang memiliki hak eklusif untuk membaca dan menulis pada file tersebut. Tidak ada hak akses bagi yang lainnya.
    * Jika diatur ke 644(rw-r--r--) Resiko yang didapat adalah karena angka 4 diakhir memberikan hak Read kepada pengguna lain. Jika ini dilakukan, orang lain bisa berhasil masuk ke server dan bisa langsung membaca isi file swap tersebut, dan dengan mudah memanen kata sandi atau data rahasia dari aplikasi yang sedang berjalan.
-     
+
+### Tugas 10.4 Analisis System Call dengan strace
+
+Instruksi: Analisis system call yang dipanggil perintah ls.
+```
+strace -c ls 2> strace-summary.txt
+strace ls /etc 2> strace-ls-etc.txt
+cat strace-summary.txt
+```
+### Analisis
+1. Sebutkan minimal 5 system call dari strace-summary.txt beserta fungsi
+singkatnya.
+2. System call mana yang paling sering dipanggil? Mengapa?
+3. Apakah ada errors lebih dari 0? Apakah program tetap berjalan normal
+meskipun ada kegagalan tersebut?
+
+### Jawaban
+1. * execve : Berfungsi untuk memulai eksekusi sebuah program baru. Ini adalah pemanggilan pertama yang dilakukan kernel untuk meluncurkan file binary /usr/bin/ls.
+   * mmap: Berfungsi untuk memetakan file atau perangkat ke dalam memori virtual. Biasanya digunakan untuk mengalokasikan memori dan memuat shared library (.so) yang dibutuhkan program.
+   * openat: Berfungsi untuk meminta izin membuka sebuah file atau direktori dan mendapatkan File Descriptor (kunci aksesnya).
+   * read: Berfungsi untuk membaca isi data dari file atau File Descriptor yang sudah berhasil dibuka sebelumnya.
+   * getdents64: Berfungsi khusus untuk membaca entri direktori (mengambil daftar nama-nama file dan folder yang ada di dalam direktori target).
+   * close: Berfungsi untuk menutup File Descriptor dan melepaskan akses file setelah program selesai membacanya.
+  
+2. System call yang paling sering dipanggil adalah nmap, callsnya mencapai 18 kali.
+
+* Alasan :
+  Program ls tidak berdiri sendiri; ia sangat bergantung pada pustaka eksternal (shared library) seperti libc untuk bisa berjalan. Sebelum ls bisa melakukan tugas utamanya, sistem operasi harus memanggil mmap berkali-kali secara berulang untuk memotong-motong dan memuat berbagai modul pustaka tersebut dari hardisk ke dalam blok-blok memori RAM.
+
+3. Ya, ada error yang lebih dari 0. Di kolom errors, tercatat ada total 4 buah error: 2 error pada system call statfs dan 2 error pada system call access.
+
+* Program masih berjalan dengan normal.Angka error di strace tidak selalu berarti "program crash". Error tersebut (biasanya kode ENOENT atau No such file) adalah respons wajar kernel ketika program mencoba mengecek keberadaan file konfigurasi opsional yang mungkin sengaja tidak dipasang di sistemmu (seperti file ld.so.preload). Program ls sudah dirancang untuk menerima penolakan tersebut, mengabaikannya, dan menggunakan konfigurasi default agar tetap bisa berjalan dengan lancar.
+  
    
 
 
