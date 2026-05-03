@@ -393,6 +393,121 @@ meskipun ada kegagalan tersebut?
 3. Ya, ada error yang lebih dari 0. Di kolom errors, tercatat ada total 4 buah error: 2 error pada system call statfs dan 2 error pada system call access.
 
 * Program masih berjalan dengan normal.Angka error di strace tidak selalu berarti "program crash". Error tersebut (biasanya kode ENOENT atau No such file) adalah respons wajar kernel ketika program mencoba mengecek keberadaan file konfigurasi opsional yang mungkin sengaja tidak dipasang di sistemmu (seperti file ld.so.preload). Program ls sudah dirancang untuk menerima penolakan tersebut, mengabaikannya, dan menggunakan konfigurasi default agar tetap bisa berjalan dengan lancar.
+
+### Tugas 10.5 Studi Kasus Diagnosa Server Lambat
+Skenario: Server terasa lambat. Buat script diagnosa yang menggabungkan semua
+pemeriksaan dari bab ini menggunakan fungsi Bash.
+
+```
+nano ~/praktikum-os/week10-memory/diagnosa-server.sh
+```
+
+```
+#!/bin/bash
+set -euo pipefail
+
+LAPORAN="diagnosa-server-lambat.txt"
+WARN_MEM=false
+WARN_SWAP=0
+
+cek_memori() {
+echo "---Kondisi Memori---"
+free -h
+echo
+AVAIL_PCT=$(free | awk '/Mem/ {printf "%d", $7/$2*100}
+')
+
+if [ "$AVAIL_PCT" -lt 20 ]; then
+echo "PERINGATAN: Memori tersedia hanya ${
+AVAIL_PCT}%"
+WARN_MEM=true
+fi
+
+}
+cek_swap() {
+echo "---Penggunaan Swap---"
+swapon --show 2>/dev/null || echo "Tidak ada swap
+aktif"
+echo
+WARN_SWAP=$(free | awk '/Swap/ {print $3}')
+if [ "$WARN_SWAP" -gt 0 ]; then
+echo "INFO: Swap digunakan (${WARN_SWAP} kB)"
+fi
+}
+cek_proses() {
+echo "---10 Proses Memori Tertinggi---"
+ps aux --sort=-%mem | head -n 11
+echo
+}
+cek_paging() {
+echo "---Aktivitas Paging (5 sampel)---"
+vmstat 1 5
+echo
+}
+ringkasan() {
+echo "=== RINGKASAN ==="
+if [ "$WARN_MEM" = true ]; then
+echo "-Memori: KRITIS-perlu tindakan segera"
+else
+echo "-Memori: normal"
+fi
+if [ "$WARN_SWAP"-gt 0 ]; then
+echo "-Swap: aktif-pantau aktivitas paging"
+else
+echo "-Swap: tidak digunakan"
+fi
+}
+{
+echo "=== LAPORAN DIAGNOSA SERVER ==="
+date
+echo
+cek_memori
+cek_swap
+cek_proses
+cek_paging
+ringkasan
+} | tee "$LAPORAN"
+echo
+echo "Laporan disimpan ke: $LAPORAN"
+
+```
+```
+chmod +x ~/praktikum-os/week10-memory/diagnosa-server.sh
+cd ~/praktikum-os/week10-memory
+bash diagnosa-server.sh
+```
+### Analisis
+1. Jelaskan peran masing-masing fungsi: cek_memori, cek_swap, cek_proses,
+cek_paging, dan ringkasan. Mengapa diagnosa dipecah menjadi fungsi
+terpisah?
+2. Berdasarkan bagian RINGKASAN, apakah kondisi sistem normal atau kritis?
+Jelaskan berdasarkan nilai threshold yang digunakan script.
+3. Mengapa script menggunakan tee "$LAPORAN" bukan redirection biasa >
+"$LAPORAN"? Apa keuntungannya?
+4. Dari output cek_paging, apakah ada aktivitas si atau so? Jika ada, apa
+implikasinya terhadap performa server?
+
+### Jawaban
+
+1. * cek_memori: Mengeksekusi perintah (seperti free -h) untuk menangkap status kapasitas RAM fisik (Total, Used, Available).
+
+* cek_swap: Mengeksekusi perintah (seperti swapon --show) untuk mengidentifikasi partisi atau file memori virtual mana yang sedang aktif dan berapa yang terpakai.
+
+* : Memanggil utilitas ps untuk menyortir dan menampilkan antrean program yang paling boros memakan RAM saat ini.
+
+* cek_paging: (Biasanya mengeksekusi vmstat) Bertugas mengawasi lalu lintas perpindahan blok data antara RAM fisik dan Hardisk/Swap.
+
+* ringkasan:  Ia berisi logika kondisional (if-else) yang membandingkan data mentah tadi dengan threshold (ambang batas) untuk memutuskan apakah server sedang sehat atau sekarat.
+
+Dipecah Untuk kemudahan pemeliharaan (maintainability) dan pelacakan bug. Jika suatu saat perintah pengecekan swap error, kamu hanya perlu memperbaiki fungsi cek_swap tanpa takut merusak baris kode untuk mengecek proses. Ini adalah standar penulisan kode yang baik di industri.
+
+2. Kondisi keseluruhan dalam keadaan noermal. AM fisikmu yang Available masih 1.6Gi dari total 1.9Gi. Penggunaan Swap-mu mutlak 0B (0 Byte). Jika scriptmu dipasang threshold batas aman sisa RAM minimal 20%, maka sistem lolos dengan mudah karena sisa memori komputer masih di atas 80%.
+
+3. * Jika  menggunakan > (redirection standar), output diagnosa  hanya akan  ke dalam file di balik terminal. Layar terminalmu akan kosong melompong dan kamu tidak akan tahu apakah prosesnya sudah selesai atau belum.
+
+   * Jika menggunakan tee, perintah  membelah aliran output menjadi dua cabang secara bersamaan (simultaneous). Satu aliran ditampilkan ke layar terminal agar  bisa membacanya secara real-time, sementara cabang satunya lagi direkam ke dalam file $LAPORAN untuk disimpan sebagai arsip bukti praktikum.
+  
+4. Tidak ada aktivitas si dan so nilainya 0. Jika ada aktivitasnya, maka, Implikasinya sangat fatal bagi performa server. Sistem operasi akan menjadi berubah lambat. Terjadi karena CPU menghabiskan waktu hanya untuk menunggu pertukaran data antara RAM dan hard disk yang sangat lambat.
   
    
 
