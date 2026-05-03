@@ -326,6 +326,45 @@ gunakan bersama?
 3. Hitung : 2.0 + 1.3 + 1.1 + 0.6 + 0.6 = 5.6%
 * Lima proses terberat di sistemmu secara kolektif hanya mengkonsumsi 5.6% dari total kapasitas RAM fisik.  ini membuktikan dan mengonfirmasi perhitungan free -h ubuntu dalam keadaan tanpa beban berat (idle) dan sangat sehat.
 
+### Tugas 10.3 Membuat dan Memverifikasi Swap File
+
+Instruksi: Buat swap file khusus tugas sebesar 256 MB dan verifikasi
+
+```
+sudo fallocate -l 256M /swapfile-tugas-week10
+sudo chmod 600 /swapfile-tugas-week10
+sudo mkswap /swapfile-tugas-week10
+sudo swapon /swapfile-tugas-week10
+```
+Verifikasi dan simpan hasil
+```
+{
+echo "=== VERIFIKASI SWAP ==="
+swapon --show
+echo
+free -h
+} > swap-check.txt
+cat swap-check.txt
+```
+### Analis
+1. Identifikasi kolom NAME, TYPE, SIZE, dan USED pada output swapon–show.
+2. Apakah nilai total pada baris Swap di free-h bertambah 256 MB?
+3. Mengapa permission 600 penting? Apa risiko jika diatur ke 644?
+
+### Jawaban
+1. * NAME: /swapfile-tugas-week10
+   * TYPE: file
+   * SIZE: 256M
+   * USED: 0B
+  
+2. Ya, bertambah. Sebelumnya total swapnya adalah 2.0Gi menjadi 2.2Gi. 0.2GiB merupakan penambahan file swap sebesar 256 Mib yang baru diaktifkan.
+
+3. * Fungsi permission 600(rw-------) penting karena berfungsi untuk menjamin hanya pemilik file yaitu root(sistem inti operasi) yang memiliki hak eklusif untuk membaca dan menulis pada file tersebut. Tidak ada hak akses bagi yang lainnya.
+   * Jika diatur ke 644(rw-r--r--) Resiko yang didapat adalah karena angka 4 diakhir memberikan hak Read kepada pengguna lain. Jika ini dilakukan, orang lain bisa berhasil masuk ke server dan bisa langsung membaca isi file swap tersebut, dan dengan mudah memanen kata sandi atau data rahasia dari aplikasi yang sedang berjalan.
+     
+   
+
+
 
 
  
