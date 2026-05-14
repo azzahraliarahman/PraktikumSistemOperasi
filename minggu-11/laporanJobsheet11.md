@@ -78,6 +78,49 @@ perubahan output ls -l sebelum dan sesudahnya.
 
 * kesimpulan : Sebelumnya pada secret.txt, kolom group tertulis zahra zahra. Artinya pemiliknya zahra dan group zahra. Sesudahnya kolom group berubah menjadi zahra www-data. Oleh karena itu, siapapun yang masuk dalam group www-data akan memiliki hak akses yang ditentukan oleh digit 2 permission.
 
+## Praktikum 9.2—ACL
+
+Langkah 1 :Siapkan file dan lihat permission standar tanpa ACL tambahan
+
+```
+mkdir ~/lab-acl && cd ~/lab-acl
+echo "Data penting" > confidential.txt
+chmod 640 confidential.txt
+ls -l confidential.txt
+getfacl confidential.txt
+```
+Pada tahap ini,getfacl hanya menampilkan
+tiga entri dasar :owner,group,dan others.Belum ada named user
+atau named group.
+
+Langkah 2 :Beri akses baca ke satu user tertentu tanpa mengubah owner atau group.
+
+```
+setfacl -m u:userA:r confidential.txt
+ls -l confidential.txt
+getfacl confidential.txt
+```
+Perhatikan dua perubahan:
+• output ls -l menampilkan tanda +;
+• output get facl kini memiliki entri user:userA:r–
+
+Langkah 3 :Buat direktori bersama yang mewariskan ACL ke file baru.
+
+```
+mkdir shared
+setfacl -d -m u:userA:rwx shared
+setfacl -d -m u:userB:r-x shared
+getfacl shared
+touch shared/inherited.txt
+getfacl shared/inherited.txt
+```
+
+### Analisis 9.2
+1. Mengapa getfacl confidential.txt awalnya tidak menampilkan user tertentu?
+2. Setelah setfacl-m u:userA:r confidential.txt, apa perbedaan output ls-l dan getfacl?
+3. Mengapa file inherited.txt mewarisi ACL dari direktori shared?
+### Tantangan 9.2
+Tambahkan satu ACL lagi agar group readonly-group hanya dapat membaca confidential.txt. Setelah itu, hapus ACL untuk userA dan verifikasi hasil akhirnya dengan getfacl
 
 
 
