@@ -61,6 +61,18 @@ ls -l testfile -027
 Ubah owner atau group salah satu file uji ke akun atau group lain yang tersedia di sistem, kemudian jelaskan
 perubahan output ls -l sebelum dan sesudahnya.
 
+### jawaban Analisis 9.1
+
+1. Karena 6 untuk owner, owner bisa read and write. Sedangkan, angka 0 di posisi kedua (group) dan ketiga (others) berarti tidak ada hak akses sama sekali (no permissions).
+2. Jika 600 (-rw-------) maka owner punya hak read and write sedangkan yang lain tidak punya hak akses apapun kecuali owner. Sedangkan 755 (-rwxr-xr-x), Owner memiliki hak akses penuh (read,write & execute), sedangkan group dan others hanya bisa membaca dan mengeksekusi file tersebut tanpa mengubah isisnya.
+3. Permission yang dihasilkan adalah -rw-r----- (640). Tidak menghasilan 777 karena permission akhir adalah hasil dari Base Permission dikurangi umask. basenya adalah 666 ** Jadi : 666 - 027 = 640** Itu terjadi karena default linux tidak memberikan izin eksekusi pada file yang baru dibuat demi keamanan. izin eksekusi harus memakai chmod.
+
+### jawaban Tantangan 9.1
+* hasil eksekusi ls -l secret.txt sebelum
+
+<img width="425" height="28" alt="image" src="https://github.com/user-attachments/assets/ed166636-3922-4c8f-abf4-231eaca9c6ee" />
+
+
 
 
 
