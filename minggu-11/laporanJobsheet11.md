@@ -68,9 +68,18 @@ perubahan output ls -l sebelum dan sesudahnya.
 3. Permission yang dihasilkan adalah -rw-r----- (640). Tidak menghasilan 777 karena permission akhir adalah hasil dari Base Permission dikurangi umask. basenya adalah 666 ** Jadi : 666 - 027 = 640** Itu terjadi karena default linux tidak memberikan izin eksekusi pada file yang baru dibuat demi keamanan. izin eksekusi harus memakai chmod.
 
 ### jawaban Tantangan 9.1
-* hasil eksekusi ls -l secret.txt sebelum
+* hasil eksekusi ls -l secret.txt sebelum :
 
 <img width="425" height="28" alt="image" src="https://github.com/user-attachments/assets/ed166636-3922-4c8f-abf4-231eaca9c6ee" />
+
+* hasil eksekusi ls -l secret.txt sesudah :
+
+<img width="398" height="34" alt="image" src="https://github.com/user-attachments/assets/3b8c2a68-b9f5-45ea-90f5-677acf9ee6d5" />
+
+* kesimpulan : Sebelumnya pada secret.txt, kolom group tertulis zahra zahra. Artinya pemiliknya zahra dan group zahra. Sesudahnya kolom group berubah menjadi zahra www-data. Oleh karena itu, siapapun yang masuk dalam group www-data akan memiliki hak akses yang ditentukan oleh digit 2 permission.
+
+
+
 
 
 
