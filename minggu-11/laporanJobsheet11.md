@@ -87,3 +87,5 @@ perubahan output ls -l sebelum dan sesudahnya.
 
 
 
+
+
