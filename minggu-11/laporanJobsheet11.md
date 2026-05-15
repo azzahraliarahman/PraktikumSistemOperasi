@@ -122,6 +122,17 @@ getfacl shared/inherited.txt
 ### Tantangan 9.2
 Tambahkan satu ACL lagi agar group readonly-group hanya dapat membaca confidential.txt. Setelah itu, hapus ACL untuk userA dan verifikasi hasil akhirnya dengan getfacl
 
+### Jawaban Analisis 9.2
+1. Karena saat menjalankan setfcl, file belum memiliki Access Control List (ACL). Jadi, getfcl hanya menampilkan informasi dasar seperti ex : owner, group & others.
+2. * ls -l : Ada tanda + diakhir permission. Tanda ini menunjukkan bahwa file tersebut memiliki pengaturan ACL, namun tidak bisa merinci siapa user tambahannya.
+   * getfacl : memunculkan rincian lengkap semua user atau group yang memiliki akses, ex : user:usera:r--.
+3. Karena menggunakan opsi -d (Default) saat mengatur ACL pada direktori shared.
+
+### Jawaban Tantangan 9.2
+
+<img width="464" height="236" alt="image" src="https://github.com/user-attachments/assets/b3551dc1-24d7-449d-8a8a-dc722f1415ee" />
+
+
 
 
 
