@@ -292,6 +292,32 @@ sudo -l -U userA dipakai untuk mengecek aturan yang aktif dari sudut pandang aku
 
 Tambahkan satu aturan baru agar userA boleh menjalankan /bin/systemctl restart ssh tetapi tidak boleh menjalankan reboot
 
+### Jawaban Analisis 9.4
+
+1. Karena menyimpan konfigurasi dalam direktori /etc/sudoers.d/ membuat manajemen hak akses menjadi lebih rapi. Setiap user atau program memiliki konfigurasi masing-masing. Dan juga mencegah kerusakan sistem, jika mengedit file utama /etc/sudoers dan terjadi kesalahan, fungsi sudo pada sistem linux bisa rusak atau terkunci. Dan juga agar aturan kustom agar tidak terhapus secara tidak sengaja saat ada update sistem operasi.
+
+2. * Tanpa Password : Perintah /usr/bin/apt update dan /usr/bin/apt upgrade.Karena terdapat deklarasi tag NOPASSWD: setelah kedua perintah tersebut.
+
+   * Autentikasi : bin/systemctl status *. Karena tidak diberikan tag khusus, userA harus memasukkan password akunnya sendiri terlebih dahulu saat mengeksekusi perintah  dengan sudo.
+
+3. * Informasi audit keamanan yang mencangkup :
+Waktu dan Tanggal eksekusi perintah.
+
+Nama User yang menjalankan perintah sudo.
+
+Direktori kerja (Directory) saat perintah dipanggil.
+
+Identitas Target (perintah dijalankan sebagai user apa, biasanya sebagai root).
+
+Nama Perintah Lengkap beserta argumen/opsi yang dieksekusi.
+
+Status Keberhasilan: Apakah perintah tersebut sukses dijalankan atau ditolak (command not allowed/failed).
+
+### jawaban tantangan 9.4
+
+<img width="471" height="174" alt="image" src="https://github.com/user-attachments/assets/317a6321-5a15-43d6-956c-c9b16767666b" />
+
+
 
 
 
