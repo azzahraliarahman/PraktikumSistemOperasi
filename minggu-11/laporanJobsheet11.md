@@ -158,6 +158,42 @@ sudo usermod-U userB
 sudo passwd-S userB
 ```
 
+### Pertanyaan 9.3A
+1. Apa perbedaan output id userA sebelum dan sesudah menambah group?
+2. Bagaimana status passwd -S userB berubah saat akun di-lock?
+
+### Jawaban Pertanyaan 9.3A
+1. Sebelum : Output dari userA -> uid=1004(userA) gid=1005(userA) groups=1005(userA), ini menunjukkan bahwa UserA hanya menjadi anggota dari grup utamanya sendiri yaitu, userA (GID 1005), tidak ada perintah untuk menambah group.
+2. Sebelumnya statusnya adalah P (Password usable), maksudnya memiliki password yang sah dan siap digunakan untuk login. Setelah dijalankan sudo usermod -L userB statusnya berubah menjadi L (Locked). Outputnya menjadi userB L 2026-05-19 0 99999 7 -1. tanda L menyatakan bahwa sistem telah mengunci password tersebut sehingga userB tidak bisa login ke server.
+
+## Praktikum 9.3B — Group Management
+
+Tujuan: membuat group, menambahkan user ke group, dan memverifikasi keanggotaan.
+
+```
+# buat dua group
+sudo groupadd labgroup
+sudo groupadd readonly-group
+
+# tambahkan userA ke kedua group
+sudo usermod -aG labgroup,readonly-group userA
+
+# tambahkan userB hanya ke readonly-group
+sudo usermod -aG readonly-group userB
+
+# verifikasi
+id userA
+id userB
+getent group labgroup
+getent group readonly-group
+```
+### Pertanyaan 9.3B
+1. Apa yang ditampilkan id userA vs groups userA?
+2. Mengapa -a pada user mod -aG penting?
+
+
+
+
 
 
 
