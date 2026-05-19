@@ -257,6 +257,42 @@ Kapan terakhir kali password diubah.
 
 <img width="907" height="584" alt="Screenshot 2026-05-19 211514" src="https://github.com/user-attachments/assets/dff0fab6-e314-496b-b7a4-c5961f9ab157" />
 
+## Praktikum 9.4 — Konfigurasi sudo
+
+Langkah 1: Buat file konfigurasi sudo khusus untuk userA.
+
+```
+sudo visudo-f /etc/sudoers.d/lab-userA
+```
+Perintah ini membuka editor aman khusus untuk file sudoers baru. Jika sintaks salah, visudo akan memperingatkan sebelum file disimpan.
+
+Isi file dengan aturan berikut:
+
+```
+userA ALL=(root) NOPASSWD: /usr/bin/apt update, /usr/bin/apt
+upgrade
+userA ALL=(root) /bin/systemctl status *
+```
+Baris pertama berarti userA boleh menjalankan dua perintah apt tanpa password. Baris kedua berarti userA boleh melihat status service apa pun, tetapi tetap mengikuti kebijakan autentikasi normal.
+
+Langkah 2: Verifikasi aturan yang aktif dan uji hasilnya.
+
+```
+sudo -l -U userA
+sudo grep "userA" /var/log/auth.log | tail -10
+```
+sudo -l -U userA dipakai untuk mengecek aturan yang aktif dari sudut pandang akun userA. Log di /var/log/auth.log membantu memverifikasi bahwa pemakaian sudo benar-benar tercatat.
+
+### Analisis 9.4
+1. Mengapa aturan disimpan di /etc/sudoers.d//, bukan langsung di /etc/sudoers?
+2. Mana perintah yang bisa dijalankan tanpa password, dan mana yang masih perlu autentikasi?
+3. Informasi apa saja yang dicatat di log sudo?
+
+### Tantangan 9.4
+
+Tambahkan satu aturan baru agar userA boleh menjalankan /bin/systemctl restart ssh tetapi tidak boleh menjalankan reboot
+
+
 
 
 
