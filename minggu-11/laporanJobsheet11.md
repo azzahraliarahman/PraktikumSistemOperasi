@@ -237,7 +237,28 @@ Buat user bernama intern yang:
 • password expired setelah 45 hari dengan warning 7 hari sebelumnya.
 
 ### Jawaban Pertanyaan 9.3C
-1. 
+1. Perintah ini menampilkan detail masa belaku password untuk userA. Mengandung :
+Kapan terakhir kali password diubah.
+
+* Tanggal kedaluwarsa password .
+
+* Jumlah hari minimum dan maksimum sebelum user diperbolehkan atau diwajibkan mengganti passwordnya lagi.
+
+* Masa tenggang peringatan (warning) sebelum password kadaluarsa.
+
+2. Saat dijalankan sudo passwd -l userB, output passwd -S userB memunculkan huruf L. Yang berarti Locked, membuktikan bahwa userB telah dikunci oleh sistem sehingga userB tidak bisa digunakan untuk login.
+
+3.  chage -d 0 : Sebaiknya digunakan untuk manajemen akun jangka panjang. Perintah ini menyetel tanggal pergantian password terakhir menjadi hari ke-0.
+
+   passwd -e: Untuk tindakan cepat dan instan. singkatan dari expire, perintah ini digunakan  oleh sysadmin secara manual ketika mereset password untuk user baru agar mereka langsung dipaksa membuat password pribadi rahasia saat masuk terminal.  
+
+
+### Jawaban Tantangan 9.3C
+
+<img width="907" height="584" alt="Screenshot 2026-05-19 211514" src="https://github.com/user-attachments/assets/dff0fab6-e314-496b-b7a4-c5961f9ab157" />
+
+
+
 
 
 
