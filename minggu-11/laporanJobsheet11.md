@@ -301,6 +301,7 @@ Tambahkan satu aturan baru agar userA boleh menjalankan /bin/systemctl restart s
    * Autentikasi : bin/systemctl status *. Karena tidak diberikan tag khusus, userA harus memasukkan password akunnya sendiri terlebih dahulu saat mengeksekusi perintah  dengan sudo.
 
 3. * Informasi audit keamanan yang mencangkup :
+     
 Waktu dan Tanggal eksekusi perintah.
 
 Nama User yang menjalankan perintah sudo.
@@ -316,6 +317,71 @@ Status Keberhasilan: Apakah perintah tersebut sukses dijalankan atau ditolak (co
 ### jawaban tantangan 9.4
 
 <img width="471" height="174" alt="image" src="https://github.com/user-attachments/assets/317a6321-5a15-43d6-956c-c9b16767666b" />
+
+## Praktikum 9.5 — Disk Quota
+
+Langkah 1: Buat image filesystem kecil dan mount dengan opsi quota.
+
+```
+sudo dd if=/dev/zero of=/tmp/quota-test.img bs=1M count=100
+sudo mkfs.ext4 /tmp/quota-test.img
+sudo mkdir-p /mnt/quota-test
+sudo mount-o loop,usrquota,grpquota /tmp/quota-test.img /mnt/
+quota-test
+```
+Image file dipakai agar praktikum aman: Anda tidak perlu memodifikasi filesystem utama seperti /home/. Opsi usrquota,grpquota mengaktifkan dua jenis quota sekaligus.
+
+Langkah 2: Buat database quota dan aktifkan enforcement.
+
+```
+sudo quotacheck-cug /mnt/quota-test
+sudo quotaon-v /mnt/quota-test
+sudo repquota /mnt/quota-test
+```
+quotacheck-cug membuat database user dan group quota. Setelah itu, quotaon mengaktifkan enforcement, dan repquota menampilkan laporan awal.
+
+Langkah 3: Tetapkan quota untuk user uji dan amati hasilnya.
+
+```
+sudo edquota-u userA
+# contoh: soft block 5120,  block 10240
+sudo repquota /mnt/quota-test
+```
+Nilai di atas memakai satuan KB. Jadi 5120 berarti sekitar 5 MB, dan 10240 berarti sekitar 10 MB.
+
+Langkah 4: Bersihkan lingkungan uji setelah selesai.
+
+```
+sudo quotaoff /mnt/quota-test
+sudo umount /mnt/quota-test
+sudo rm /tmp/quota-test.img
+```
+
+### Analisis 9.5
+
+1. Apa perbedaan soft limit dan hard limit saat quota mulai terlampaui?
+2. Mengapa praktikum ini memakai loopback filesystem, bukan langsung /home/?
+3. Dari output repquota, informasi apa yang menunjukkan quota sudah aktif?
+
+### Tantangan 9.5
+
+Coba atur quota baru untuk userA dengan batas inode yang sangat kecil, kemudian jelaskan kapan pembatasan inode lebih penting daripada pembatasan block.
+
+## 1.7 Latihan
+
+### Latihan Latihan 9.A — Audit dan Kolaborasi
+
+1. Temukan file SUID aktif dengan find /-perm-4000-type f 2>/dev/null, lalu jelaskan
+tiga file yang Anda kenali beserta alasannya.
+2. Cari direktori world-writable dan tentukan mana yang valid dan mana yang berisiko.
+3. Rancang konfigurasi permission standar dan ACL untuk direktori proyek /srv/webapp/ agar
+group webapp-team dapat menulis, user deploy hanya membaca, dan file baru selalu mewarisi group proyek
+
+### Latihan Latihan 9.B — Kebijakan Akun dan Quota
+
+Tuliskan langkah untuk membuat user intern, menambahkannya ke group labgroup, memaksa pergantian password tiap 45 hari (warning 7 hari), memberi izin sudo hanya untuk systemctl status, dan menetapkan quota ruang serta inode sederhana pada /home/
+
+
 
 
 
