@@ -132,6 +132,35 @@ Tambahkan satu ACL lagi agar group readonly-group hanya dapat membaca confidenti
 
 <img width="464" height="236" alt="image" src="https://github.com/user-attachments/assets/b3551dc1-24d7-449d-8a8a-dc722f1415ee" />
 
+## Praktikum 9.3A — Membuat dan Mengelola User
+
+Tujuan:membuat user baru ,memodifikasi propertinya,dan memahami perbedaan opsi user add dan user mod.
+
+```
+# buat dua user
+sudo useradd -m -s /bin/bash userA
+sudo useradd -m -s /bin/bash userB
+sudo passwd userA
+sudo passwd userB
+
+# verifikasi
+id userA
+getent passwd userA
+
+# modifikasi shell userA
+sudo usermod -s /bin/zsh userA
+getent passwd userA
+
+# lock dan unlock userB
+sudo usermod -L userB
+sudo passwd-S userB
+sudo usermod-U userB
+sudo passwd-S userB
+```
+
+
+
+
 
 
 
