@@ -191,6 +191,59 @@ getent group readonly-group
 1. Apa yang ditampilkan id userA vs groups userA?
 2. Mengapa -a pada user mod -aG penting?
 
+### Jawaban Pertanyaan 9.3B
+1. > id userA : menampilkan informasi identitas dengan detail dan berbasis angka.
+* uid: ID unik digital dari user tersebut (1004(userA)).
+
+* gid: ID group utama/primer si user (1005(userA)).
+
+* groups: Daftar semua group (baik primer maupun sekunder) yang diikuti beserta angka ID groupnya (1005(userA),1003(readonly-group),1007(labgroup))
+
+   > groups userA : Menampilkan nama-nama group tempat user bergabung. Tanpa UID atau nomor GID.
+   * Output : userA : userA readonly-group labgroup
+ 
+2. -a adalah singkatan dari _append(menambah/menyisipkan)_ Opsi ini menentukan apakah group lama milik user akan dipertahankan atau tidak. Fungsi utamanya untuk memastikan group baru ditambahkan tanpa menghapus user dari group-group sekunder yang sudah ia ikuti sebelumnya.
+
+## Praktikum 9.3C — Password Aging Policy
+
+Tujuan: menerapkan kebijakan umur password dan mengamati efeknya.
+
+```
+# set aging policy untuk userA
+sudo chage -M 60 -W 7 -m 1 userA
+sudo chage -l userA
+
+# paksa userA ganti password saat login pertama
+sudo chage -d 0 userA
+
+# kunci password userB
+sudo passwd -l userB
+sudo passwd -S userB
+
+# unlock kembali
+sudo passwd -u userB
+sudo passwd -S userB
+```
+### Pertanyaan 9.3C
+1. Apa arti nilai yang ditampilkan chage -l userA?
+2. Bagaimana cara membuktikan userB terkunci dari output passwd -S?
+3. Kapan sebaiknya menggunakan chage -d 0 vs passwd -e?
+
+### Tantangan 9.3C
+Buat user bernama intern yang:
+• memiliki shell /bin/bash;
+• menjadi anggota labgroup;
+• dipaksa ganti password pada login pertama;
+• password expired setelah 45 hari dengan warning 7 hari sebelumnya.
+
+### Jawaban Pertanyaan 9.3C
+1. 
+
+
+
+
+   
+
 
 
 
