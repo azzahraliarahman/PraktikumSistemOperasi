@@ -367,6 +367,16 @@ sudo rm /tmp/quota-test.img
 
 Coba atur quota baru untuk userA dengan batas inode yang sangat kecil, kemudian jelaskan kapan pembatasan inode lebih penting daripada pembatasan block.
 
+### Jawaban Analisis 9.5
+1. Soft Limit Berfungsi sebagai batas peringatan (warning). Fakta teknisnya, saat ukuran data user menyentuh angka ini, sistem hanya akan memberikan peringatan, tetapi user masih diizinkan menyimpan data baru. Namun, ini memicu berjalannya grace period (masa tenggang, biasanya 7 hari). Jika masa tenggang habis dan user belum mengurangi datanya di bawah soft limit, maka hak akses menulis (write) akan dicabut sepenuhnya.
+
+   Hard Limit  Berfungsi sebagai batas mutlak (absolute). Sistem akan bertindak tanpa ampun. Jika kapasitas file menyentuh tepat di angka ini, sistem langsung memblokir secara fisik operasi penulisan data selanjutnya. User akan mendapatkan pesan error "Disk quota exceeded" dan tidak bisa lagi menambah file sekecil apa pun.
+
+
+2. Alasannya keamanan dan isolasi risiko. Partisi /home/ adalah pusat tempat semua profil user dan file penting sistem berjalan. Mengedit sistem kuota langsung di filesystem utama sangat berisiko fatal, terutama jika terjadi salah ketik seperti mengisi limit pada kolom yang salah. Bisa membuat akun utama terkunci dan gagal login.
+
+Dengan loopback filesystem,  disimulasikan sebuah partisi hard disk mandiri di dalam sebuah file .img kosong. Jika konfigurasinya hancur atau berantakan, sistem operasi Ubuntu Server kamu akan tetap hidup sehat; kita tinggal menghapus file .img tersebut tanpa mengorbankan partisi utama.
+
 ## 1.7 Latihan
 
 ### Latihan Latihan 9.A — Audit dan Kolaborasi
