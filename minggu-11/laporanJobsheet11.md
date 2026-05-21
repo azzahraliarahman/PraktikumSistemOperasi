@@ -1,5 +1,8 @@
-<h4>Nama : Azzahra Aulia Rahman<h4>
-<h4>NIM : 2541007020227<h4>
+<h4>Nama          : Azzahra Aulia Rahman<h4>
+<h4>NIM           : 2541007020227<h4>
+<h4>Kelas         : TI-1H</h4>
+<h4>Mata Kuliah   : System Operasi</h4>
+<h4>Pertemuan Ke- : 11</h4>
 
 # Laporan Jobsheet 11 : Manajemen File & User/Group
 
