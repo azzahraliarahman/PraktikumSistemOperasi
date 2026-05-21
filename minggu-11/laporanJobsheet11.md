@@ -377,19 +377,138 @@ Coba atur quota baru untuk userA dengan batas inode yang sangat kecil, kemudian 
 
 Dengan loopback filesystem,  disimulasikan sebuah partisi hard disk mandiri di dalam sebuah file .img kosong. Jika konfigurasinya hancur atau berantakan, sistem operasi Ubuntu Server kamu akan tetap hidup sehat; kita tinggal menghapus file .img tersebut tanpa mengorbankan partisi utama.
 
+### tantangan 9.5
+
+<img width="473" height="194" alt="image" src="https://github.com/user-attachments/assets/2be7cefb-c910-4461-8066-bf138163a4f0" />
+
+Penjelasan :
+
+Pembatasan inode lebih penting karena Inode Exhaution (Menangkal Serangan). Melindungi Layanan Server Web dan Cache dll...
+
+
 ## 1.7 Latihan
 
 ### Latihan Latihan 9.A — Audit dan Kolaborasi
 
-1. Temukan file SUID aktif dengan find /-perm-4000-type f 2>/dev/null, lalu jelaskan
-tiga file yang Anda kenali beserta alasannya.
+1. Temukan file SUID aktif dengan find /-perm-4000-type f 2>/dev/null, lalu jelaskan tiga file yang Anda kenali beserta alasannya.
+   
+Jawaban :
+
+1. /usr/bin/passwd
+   Perintah ini bertugas mengubah password akun. Dengan SUID, userA(user biasa) memakai hak root sejenak saat menjalankan perintah agar bisa memperbarui passwordnya sendiri di file shadow tersebut.
+
+2. /usr/bin/sudo
+   Ini adalah jantung dari pendelegasian administrator. Perintah ini wajib memiliki SUID agar ketika kamu masuk sebagai user biasa, kamu bisa mengeksekusi perintah lain sebagai root. Tanpa SUID, perintah sudo tidak akan berfungsi sama sekali karena tidak memiliki kekuatan untuk menaikkan level hak akses.
+
+3. /bin/su
+Berfungsi untuk berpindah akun (Switch User). Sama seperti passwd, proses memverifikasi apakah akun tujuan valid dan mengecek password sistem memerlukan hak akses administrati
+
+
 2. Cari direktori world-writable dan tentukan mana yang valid dan mana yang berisiko.
-3. Rancang konfigurasi permission standar dan ACL untuk direktori proyek /srv/webapp/ agar
-group webapp-team dapat menulis, user deploy hanya membaca, dan file baru selalu mewarisi group proyek
+
+1. Direktori Valid
+
+* /tmp, var/tmp, /dev/shm (shared memory), dan /run/lock. Karena Direktori-direktori ini memang diciptakan oleh sistem operasi Linux agar semua aplikasi dan user bisa menaruh file sementara (temporer).
+
+2. Direktori yang beresiko
+
+* /var/www/html/ atau /home/data_kantor lalu memberi hak akses chmod 777 tanpa menambahkan Stick Bit. Karena anpa pelindung Sticky Bit, folder tersebut menjadi ladang bebas. Siapa pun (termasuk program jahat/penyusup) memiliki kebebasan absolut untuk menghapus data penting milik orang lain atau menimpa sistem dengan file bervirus.
+
+
+3. Rancang konfigurasi permission standar dan ACL untuk direktori proyek /srv/webapp/ agar group webapp-team dapat menulis, user deploy hanya membaca, dan file baru selalu mewarisi group proyek
+
+Jawaban :
+
+```
+# 1. Buat direktori proyek jika belum ada
+sudo mkdir -p /srv/webapp/
+
+# 2. Ubah kepemilikan grup direktori menjadi webapp-team
+sudo chown :webapp-team /srv/webapp/
+
+# 3. Terapkan Standard Permission tingkat lanjut dengan bit SGID (Angka 2)
+sudo chmod 2775 /srv/webapp/
+
+# 4. Berikan akses baca (Read & Execute) secara spesifik kepada user 'deploy' pada direktori saat ini
+sudo setfacl -m u:deploy:r-x /srv/webapp/
+
+# 5. Pasang Default ACL agar user 'deploy' SELALU hanya bisa membaca file baru di masa depan
+sudo setfacl -d -m u:deploy:r-x /srv/webapp/
+
+# 6. Pasang Default ACL agar group 'webapp-team' SELALU memiliki akses menulis pada file baru
+sudo setfacl -d -m g:webapp-team:rwx /srv/webapp/
+```
 
 ### Latihan Latihan 9.B — Kebijakan Akun dan Quota
 
-Tuliskan langkah untuk membuat user intern, menambahkannya ke group labgroup, memaksa pergantian password tiap 45 hari (warning 7 hari), memberi izin sudo hanya untuk systemctl status, dan menetapkan quota ruang serta inode sederhana pada /home/
+Tuliskan langkah untuk membuat user intern, menambahkannya ke group labgroup, memaksa pergantian password tiap 45 hari (warning 7 hari), memberi izin sudo hanya untuk systemctl status, dan menetapkan quota ruang serta inode sederhana pada /home/.
+
+Jawaban :
+
+Langkah 1: Manajemen Akun dan Grup
+
+Fakta teknisnya, sebelum memasukkan user ke dalam sebuah grup, grup tersebut harus sudah ada di dalam sistem. Jika belum, eksekusi pembuatan grup terlebih dahulu.
+
+1. Buat grup labgroup:
+
+```
+sudo groupadd labgroup
+```
+
+2. Buat user intern beserta direktori /home/-nya dan masukkan ke grup:
+
+```
+sudo useradd -m -s /bin/bash -G labgroup intern
+```
+3. Berikan password awal untuk intern:
+
+```
+sudo passwd intern
+```
+
+Langkah 2: Kebijakan Kedaluwarsa Password
+
+Untuk memaksa pergantian password sesuai spesifikasi soal, kita menggunakan utilitas chage (Change Age).
+
+* Terapkan batas 45 hari dan peringatan 7 hari:
+
+```
+sudo chage -M 45 -W 7 intern
+```
+
+Langkah 3: Isolasi Hak Akses Sudo
+
+Memberikan akses sudo penuh kepada user intern (magang) adalah celah keamanan besar. Fakta mutlaknya, kita harus membatasi hak istimewa tersebut langsung dari jantung konfigurasi sudo.
+
+1. Buka file konfigurasi sudoers (Wajib pakai visudo agar tidak merusak sistem jika salah ketik):
+
+```
+sudo visudo
+```
+2. Tambahkan aturan spesifik:
+
+```
+intern ALL=(ALL) /bin/systemctl status
+```
+3. Simpan dan keluar (tekan Ctrl+O, Enter, Ctrl+X).
+(Fakta: Aturan ini secara teknis membaca: "User intern di terminal mana pun ALL, boleh mengeksekusi perintah sebagai siapa pun (ALL), TETAPI hanya sebatas perintah /bin/systemctl status. Jika ia mencoba sudo apt update atau sudo systemctl restart, sistem akan langsung menolaknya.)
+
+Langkah 4: Penetapan Quota pada /home/
+
+Karena sebelumnya kamu sudah berpengalaman menggunakan cara instan (setquota), kita akan pakai cara itu lagi untuk menetapkan quota block (kapasitas) dan inode (jumlah file) dalam satu kali ketukan keyboard.
+
+Misalnya, kita tetapkan batas sederhana: maksimal kapasitas 50MB (soft) dan 100MB (hard), serta maksimal jumlah file 1000 (soft) dan 1500 (hard).
+
+* Eksekusi penetapan quota secara langsung:
+
+```
+sudo setquota -u intern 51200 102400 1000 1500 /home
+
+```
+
+
+   
+
 
 
 
