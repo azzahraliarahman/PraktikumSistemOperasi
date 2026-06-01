@@ -181,6 +181,172 @@ Modifikasi berkas unit demo-web.service sebelum menghapusnya: tambahkan RestartS
 
 <img width="470" height="148" alt="image" src="https://github.com/user-attachments/assets/58e819d5-6034-4e9d-9b9c-94bb58f392bc" />
 
+## Praktek 10.4 :Filter dan Analisis Log Layanan
+
+1: Lihat Log SSH dari Satu Jam Terakhir
+membongkar buku catatan (log) sistem, khusus mencari kejadian yang terjadi pada layanan ssh atau cron dalam 1 jam terakhir saja
+
+```
+# Gunakan ini untuk melihat log SSH 1 jam terakhir
+journalctl -u ssh --since "1 hour ago" --no-pager
+
+# JIKA log SSH kosong/tidak ada, gunakan perintah alternatif ini (melihat log cron):
+journalctl -u cron --since "1 hour ago" --no-pager
+```
+
+2: Filter Log Berprioritas Error ke Atas
+
+Perintah ini gunanya seperti filter penyaring. Dia akan membuang semua log pesan santai (informasi biasa) dan hanya menampilkan catatan yang statusnya gawat atau error semenjak laptop/VM kamu dinyalakan (boot).
+
+```
+# Menampilkan semua log status error semenjak komputer dinyalakan
+journalctl -b -p err --no-pager
+```
+
+3: Ikuti Log Secara Real-Time Sambil Memicu Aktivitas
+
+```
+# JALANKAN DI TERMINAL PERTAMA (Terminal ini akan diam mengawasi secara live):
+journalctl -u ssh -f
+
+# JALANKAN DI TERMINAL KEDUA (Untuk memicu aktivitas masuk sistem):
+ssh localhost
+```
+
+4: Masuk ke Folder Kerja
+
+```
+cd ~/lab-os/chapter10-services
+
+1. Simpan semua log layanan SSH dari hari ini ke berkas teks:
+Bash
+
+journalctl -u ssh --since today --no-pager > log-ssh-hari-ini.txt
+
+2. Hitung jumlah total baris log yang berhasil disimpan:
+Bash
+
+wc -l log-ssh-hari-ini.txt
+
+3. Cari baris yang mengandung kata "error" atau "failed" (Maksimal 20 baris pertama):
+Bash
+
+grep -i "error\|failed" log-ssh-hari-ini.txt | head -20
+```
+
+### tantangan 10.4
+
+Tantangan
+
+Ekstrak semua log dengan prioritas error (-p err) dari 24 jam terakhir untuk layanan SSH, simpan ke berkas error-ssh-24jam.txt. Gunakan pipeline dari Bab 3 untuk menghitung total jumlah baris error dengan wc -l, lalu tampilkan 10 pesan error yang paling sering muncul menggunakan sort | uniq -c | sort -rn | head -10. Tuliskan perintah lengkap yang kamu gunakan.
+
+## Praktek 10.5 : Konfigurasi SSH Server
+
+1. Periksa konfigurasi SSH saat ini.
+
+```
+sudo grep -n "^Port\|^#Port" /etc/ssh/sshd_config
+ss -tlnp | grep ssh
+```
+
+2. Buat backup dan ubah port SSH.
+
+```
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup.lab12
+
+# ubah port dari 22 ke 2222 (atau port lain yang belum dipakai)
+sudo sed -i 's/^#Port 22/Port 2222/' /etc/ssh/sshd_config
+```
+
+3. Validasi konfigurasi dan restart layanan.
+
+```
+# WAJIB: validasi sintaks sebelum restart
+sudo sshd -t
+echo "Kode keluar sshd -t: $?"
+# kode 0 berarti sintaks valid
+
+# restart layanan
+sudo systemctl restart ssh
+systemctl status ssh
+```
+Langkah validasi dengan sshd-t adalah kebiasaan penting. Pada server produksi yang
+hanya bisa diakses lewat SSH, kesalahan konfigurasi yang menyebabkan SSH tidak bisa restart
+berarti kamu terkunci dari server sendiri.
+
+4. Verifikasi port baru dengan ss.
+
+```
+ss -tlnp | grep ssh
+# seharusnya menampilkan port 2222, bukan 22
+
+# simpan hasil ke berkas bukti
+ss -tlnp | grep ssh > ~/lab-os/chapter10-services/bukti-port-ssh.txt
+cat ~/lab-os/chapter10-services/bukti-port-ssh.txt
+```
+
+5. Kembalikan port SSH ke 22 setelah praktek.
+
+```
+sudo cp /etc/ssh/sshd_config.backup.lab12 /etc/ssh/sshd_config
+sudo sshd -t
+sudo systemctl restart ssh
+ss -tlnp | grep ssh
+# harus kembali ke port 22
+```
+### Tantangan 10.5
+
+Ubah konfigurasi SSH untuk menambahkan dua pengaturan keamanan: PermitRootLogin no (larang login root langsung) dan MaxAuthTries 3 (maksimal tiga kali percobaan). Lakukan dengan urutan yang aman: backup, edit, validasi dengan sshd -t, reload. Verifikasi perubahan dengan grep -E "PermitRoot|MaxAuth" /etc/ssh/sshd_config. Kemudian periksa log SSH untuk memastikan tidak ada error setelah perubahan dengan journalctl -u ssh -n 20. Referensi Bab 2 untuk penggunaan ss dan Bab 9 untuk keamanan pengguna.
+
+## 1.7 Latihan
+
+Instruksi Umum: Kerjakan seluruh latihan secara mandiri. Catat langkah penting, simpan tangkapan layar bila diperlukan, lalu rangkum hasilnya sebagai dokumentasi pribadi.
+
+### Latihan 10.1 Audit Layanan dan Analisis Boot
+
+Lakukan audit menyeluruh terhadap layanan yang berjalan di sistem.
+
+1. Jalankan systemctl list-units -type=service -state=running dan catat semua layanan aktif. Pilih tiga layanan yang kamu kenal, periksa status masing-masing dengan systemctl status, dan jelaskan fungsinya.
+
+2. Jalankan systemd-analyze blame dan identifikasi lima layanan dengan waktu inisialisasi terlama. Tampilkan hasilnya menggunakan pipeline: systemd-analyze blame | head -5.
+
+3. Jalankan systemctl -failed dan dokumentasikan hasilnya. Jika ada layanan yang gagal, cari tahu penyebabnya dengan journalctl -u nama-layanan -n 30.
+
+### Latihan 10.2 Layanan Kustom dengan Restart Otomatis
+
+
+1. Buat skrip Bash (referensi Bab 7) bernama monitor-disk.sh yang setiap 30 detik menuliskan penggunaan disk ke berkas log. Gunakan df -h dan date.
+
+2. Buat berkas unit /etc/systemd/system/monitor-disk.service untuk menjalankan skrip tersebut dengan konfigurasi: Restart=always, RestartSec=5s, dan berjalan sebagai pengguna kamu sendiri.
+
+3. Aktifkan dan jalankan layanan. Verifikasi dengan systemctl status dan pastikan log masuk ke journal.
+
+4. Simulasikan crash dengan membunuh proses secara paksa (kill -9), tunggu 10 detik, dan verifikasi bahwa layanan hidup kembali secara otomatis.
+
+5. Bersihkan: nonaktifkan layanan dan hapus berkas unit setelah selesai.
+
+### Latihan 10.3 Investigasi Log dan Keamanan SSH
+Analisis log sistem dan tingkatkan keamanan konfigurasi SSH.
+
+1. Gunakan journalctl -b -p err untuk menemukan semua error sejak boot terakhir. Simpan hasilnya ke berkas dan hitung jumlah baris dengan wc -l.
+
+2.  tiga perubahan keamanan pada /etc/ssh/sshd_config: tambahkan PermitRootLogin no, MaxAuthTries 3, dan LoginGraceTime 30. Ikuti alur aman: backup, edit, validasi sshd -t, reload.
+
+3. Setelah reload, verifikasi tiga hal: layanan masih berjalan (systemctl status ssh), port masih mendengarkan (ss -tlnp | grep ssh), dan konfigurasi baru terbaca (grep -E "PermitRoot|MaxAuth|GraceTime" /etc/ssh/sshd_config).
+
+4. Kembalikan konfigurasi SSH ke kondisi semula menggunakan berkas backup.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
