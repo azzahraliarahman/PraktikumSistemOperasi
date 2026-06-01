@@ -236,9 +236,28 @@ grep -i "error\|failed" log-ssh-hari-ini.txt | head -20
 
 ### tantangan 10.4
 
-Tantangan
-
 Ekstrak semua log dengan prioritas error (-p err) dari 24 jam terakhir untuk layanan SSH, simpan ke berkas error-ssh-24jam.txt. Gunakan pipeline dari Bab 3 untuk menghitung total jumlah baris error dengan wc -l, lalu tampilkan 10 pesan error yang paling sering muncul menggunakan sort | uniq -c | sort -rn | head -10. Tuliskan perintah lengkap yang kamu gunakan.
+
+### jawaban tantangan  10.4
+
+1. Mengambil dan menyaring log error 24 jam terakhir:
+
+  ```
+  journalctl -u systemd-journald -p err --since "24 hours ago" --no-pager > error-ssh-
+  24jam.txt
+  ```
+2. Menghitung total jumlah baris error di dalam berkas:
+
+   ```
+   wc -l error-ssh-24jam.txt
+   ```
+3. Menampilkan 10 pesan error yang paling sering muncul menggunakan pipeline:
+
+  ```
+  sort error-ssh-24jam.txt | uniq -c | sort -rn | head -10
+  ```
+   
+
 
 ## Praktek 10.5 : Konfigurasi SSH Server
 
@@ -297,6 +316,23 @@ ss -tlnp | grep ssh
 ### Tantangan 10.5
 
 Ubah konfigurasi SSH untuk menambahkan dua pengaturan keamanan: PermitRootLogin no (larang login root langsung) dan MaxAuthTries 3 (maksimal tiga kali percobaan). Lakukan dengan urutan yang aman: backup, edit, validasi dengan sshd -t, reload. Verifikasi perubahan dengan grep -E "PermitRoot|MaxAuth" /etc/ssh/sshd_config. Kemudian periksa log SSH untuk memastikan tidak ada error setelah perubahan dengan journalctl -u ssh -n 20. Referensi Bab 2 untuk penggunaan ss dan Bab 9 untuk keamanan pengguna.
+
+### jawaban tantangan 10.5
+
+* kode
+```
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup.tantangan
+echo -e "\nPermitRootLogin no\nMaxAuthTries 3" | sudo tee -a /etc/ssh/sshd_config
+sudo sshd -t
+sudo systemctl reload ssh
+grep -E "PermitRoot|MaxAuth" /etc/ssh/sshd_config
+journalctl -u ssh -n 20 --no-pager
+```
+* screenshot
+<img width="463" height="527" alt="image" src="https://github.com/user-attachments/assets/f20d72ab-4f1c-4233-a4fd-169aaf5dfba1" />
+
+
+
 
 ## 1.7 Latihan
 
