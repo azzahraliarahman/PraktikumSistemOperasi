@@ -83,6 +83,11 @@ systemctl --failed
 
 Buat skrip Bash (referensi Bab 7) bernama cek-layanan.sh yang memeriksa status daftar layanan dari sebuah berkas teks. Berkas teks daftar-layanan.txt berisi satu nama layanan per baris (isi minimal: ssh, cron, rsyslog). Skrip membaca setiap nama layanan, memeriksa statusnya dengan systemctl is-active, lalu menulis laporan ke berkas laporan-layanan.log dengan format: [TANGGAL] nama-layanan: ACTIVE/INACTIVE. Gunakan date untuk mendapatkan tanggal.
 
+### jawaban tantangan 10.2
+
+<img width="478" height="190" alt="image" src="https://github.com/user-attachments/assets/f8eedc7b-f08e-4431-b085-8d274d192721" />
+
+
 ## Praktek 10.3: Buat Layanan Sederhana dari Skrip Bash
 
 1. Kode 1.13: Menyiapkan direktori dan konten layanan
@@ -171,6 +176,8 @@ sudo systemctl daemon-reload
 ### Tantangan 10.3
 
 Modifikasi berkas unit demo-web.service sebelum menghapusnya: tambahkan RestartSec=10s agar sistem menunggu 10 detik sebelum mencoba restart, dan tambahkan Environment="PORT=9091" lalu ubah ExecStart agar menggunakan variabel tersebut. Aktifkan layanan dengan enable dan WantedBy=multi-user.target, lalu uji apakah layanan aktif setelah systemctl daemon-reload. Dokumentasikan perbedaan perilaku dibanding versi sebelumnya.
+
+
 
  
 
