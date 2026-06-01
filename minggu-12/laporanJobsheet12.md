@@ -177,6 +177,11 @@ sudo systemctl daemon-reload
 
 Modifikasi berkas unit demo-web.service sebelum menghapusnya: tambahkan RestartSec=10s agar sistem menunggu 10 detik sebelum mencoba restart, dan tambahkan Environment="PORT=9091" lalu ubah ExecStart agar menggunakan variabel tersebut. Aktifkan layanan dengan enable dan WantedBy=multi-user.target, lalu uji apakah layanan aktif setelah systemctl daemon-reload. Dokumentasikan perbedaan perilaku dibanding versi sebelumnya.
 
+### jawaban tantangan 10.3
+
+<img width="470" height="148" alt="image" src="https://github.com/user-attachments/assets/58e819d5-6034-4e9d-9b9c-94bb58f392bc" />
+
+
 
 
  
