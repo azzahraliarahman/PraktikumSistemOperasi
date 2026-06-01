@@ -412,24 +412,89 @@ jawab :
 
 1. Buat skrip Bash (referensi Bab 7) bernama monitor-disk.sh yang setiap 30 detik menuliskan penggunaan disk ke berkas log. Gunakan df -h dan date.
 
+```
+cat << 'EOF' > /home/zahra/monitor-disk.sh
+#!/bin/bash
+while true; do
+    date
+    df -h
+    sleep 30
+done
+EOF
+chmod +x /home/zahra/monitor-disk.sh
+```
 2. Buat berkas unit /etc/systemd/system/monitor-disk.service untuk menjalankan skrip tersebut dengan konfigurasi: Restart=always, RestartSec=5s, dan berjalan sebagai pengguna kamu sendiri.
+
+```
+sudo tee /etc/systemd/system/monitor-disk.service > /dev/null << 'EOF'
+[Unit]
+Description=Layanan Monitor Disk Zahra
+
+[Service]
+ExecStart=/home/zahra/monitor-disk.sh
+Restart=always
+RestartSec=5s
+User=zahra
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
 
 3. Aktifkan dan jalankan layanan. Verifikasi dengan systemctl status dan pastikan log masuk ke journal.
 
+```
+sudo systemctl daemon-reload
+sudo systemctl enable --now monitor-disk.service
+systemctl status monitor-disk.service
+```
+memastikan data masuk 
+
+```
+journalctl -u monitor-disk.service -n 10 --no-pager
+```
+
 4. Simulasikan crash dengan membunuh proses secara paksa (kill -9), tunggu 10 detik, dan verifikasi bahwa layanan hidup kembali secara otomatis.
 
+```
+# Matikan paksa prosesnya
+sudo kill -9 $(pgrep -f monitor-disk.sh)
+
+# Cek statusnya lagi setelah dibunuh
+systemctl status monitor-disk.service
+```
+
 5. Bersihkan: nonaktifkan layanan dan hapus berkas unit setelah selesai.
+
+```
+sudo systemctl disable --now monitor-disk.service
+sudo rm /etc/systemd/system/monitor-disk.service
+sudo systemctl daemon-reload
+rm /home/zahra/monitor-disk.sh
+```
+
+hasil sc :
+<img width="475" height="460" alt="image" src="https://github.com/user-attachments/assets/81d5f5eb-fe1a-4b6f-a4f1-8496db1ad3f8" />
+
 
 ### Latihan 10.3 Investigasi Log dan Keamanan SSH
 Analisis log sistem dan tingkatkan keamanan konfigurasi SSH.
 
 1. Gunakan journalctl -b -p err untuk menemukan semua error sejak boot terakhir. Simpan hasilnya ke berkas dan hitung jumlah baris dengan wc -l.
 
+jawab no 1 :
+
+<img width="476" height="88" alt="image" src="https://github.com/user-attachments/assets/3420ce84-b908-414d-873c-5bf131958d7e" />
+
+
 2.  tiga perubahan keamanan pada /etc/ssh/sshd_config: tambahkan PermitRootLogin no, MaxAuthTries 3, dan LoginGraceTime 30. Ikuti alur aman: backup, edit, validasi sshd -t, reload.
 
-3. Setelah reload, verifikasi tiga hal: layanan masih berjalan (systemctl status ssh), port masih mendengarkan (ss -tlnp | grep ssh), dan konfigurasi baru terbaca (grep -E "PermitRoot|MaxAuth|GraceTime" /etc/ssh/sshd_config).
+4. Setelah reload, verifikasi tiga hal: layanan masih berjalan (systemctl status ssh), port masih mendengarkan (ss -tlnp | grep ssh), dan konfigurasi baru terbaca (grep -E "PermitRoot|MaxAuth|GraceTime" /etc/ssh/sshd_config).
 
-4. Kembalikan konfigurasi SSH ke kondisi semula menggunakan berkas backup.
+5. Kembalikan konfigurasi SSH ke kondisi semula menggunakan berkas backup.
+
+jawaban 3,4 & 5 :
+<img width="470" height="389" alt="image" src="https://github.com/user-attachments/assets/88a45ecd-f11b-4357-8b71-6cdeafb9c8c5" />
 
 
 
