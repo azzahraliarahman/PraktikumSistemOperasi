@@ -344,9 +344,68 @@ Lakukan audit menyeluruh terhadap layanan yang berjalan di sistem.
 
 1. Jalankan systemctl list-units -type=service -state=running dan catat semua layanan aktif. Pilih tiga layanan yang kamu kenal, periksa status masing-masing dengan systemctl status, dan jelaskan fungsinya.
 
+jawab :
+
+  cron.service                 loaded active running Regular bac>
+  dbus.service                loaded active running D-Bus Syste>
+  demo-web.service            loaded active running Demo Web Se>
+  fwupd.service               loaded active running Firmware up>
+  getty@tty1.service          loaded active running Getty on tt>
+  ModemManager.service        loaded active running Modem Manag>
+  multipathd.service          loaded active running Device-Mapp>
+  polkit.service              loaded active running Authorizati>
+  rsyslog.service             loaded active running System Logg>
+  ssh.service                 loaded active running OpenBSD Sec>
+  systemd-journald.service    loaded active running Journal Ser>
+  systemd-logind.service      loaded active running User Login >
+  systemd-networkd.service    loaded active running Network Con>
+  systemd-resolved.service    loaded active running Network Nam>
+  systemd-timesyncd.service   loaded active running Network Tim>
+  systemd-udevd.service       loaded active running Rule-based >
+  udisks2.service             loaded active running Disk Manager
+  unattended-upgrades.service loaded active running Unattended >
+  upower.service              loaded active running Daemon for >
+  user@1000.service           loaded active running User Manage>
+
+  3 unit dan fungsinya :
+  1. ssh service : active
+     Layanan ini berfungsi menyediakan jalur akses jarak jauh (remote) ke
+     dalam server secara aman menggunakan protokol enkripsi. Ini adalah gerbang utama yang
+     memungkinkan seorang administrator mengontrol server melalui jaringan tanpa harus
+     berada di depan mesin fisiknya. Keamanan konfigurasi layanan ini (seperti pembatasan
+     percobaan login atau larangan akses root langsung) sangat krusial untuk mencegah
+     eksploitasi peretasan dari luar.
+
+  2. cron.service : active
+     Layanan ini bertugas sebagai penjadwal tugas otomatis (scheduler) di sistem Linux.
+     Fungsinya adalah mengeksekusi skrip, perintah, atau program tertentu secara berulang
+     di latar belakang sesuai dengan waktu yang telah ditetapkan. Administrator sistem
+     sangat bergantung pada layanan ini untuk otomatisasi tugas-tugas rutin, seperti
+     melakukan pembaruan, rotasi log, atau pencadangan (backup) data harian.
+
+  3. systemd-journald.service : active
+     Layanan ini adalah komponen sentral untuk manajemen log. Fungsinya mengumpulkan,
+     memproses, dan menyimpan catatan data aktivitas (event) dari kernel, proses awal
+     sistem, hingga layanan-layanan lainnya. Data yang dikumpulkan oleh layanan ini
+     adalah apa yang selalu kita baca saat menggunakan perintah journalctl. Pencatatan log
+     yang akurat dari layanan ini merupakan elemen mutlak yang dibutuhkan saat melakukan
+     audit sistem atau investigasi forensik digital.
+     
+
+
 2. Jalankan systemd-analyze blame dan identifikasi lima layanan dengan waktu inisialisasi terlama. Tampilkan hasilnya menggunakan pipeline: systemd-analyze blame | head -5.
 
-3. Jalankan systemctl -failed dan dokumentasikan hasilnya. Jika ada layanan yang gagal, cari tahu penyebabnya dengan journalctl -u nama-layanan -n 30.
+jawab : 
+
+<img width="467" height="115" alt="image" src="https://github.com/user-attachments/assets/4e4bee15-17c8-41ec-baf8-89ae184de873" />
+
+
+4. Jalankan systemctl -failed dan dokumentasikan hasilnya. Jika ada layanan yang gagal, cari tahu penyebabnya dengan journalctl -u nama-layanan -n 30.
+
+jawab :
+
+<img width="414" height="120" alt="image" src="https://github.com/user-attachments/assets/f6ce9432-3b25-43c9-9dd3-61805ea6ef9f" />
+
 
 ### Latihan 10.2 Layanan Kustom dengan Restart Otomatis
 
