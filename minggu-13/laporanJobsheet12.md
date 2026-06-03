@@ -104,6 +104,10 @@ echo "Total estimasi 30 hari: $((DATA_SIZE * 4 + DATA_SIZE * 24 / 10)) byte"
 
 Buat file teks berisi rencana backup yang lebih lengkap menggunakan teknik heredoc dari Bab 3. Rencana harus mencantumkan: jadwal harian dan mingguan, estimasi ruang untuk setiap jenis backup, lokasi penyimpanan, dan prosedur pengujian restore. Simpan ke file rencana-lengkap.txt. Kemudian gunakan teknik redirection dan pipeline dari Bab 3 untuk menghitung berapa baris rencana yang kamu tulis.
 
+### Jawaban Tantangan 10.1
+<img width="477" height="43" alt="image" src="https://github.com/user-attachments/assets/934566da-64b6-49a9-bdb1-39268272d44b" />
+
+
 ## Praktek 12.2: Sinkronisasi Direktori dengan rsync
 
 1. Jalankan sinkronisasi pertama:
@@ -191,6 +195,9 @@ Buat skrip Bash (mengacu ke Bab 7) bernama rsync-backup.shdidirektori lab yang m
 rsync dari direktori data-sumber/ ke direktori bernama sesuai tanggal hari ini dalam format
 YYYY-MM-DD. Gunakan tee dari Bab 3 untuk menulis output rsync ke layar sekaligus ke file log bernama backup-TANGGAL.log. Jadikan skrip ini executable dengan chmod +x dan jalankan
 untuk memverifikasi hasilnya.
+
+### Jawaban tantangan 12.3
+<img width="478" height="232" alt="image" src="https://github.com/user-attachments/assets/675955b5-0161-4d00-9c11-5e920537a257" />
 
 ## Praktek 12.3 : Buat Arsip Backup dan Verifikasi Integritasnya
 
