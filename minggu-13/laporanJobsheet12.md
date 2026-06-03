@@ -498,15 +498,9 @@ backup penuh menggunakan tar dan simpan checksumnya.
 dan md5sum.
 3. Simulasikan bencana: hapus seluruh direktori produksi dengan rm-rf.
 4. Catat waktu mulai pemulihan, lakukan restore lengkap dari backup, dan catat waktu selesai.
-14
-1 Backup dan Pemulihan Sistem
-Hitung RTO aktual.
-1.8 Referensi
 5. Verifikasi semua file pulih dengan benar menggunakan checksum yang disimpan di langkah 2.
 6. Bandingkan RTO aktual dengan target yang kamu tentukan. Jika lebih lama, identifikasi
-bottleneck dan usulkan cara mempercepatnya.
-
-
+bottleneck dan usulkan cara mempercepatnya
 
 
 
