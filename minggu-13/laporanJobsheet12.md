@@ -273,6 +273,246 @@ verifikasi isi setiap arsip menggunakan tar-tzf untuk memastikan setiap arsip ha
 
 ## Praktek 12.4: Jadwalkan Skrip Backup Otomatis
 
+Tujuan praktek ini adalah membuat skrip backup, mengujinya secara manual, mendaftarkan ke crontab, dan memverifikasi eksekusi otomatisnya
+
+1. Buat skrip backup yang menggunakan rsync dengan logging:
+
+```
+cd ~/lab-os/chapter12-backup
+
+# Membuat skrip otomatis tanpa perlu masuk ke nano
+cat > backup-otomatis.sh << 'EOF'
+#!/bin/bash
+BACKUP_BASE="$HOME/lab-os/chapter12-backup/arsip-cron"
+SOURCE="$HOME/lab-os/chapter12-backup/data-sumber"
+DATE=$(date +%Y-%m-%d-%H%M)
+LOG="$HOME/lab-os/chapter12-backup/cron-backup.log"
+
+mkdir -p "$BACKUP_BASE/$DATE"
+echo "[$(date)] Memulai backup ke $BACKUP_BASE/$DATE" >> "$LOG"
+
+rsync -av --delete "$SOURCE/" "$BACKUP_BASE/$DATE/" >> "$LOG" 2>&1
+
+if [ $? -eq 0 ]; then
+    UKURAN=$(du -sh "$BACKUP_BASE/$DATE/" | cut -f1)
+    echo "[$(date)] OK: $DATE ($UKURAN)" >> "$LOG"
+else
+    echo "[$(date)] GAGAL: backup $DATE" >> "$LOG"
+    rmdir "$BACKUP_BASE/$DATE" 2>/dev/null
+fi
+
+# Menghapus otomatis folder backup yang usianya lebih dari 30 menit
+find "$BACKUP_BASE" -maxdepth 1 -type d -mmin +30 -exec rm -rf {} \; 2>/dev/null
+EOF
+
+# Memberikan hak akses eksekusi pada skrip
+chmod +x backup-otomatis.sh
+```
+2. Uji skrip secara manual sebelum mendaftarkannya ke cron:
+
+```
+./backup-otomatis.sh
+ls -la arsip-cron/
+cat cron-backup.log
+```
+3. Daftarkan skrip ke crontab untuk berjalan setiap 2 menit (untuk keperluan pengujian):
+
+```
+crontab -l 2>/dev/null > /tmp/cron-sementara
+echo "*/2 * * * * $HOME/lab-os/chapter12-backup/backup-otomatis.sh" >> /tmp/cron-sementara
+crontab /tmp/cron-sementara
+rm /tmp/cron-sementara
+crontab -l
+```
+4. Tunggu beberapa menit lalu verifikasi cron telah menjalankan backup:
+
+```
+ls -lt arsip-cron/
+cat cron-backup.log
+grep CRON /var/log/syslog 2>/dev/null | tail -5
+```
+Amati: berapa direktori backup yang sudah terbuat? Apakah timestamp pada nama direktori sesuai dengan waktu eksekusi di log?
+
+5. Bersihkan crontab dan direktori:
+
+```
+crontab -l | grep -v "backup-otomatis" | crontab
+crontab -l
+rm -rf arsip-cron/ arsip-tar/ cron-backup.log backup.log
+```
+### Tantangan 12.4
+
+Jadwalkan skrip rsync-backup.sh dari challenge box Praktek 12.2 agar berjalan setiap hari pukul 02:00 menggunakan crontab. Tambahkan ke skrip tersebut agar output rsync disimpan ke /var/log/backup.log menggunakan teknik tee dari Bab 3 (sehingga sekaligus tercetak di terminal saat dijalankan manual dan tersimpan ke log). Tulis cron expression yang tepat dan jelaskan setiap field-nya.
+
+## Praktek 12.5 : Simulasi Pemulihan dari Backup
+
+1. Siapkan data sumber dan buat backup sebagai persiapan:
+
+```
+cd ~/lab-os/chapter12-backup
+
+# Menyiapkan folder dan file simulasi
+mkdir -p data-sumber/{dokumen,konfigurasi}
+echo "laporan-akhir-tahun" > data-sumber/dokumen/laporan.txt
+echo "catatan-rapat" > data-sumber/dokumen/catatan.txt
+echo "db_host=localhost" > data-sumber/konfigurasi/app.conf
+echo "cache_ttl=300" >> data-sumber/konfigurasi/app.conf
+
+# Membuat direktori tempat menyimpan arsip backup dan snapshot
+mkdir -p arsip-pemulihan snapshot-pemulihan
+
+# Membuat full backup berbentuk file kompresi (tar.gz)
+tar -czf arsip-pemulihan/full-backup.tar.gz data-sumber/
+
+# Menghitung dan menyimpan nilai hash MD5 dari file backup tar.gz tersebut
+md5sum arsip-pemulihan/full-backup.tar.gz > arsip-pemulihan/full-backup.md5
+
+# Membuat backup cerminan (mirror) menggunakan rsync
+rsync -av data-sumber/ snapshot-pemulihan/
+
+# Memeriksa isi seluruh direktori beserta sub-direktorinya secara detail
+ls -lhR data-sumber/
+```
+2. Simpan checksum file-file penting untuk verifikasi nanti:
+
+```
+# Membuat rekam jejak integritas (sidik jari file) dari data asli sebelum rusak
+md5sum data-sumber/dokumen/* data-sumber/konfigurasi/* > checksum-asli.md5
+
+# Melihat daftar hash MD5 yang baru saja dibuat
+cat checksum-asli.md5
+```
+3. Simulasikan kehilangan data: hapus beberapa file secara sengaja:
+
+```
+# Menghapus file penting secara permanen
+rm data-sumber/dokumen/laporan.txt
+rm data-sumber/konfigurasi/app.conf
+
+# Menyusupkan file asing (simulasi jika sistem disusupi/korup)
+echo "file tidak sah" > data-sumber/dokumen/tidak-dikenal.txt
+
+# Mengecek kondisi folder yang sudah rusak
+ls -la data-sumber/dokumen/
+ls -la data-sumber/konfigurasi/
+```
+4. Pulihkan file yang hilang dari arsip tar ke direktori sementara:
+
+```
+# Verifikasi dulu apakah file backup tar.gz kita tidak rusak
+md5sum -c arsip-pemulihan/full-backup.md5
+
+# Menyiapkan ruang karantina (folder sementara) untuk mengekstrak file
+mkdir -p /tmp/restore-lap14
+
+# Mengekstrak spesifik file laporan.txt dari dalam arsip tar.gz ke folder sementara
+tar -xzf arsip-pemulihan/full-backup.tar.gz -C /tmp/restore-lap14 data-sumber/dokumen/laporan.txt
+
+# Verifikasi file berhasil terekstrak
+ls /tmp/restore-lap14/data-sumber/dokumen/
+
+# Mengembalikan file yang sudah diekstrak ke habitat aslinya
+cp /tmp/restore-lap14/data-sumber/dokumen/laporan.txt data-sumber/dokumen/
+
+# Menghapus folder karantina sementara
+rm -rf /tmp/restore-lap14
+```
+5. Pulihkan file konfigurasi dari snapshot rsync:
+
+```
+# Melihat keberadaan file backup di dalam snapshot rsync
+ls snapshot-pemulihan/konfigurasi/
+
+# Mengkopi (memulihkan) file app.conf dari snapshot ke direktori utama
+cp snapshot-pemulihan/konfigurasi/app.conf data-sumber/konfigurasi/
+
+# Verifikasi file sudah kembali
+ls -la data-sumber/konfigurasi/
+```
+6. Verifikasi integritas setelah pemulihan:
+
+```
+# Menghapus file penyusup (simulasi pembersihan anomali)
+rm data-sumber/dokumen/tidak-dikenal.txt
+
+# Membandingkan hash MD5 file saat ini dengan data di awal (sebelum dihapus)
+md5sum -c checksum-asli.md5
+
+# Memeriksa status exit dari perintah sebelumnya
+echo "Exit code: $? (0 berarti semua file valid)"
+
+# Melakukan komparasi biner (diff) secara rekursif (-r) antara sumber dan snapshot
+diff -r data-sumber/ snapshot-pemulihan/
+
+# Memeriksa status exit diff
+echo "Diff exit code: $? (0 berarti identik dengan snapshot)"
+```
+7. Bersihkan seluruh direktori lab:
+
+```
+rm -rf arsip-pemulihan/ snapshot-pemulihan/
+rm -f checksum-asli.md5 rencana-backup.txt backup-otomatis.sh
+```
+### Tantangan
+
+Perpanjang skenario pemulihan: hapus seluruh direktori data-sumber/konfigurasi/ sekaligus (bukan hanya satu file). Kemudian pulihkan seluruh direktori tersebut dari snapshot menggunakan rsync dengan arah transfer yang dibalik (sumber adalah snapshot, tujuan adalah direktori yang rusak). Verifikasi hasil pemulihan dengan membandingkan checksum seluruh isi direktori menggunakan find dan md5sum. Catat perbedaan waktu antara restore satu file dan restore satu direktori penuh.
+
+## 1.7 Latihan 
+nstruksi Umum: Kerjakan seluruh latihan secara mandiri. Catat langkah penting, simpan tangkapan layar bila diperlukan, lalu rangkum hasilnya sebagai dokumentasi pribadi. 
+
+### Latihan 12.1 Implementasi Sistem Backup Lengkap
+
+Rancang dan implementasikan sistem backup untuk direktori simulasi.
+1. Buat struktur direktori simulasi dengan minimal 10 file yang tersebar di tiga subdirektori:
+dokumen/, konfigurasi/, dan media/.
+2. Buat skrip backup-harian.sh yang menggunakan rsync dengan–link-dest untuk mem
+buat snapshot harian. Skrip harus mencatat log dengan timestamp ke backup-harian.log.
+3. Buat skrip backup-mingguan.sh yang menggunakan tar-czf untuk membuat arsip terkom
+presi. Skrip harus membuat checksum MD5 dari setiap arsip yang dibuat.
+4. Daftarkan keduanya ke crontab dengan jadwal yang berbeda. Jalankan masing-masing secara
+manual dan verifikasi log dan output yang dihasilkan.
+5. Simulasikan kehilangan file dan lakukan restore dari kedua jenis backup. Dokumentasikan
+langkah-langkah restore dan waktu yang dibutuhkan.
+
+### Latihan 12.2 Analisis Kompresi dan Performa Backup
+
+Analisis trade-off antara kecepatan dan rasio kompresi.
+1. Buat direktori dengan tiga jenis file: teks biasa (10 file .txt masing-masing 100 baris), file kon
+figurasi .conf, dan file biner simulasi menggunakan dd if=/dev/urandom of=biner.bin
+bs=1M count=5.
+2. Buat tiga arsip dari direktori yang sama menggunakan gzip (-z), bzip2 (-j), dan xz (-J). Ukur
+waktu setiap proses menggunakan time.
+3. Bandingkan ukuran ketiga arsip dengan ls-lh dan hitung rasio kompresi masing-masing
+terhadap ukuran asli.
+4. Buat tabel di file analisis-kompresi.txt yang merangkum: jenis kompresi, waktu kompres,
+ukuran hasil, dan rasio kompresi.
+5. Berdasarkan data tersebut, rekomendasikan kompresi yang paling tepat untuk: backup harian
+otomatis, arsip jangka panjang, dan backup file biner. Berikan alasan untuk setiap rekomendasi.
+
+### Latihan 12.3 Disaster Recovery Drill
+
+Lakukan simulasi pemulihan bencana secara menyeluruh.
+1. Buat direktori “produksi” dengan struktur lengkap: file konfigurasi, dokumen, dan skrip. Buat
+backup penuh menggunakan tar dan simpan checksumnya.
+2. Dokumentasikan kondisi awal: daftar file, ukuran, dan checksum semua file menggunakan find
+dan md5sum.
+3. Simulasikan bencana: hapus seluruh direktori produksi dengan rm-rf.
+4. Catat waktu mulai pemulihan, lakukan restore lengkap dari backup, dan catat waktu selesai.
+14
+1 Backup dan Pemulihan Sistem
+Hitung RTO aktual.
+1.8 Referensi
+5. Verifikasi semua file pulih dengan benar menggunakan checksum yang disimpan di langkah 2.
+6. Bandingkan RTO aktual dengan target yang kamu tentukan. Jika lebih lama, identifikasi
+bottleneck dan usulkan cara mempercepatnya.
+
+
+
+
+
+
+
+
 
 
 
