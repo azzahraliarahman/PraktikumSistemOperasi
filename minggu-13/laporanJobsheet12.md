@@ -196,7 +196,7 @@ rsync dari direktori data-sumber/ ke direktori bernama sesuai tanggal hari ini d
 YYYY-MM-DD. Gunakan tee dari Bab 3 untuk menulis output rsync ke layar sekaligus ke file log bernama backup-TANGGAL.log. Jadikan skrip ini executable dengan chmod +x dan jalankan
 untuk memverifikasi hasilnya.
 
-### Jawaban tantangan 12.3
+### Jawaban tantangan 12.2
 <img width="478" height="232" alt="image" src="https://github.com/user-attachments/assets/675955b5-0161-4d00-9c11-5e920537a257" />
 
 ## Praktek 12.3 : Buat Arsip Backup dan Verifikasi Integritasnya
