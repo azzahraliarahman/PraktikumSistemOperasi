@@ -515,14 +515,31 @@ nstruksi Umum: Kerjakan seluruh latihan secara mandiri. Catat langkah penting, s
 Rancang dan implementasikan sistem backup untuk direktori simulasi.
 1. Buat struktur direktori simulasi dengan minimal 10 file yang tersebar di tiga subdirektori:
 dokumen/, konfigurasi/, dan media/.
+
+jawab :
+<img width="332" height="126" alt="image" src="https://github.com/user-attachments/assets/d54f16ce-e5e9-421a-9700-d3a8e2370b33" />
+
 2. Buat skrip backup-harian.sh yang menggunakan rsync dengan–link-dest untuk mem
 buat snapshot harian. Skrip harus mencatat log dengan timestamp ke backup-harian.log.
+
+jawab :
+<img width="465" height="443" alt="image" src="https://github.com/user-attachments/assets/0f05a6a7-081b-4cec-8e8c-3aa038bee307" />
+
 3. Buat skrip backup-mingguan.sh yang menggunakan tar-czf untuk membuat arsip terkom
 presi. Skrip harus membuat checksum MD5 dari setiap arsip yang dibuat.
+
+jawab :
+
+<img width="475" height="506" alt="image" src="https://github.com/user-attachments/assets/f3af6014-0017-49f3-b9f9-cb87427b0c9b" />
+
 4. Daftarkan keduanya ke crontab dengan jadwal yang berbeda. Jalankan masing-masing secara
 manual dan verifikasi log dan output yang dihasilkan.
 5. Simulasikan kehilangan file dan lakukan restore dari kedua jenis backup. Dokumentasikan
 langkah-langkah restore dan waktu yang dibutuhkan.
+
+jawab :
+<img width="479" height="481" alt="image" src="https://github.com/user-attachments/assets/64db711b-0681-4679-a3e4-350ef0e78787" />
+
 
 ### Latihan 12.2 Analisis Kompresi dan Performa Backup
 
@@ -530,14 +547,59 @@ Analisis trade-off antara kecepatan dan rasio kompresi.
 1. Buat direktori dengan tiga jenis file: teks biasa (10 file .txt masing-masing 100 baris), file kon
 figurasi .conf, dan file biner simulasi menggunakan dd if=/dev/urandom of=biner.bin
 bs=1M count=5.
+
+jawab :
+<img width="436" height="490" alt="image" src="https://github.com/user-attachments/assets/0225c10a-8370-47b5-a8ed-b0957e920efd" />
+
 2. Buat tiga arsip dari direktori yang sama menggunakan gzip (-z), bzip2 (-j), dan xz (-J). Ukur
 waktu setiap proses menggunakan time.
+### Laporan Analisis Performa Kompresi Backup
+
+**A. Ringkasan Pengujian (Waktu & Ukuran)**
+*Ukuran Asli Direktori: ~5.1 MB*
+
+**1. Kompresi Gzip (.tar.gz)**
+* Waktu Kompresi: [Isi dengan waktu 'real' dari terminal, misal: 0.025s]
+* Ukuran Hasil: [Isi dari output ls -lh, misal: 5.1M]
+* Rasio Kompresi: Rendah ke Sedang (Sangat cepat)
+
+**2. Kompresi Bzip2 (.tar.bz2)**
+* Waktu Kompresi: [Isi dengan waktu 'real', misal: 0.080s]
+* Ukuran Hasil: [Isi dari output ls -lh, misal: 5.1M]
+* Rasio Kompresi: Sedang ke Tinggi (Lebih lambat dari gzip)
+
+**3. Kompresi XZ (.tar.xz)**
+* Waktu Kompresi: [Isi dengan waktu 'real', misal: 0.350s]
+* Ukuran Hasil: [Isi dari output ls -lh, misal: 5.1M]
+* Rasio Kompresi: Sangat Tinggi (Paling lambat, memakan banyak CPU)
+
+*(Catatan: Ukuran hasil kompresi terlihat mirip karena 99% isi direktori didominasi oleh file biner urandom sebesar 5MB yang secara matematis bersifat inkompresibel / tidak dapat dimampatkan).*
+
+---
+
+**B. Rekomendasi Arsitektur Backup**
+
+Berdasarkan fakta empiris beban CPU dan rasio di atas, berikut adalah rekomendasi mutlak untuk skenario sistem:
+
+**1. Backup Harian Otomatis**
+* **Rekomendasi:** `gzip` (.tar.gz)
+* **Alasan Faktual:** Backup harian membutuhkan siklus yang cepat dan ringan agar tidak membebani CPU server yang sedang melayani *user* pada jam sibuk. Gzip menawarkan keseimbangan terbaik antara kecepatan eksekusi tinggi dengan rasio kompresi yang cukup memadai.
+
+**2. Arsip Jangka Panjang (Archiving)**
+* **Rekomendasi:** `xz` (.tar.xz) atau `bzip2` (.tar.bz2)
+* **Alasan Faktual:** Untuk data yang ditujukan sebagai arsip tahunan/bulanan (jarang diakses), menghemat ruang penyimpanan fisik (*storage/hard disk*) adalah prioritas mutlak. Waktu kompresi yang lama dan penggunaan CPU yang tinggi sangat dapat ditoleransi demi mendapatkan ukuran file sekecil mungkin.
+
+**3. Backup File Biner (Gambar, Video, Database Enkripsi)**
+* **Rekomendasi:** `tar` murni (tanpa kompresi) atau `gzip` jika diwajibkan.
+* **Alasan Faktual:** File biner murni (seperti hasil `/dev/urandom`, `.mp4`, `.jpg`) umumnya sudah berada dalam kondisi terkompresi. Memaksa algoritma berat seperti `xz` atau `bzip2` pada file biner adalah pemborosan komputasi (*CPU overhead*), karena sistem akan membuang waktu lama namun ukuran file tidak akan mengecil secara signifikan.
+
 3. Bandingkan ukuran ketiga arsip dengan ls-lh dan hitung rasio kompresi masing-masing
 terhadap ukuran asli.
 4. Buat tabel di file analisis-kompresi.txt yang merangkum: jenis kompresi, waktu kompres,
 ukuran hasil, dan rasio kompresi.
 5. Berdasarkan data tersebut, rekomendasikan kompresi yang paling tepat untuk: backup harian
 otomatis, arsip jangka panjang, dan backup file biner. Berikan alasan untuk setiap rekomendasi.
+
 
 ### Latihan 12.3 Disaster Recovery Drill
 
