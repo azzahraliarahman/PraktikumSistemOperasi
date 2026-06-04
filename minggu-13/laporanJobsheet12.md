@@ -221,8 +221,6 @@ cat arsip-tar/full-$(date +%F).md5
 tar -tzf arsip-tar/full-$(date +%F).tar.gz
 
 # Menampilkan isi arsip, tetapi difilter hanya untuk file yang mengandung kata ".conf"
-tar -tzf arsip-tar/full-$(date +%F).tar.gz | grep "\.conf"
-
 # Membuat direktori sementara untuk uji coba ekstrak
 mkdir -p /tmp/tar-coba
 
@@ -277,6 +275,12 @@ Buat arsip incremental sesi kedua. Tambahkan beberapa file baru ke data-sumber/d
 ubah isi app.conf. Kemudian jalankan tar dengan file snapshot yang sama untuk menghasilkan
 incremental backup kedua. Bandingkan ukuran ketiga arsip (full, incr-1, incr-2). Kemudian
 verifikasi isi setiap arsip menggunakan tar-tzf untuk memastikan setiap arsip hanya mengandung file yang sesuai dengan jenisnya 
+
+### Jawaban Tantangan 12.3
+
+
+
+
 
 ## Praktek 12.4: Jadwalkan Skrip Backup Otomatis
 
@@ -350,6 +354,10 @@ rm -rf arsip-cron/ arsip-tar/ cron-backup.log backup.log
 ### Tantangan 12.4
 
 Jadwalkan skrip rsync-backup.sh dari challenge box Praktek 12.2 agar berjalan setiap hari pukul 02:00 menggunakan crontab. Tambahkan ke skrip tersebut agar output rsync disimpan ke /var/log/backup.log menggunakan teknik tee dari Bab 3 (sehingga sekaligus tercetak di terminal saat dijalankan manual dan tersimpan ke log). Tulis cron expression yang tepat dan jelaskan setiap field-nya.
+
+### Jawaban tantangan 12.4
+<img width="469" height="539" alt="image" src="https://github.com/user-attachments/assets/0e5b1426-0e47-45b2-8985-fcdd14798e90" />
+
 
 ## Praktek 12.5 : Simulasi Pemulihan dari Backup
 
@@ -460,9 +468,44 @@ echo "Diff exit code: $? (0 berarti identik dengan snapshot)"
 rm -rf arsip-pemulihan/ snapshot-pemulihan/
 rm -f checksum-asli.md5 rencana-backup.txt backup-otomatis.sh
 ```
-### Tantangan
+### Tantangan 12.5
 
 Perpanjang skenario pemulihan: hapus seluruh direktori data-sumber/konfigurasi/ sekaligus (bukan hanya satu file). Kemudian pulihkan seluruh direktori tersebut dari snapshot menggunakan rsync dengan arah transfer yang dibalik (sumber adalah snapshot, tujuan adalah direktori yang rusak). Verifikasi hasil pemulihan dengan membandingkan checksum seluruh isi direktori menggunakan find dan md5sum. Catat perbedaan waktu antara restore satu file dan restore satu direktori penuh.
+
+### Jawaban Tantangan 12.5
+<img width="477" height="436" alt="image" src="https://github.com/user-attachments/assets/7b6d32cc-b535-414c-b350-b6d6cc6b6cf6" />
+
+kesimpulan :
+
+Siap. Kalau kamu menghindari format tabel, struktur bullet list ini adalah format Markdown yang paling bersih dan rapi untuk di-commit ke repositori GitHub milikmu.
+
+Tinggal copy-paste teks di bawah ini langsung ke file .md atau editor GitHub-mu:
+
+Hasil Pengamatan: Perbandingan Waktu Restorasi Data
+1. Pemulihan 1 Direktori Penuh
+
+Utilitas: rsync
+
+Sumber Data: Direktori Snapshot (Uncompressed)
+
+Waktu Eksekusi (Real): 0.136 detik (136 milidetik)
+
+Beban Pemrosesan: Operasi I/O (Input/Output) fisik langsung ke hard disk.
+
+Analisis Teknis: Kecepatan sangat tinggi karena data bersumber dari direktori terbuka. Sistem murni hanya menyalin byte fisik ke lokasi baru tanpa melalui hambatan pemrosesan komputasi CPU.
+
+2. Pemulihan 1 File Spesifik
+
+Utilitas: tar -xzf
+
+Sumber Data: Arsip .tar.gz (Compressed)
+
+Waktu Eksekusi (Real): Lebih lambat (Terkendala proses dekompresi)
+
+Beban Pemrosesan: Overhead komputasi CPU di dalam memori (RAM).
+
+Analisis Teknis: Kecepatan terhambat karena kernel dipaksa bekerja memecah algoritma kompresi arsip terlebih dahulu, memindai seluruh hierarki di dalamnya untuk mencari 1 target spesifik, baru kemudian diekstrak.
+
 
 ## 1.7 Latihan 
 nstruksi Umum: Kerjakan seluruh latihan secara mandiri. Catat langkah penting, simpan tangkapan layar bila diperlukan, lalu rangkum hasilnya sebagai dokumentasi pribadi. 
