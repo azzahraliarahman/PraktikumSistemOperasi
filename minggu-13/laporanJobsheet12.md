@@ -549,56 +549,55 @@ figurasi .conf, dan file biner simulasi menggunakan dd if=/dev/urandom of=biner.
 bs=1M count=5.
 
 jawab :
+
 <img width="436" height="490" alt="image" src="https://github.com/user-attachments/assets/0225c10a-8370-47b5-a8ed-b0957e920efd" />
 
 2. Buat tiga arsip dari direktori yang sama menggunakan gzip (-z), bzip2 (-j), dan xz (-J). Ukur
 waktu setiap proses menggunakan time.
-### Laporan Analisis Performa Kompresi Backup
 
-**A. Ringkasan Pengujian (Waktu & Ukuran)**
-*Ukuran Asli Direktori: ~5.1 MB*
+jawab :
 
-**1. Kompresi Gzip (.tar.gz)**
-* Waktu Kompresi: [Isi dengan waktu 'real' dari terminal, misal: 0.025s]
-* Ukuran Hasil: [Isi dari output ls -lh, misal: 5.1M]
-* Rasio Kompresi: Rendah ke Sedang (Sangat cepat)
-
-**2. Kompresi Bzip2 (.tar.bz2)**
-* Waktu Kompresi: [Isi dengan waktu 'real', misal: 0.080s]
-* Ukuran Hasil: [Isi dari output ls -lh, misal: 5.1M]
-* Rasio Kompresi: Sedang ke Tinggi (Lebih lambat dari gzip)
-
-**3. Kompresi XZ (.tar.xz)**
-* Waktu Kompresi: [Isi dengan waktu 'real', misal: 0.350s]
-* Ukuran Hasil: [Isi dari output ls -lh, misal: 5.1M]
-* Rasio Kompresi: Sangat Tinggi (Paling lambat, memakan banyak CPU)
-
-*(Catatan: Ukuran hasil kompresi terlihat mirip karena 99% isi direktori didominasi oleh file biner urandom sebesar 5MB yang secara matematis bersifat inkompresibel / tidak dapat dimampatkan).*
-
----
-
-**B. Rekomendasi Arsitektur Backup**
-
-Berdasarkan fakta empiris beban CPU dan rasio di atas, berikut adalah rekomendasi mutlak untuk skenario sistem:
-
-**1. Backup Harian Otomatis**
-* **Rekomendasi:** `gzip` (.tar.gz)
-* **Alasan Faktual:** Backup harian membutuhkan siklus yang cepat dan ringan agar tidak membebani CPU server yang sedang melayani *user* pada jam sibuk. Gzip menawarkan keseimbangan terbaik antara kecepatan eksekusi tinggi dengan rasio kompresi yang cukup memadai.
-
-**2. Arsip Jangka Panjang (Archiving)**
-* **Rekomendasi:** `xz` (.tar.xz) atau `bzip2` (.tar.bz2)
-* **Alasan Faktual:** Untuk data yang ditujukan sebagai arsip tahunan/bulanan (jarang diakses), menghemat ruang penyimpanan fisik (*storage/hard disk*) adalah prioritas mutlak. Waktu kompresi yang lama dan penggunaan CPU yang tinggi sangat dapat ditoleransi demi mendapatkan ukuran file sekecil mungkin.
-
-**3. Backup File Biner (Gambar, Video, Database Enkripsi)**
-* **Rekomendasi:** `tar` murni (tanpa kompresi) atau `gzip` jika diwajibkan.
-* **Alasan Faktual:** File biner murni (seperti hasil `/dev/urandom`, `.mp4`, `.jpg`) umumnya sudah berada dalam kondisi terkompresi. Memaksa algoritma berat seperti `xz` atau `bzip2` pada file biner adalah pemborosan komputasi (*CPU overhead*), karena sistem akan membuang waktu lama namun ukuran file tidak akan mengecil secara signifikan.
+<img width="474" height="398" alt="image" src="https://github.com/user-attachments/assets/0123fee4-a4c3-4200-9f1d-7bc94ce43f79" />
 
 3. Bandingkan ukuran ketiga arsip dengan ls-lh dan hitung rasio kompresi masing-masing
 terhadap ukuran asli.
+
+jawab : 
+
+<img width="480" height="63" alt="image" src="https://github.com/user-attachments/assets/d2ae8541-6785-4309-9780-6e910e0bbab2" />
+
+Jadi, berdasarkan perintah ls -lh file arsip(.tar.gz, .tar.bz2, dan .tar.xz) menghasilkan ukuran 5.1M. Rasio komperasi menggunakan perhitungan 5.1M/5.1M = 1. Jadi, rasio untuk ketiga utilitas tersebut adalah 1:1. Membuktikan bahwa algoritma pemampatan data tifak bekerja.
+
 4. Buat tabel di file analisis-kompresi.txt yang merangkum: jenis kompresi, waktu kompres,
 ukuran hasil, dan rasio kompresi.
+
+jawab :
+
+<img width="475" height="201" alt="image" src="https://github.com/user-attachments/assets/37527414-7773-4a8f-a5c2-cb32d3bd4387" />
+
+
 5. Berdasarkan data tersebut, rekomendasikan kompresi yang paling tepat untuk: backup harian
 otomatis, arsip jangka panjang, dan backup file biner. Berikan alasan untuk setiap rekomendasi.
+
+jawab :
+
+A. Backup Harian Otomatis
+
+    Rekomendasi : gzip (.tar.gz)
+
+    Alasan Faktual: Backup harian berjalan sangat rutin. Oleh karena itu, server membutuhkan utilitas dengan eksekusi secepat kilat agar beban CPU tidak melonjak dan mengganggu layanan (services) lain yang sedang berjalan. Berdasarkan data, gzip mutlak menjadi yang tercepat dan memberikan keseimbangan paling efisien antara kecepatan performa dan hasil kompresi.
+
+B. Arsip Jangka Panjang (Archiving)
+
+    Rekomendasi : xz (.tar.xz)
+
+    Alasan Faktual: Arsip tahunan atau bulanan sangat jarang diakses kembali. Di skenario ini, efisiensi ruang penyimpanan fisik (storage) adalah prioritas utama. Meskipun data menunjukkan proses xz adalah yang paling lambat dan memakan banyak memori, trade-off (pengorbanan waktu) ini sepenuhnya bisa ditoleransi demi menekan ukuran file menjadi sekecil mungkin di ruang penyimpanan.
+
+C. Backup File Biner (Video, Gambar, Data Acak)
+
+    Rekomendasi : tar murni (tanpa kompresi) atau batas maksimal gzip.
+
+    Alasan Faktual: Data eksperimen membuktikan secara nyata bahwa file biner (seperti simulasi /dev/urandom tadi) bersifat incompressible (menghasilkan rasio 1:1). Memaksa penggunaan algoritma kompresi tingkat tinggi seperti xz atau bzip2 pada sekumpulan file biner adalah pemborosan komputasi (CPU overhead). Waktu eksekusi akan melonjak drastis, namun ukuran filenya mutlak tidak akan mengecil.
 
 
 ### Latihan 12.3 Disaster Recovery Drill
@@ -606,12 +605,13 @@ otomatis, arsip jangka panjang, dan backup file biner. Berikan alasan untuk seti
 Lakukan simulasi pemulihan bencana secara menyeluruh.
 1. Buat direktori “produksi” dengan struktur lengkap: file konfigurasi, dokumen, dan skrip. Buat
 backup penuh menggunakan tar dan simpan checksumnya.
-2. Dokumentasikan kondisi awal: daftar file, ukuran, dan checksum semua file menggunakan find
+
+3. Dokumentasikan kondisi awal: daftar file, ukuran, dan checksum semua file menggunakan find
 dan md5sum.
-3. Simulasikan bencana: hapus seluruh direktori produksi dengan rm-rf.
-4. Catat waktu mulai pemulihan, lakukan restore lengkap dari backup, dan catat waktu selesai.
-5. Verifikasi semua file pulih dengan benar menggunakan checksum yang disimpan di langkah 2.
-6. Bandingkan RTO aktual dengan target yang kamu tentukan. Jika lebih lama, identifikasi
+4. Simulasikan bencana: hapus seluruh direktori produksi dengan rm-rf.
+5. Catat waktu mulai pemulihan, lakukan restore lengkap dari backup, dan catat waktu selesai.
+6. Verifikasi semua file pulih dengan benar menggunakan checksum yang disimpan di langkah 2.
+7. Bandingkan RTO aktual dengan target yang kamu tentukan. Jika lebih lama, identifikasi
 bottleneck dan usulkan cara mempercepatnya
 
 
