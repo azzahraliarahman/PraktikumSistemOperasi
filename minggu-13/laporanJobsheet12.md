@@ -606,13 +606,46 @@ Lakukan simulasi pemulihan bencana secara menyeluruh.
 1. Buat direktori “produksi” dengan struktur lengkap: file konfigurasi, dokumen, dan skrip. Buat
 backup penuh menggunakan tar dan simpan checksumnya.
 
-3. Dokumentasikan kondisi awal: daftar file, ukuran, dan checksum semua file menggunakan find
+jawab :
+
+<img width="479" height="234" alt="image" src="https://github.com/user-attachments/assets/121a377e-10fe-459b-a467-65ee5f26554d" />
+
+
+2. Dokumentasikan kondisi awal: daftar file, ukuran, dan checksum semua file menggunakan find
 dan md5sum.
-4. Simulasikan bencana: hapus seluruh direktori produksi dengan rm-rf.
-5. Catat waktu mulai pemulihan, lakukan restore lengkap dari backup, dan catat waktu selesai.
-6. Verifikasi semua file pulih dengan benar menggunakan checksum yang disimpan di langkah 2.
-7. Bandingkan RTO aktual dengan target yang kamu tentukan. Jika lebih lama, identifikasi
+
+jawab : 
+
+<img width="478" height="152" alt="image" src="https://github.com/user-attachments/assets/d0537508-4284-4e00-8e81-61273c362570" />
+
+3. Simulasikan bencana: hapus seluruh direktori produksi dengan rm-rf.
+
+jawab :
+
+<img width="479" height="77" alt="image" src="https://github.com/user-attachments/assets/03a4cfd9-403b-49c5-bd6d-a5eb4bf0f83f" />
+
+4. Catat waktu mulai pemulihan, lakukan restore lengkap dari backup, dan catat waktu selesai.
+
+jawab :
+
+<img width="438" height="122" alt="image" src="https://github.com/user-attachments/assets/79b329d4-42f0-44f9-880b-793bcef6ae3b" />
+
+5. Verifikasi semua file pulih dengan benar menggunakan checksum yang disimpan di langkah 2.
+
+jawab : 
+
+<img width="468" height="65" alt="image" src="https://github.com/user-attachments/assets/2419dfbc-5afa-4ce7-a3fe-9489b5aee807" />
+
+6. Bandingkan RTO aktual dengan target yang kamu tentukan. Jika lebih lama, identifikasi
 bottleneck dan usulkan cara mempercepatnya
+
+jawab :
+
+<img width="218" height="69" alt="image" src="https://github.com/user-attachments/assets/166cfed9-04e2-4a2a-aede-6132fefdc3ef" />
+
+Target RTO : 2 detik
+RTO aktual : 0.063 detik
+
 
 
 
