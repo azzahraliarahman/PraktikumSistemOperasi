@@ -30,16 +30,23 @@ sudo apt update
 sudo apt install cubic -y
 ```
 
-## Buka Cubic
+## Bab 7  Memulai proyek Remastering Baru
 
-1. Tulis
+1. Buka aplikasi cubic
 
 ```
 cubic
 ```
-2. Setelah aplikasinya terbuka, kamu akan melihat tampilan awal Cubic yang meminta Project Directory (seperti gambar Figure 1 di halaman 5 modulmu).  
+2. Memilih Folder Proyek (Project Directory)
 
+* Cubic memerlukan sebuah folder khusus untuk menyimpan file kerja sementara dan hasil akhir ISO nanti.
 
+Pada kotak isian di layar awal Cubic, klik tombol browse (ikon folder/titik tiga).  Lalu, Buat folder baru kosong di dalam direktori Home kamu, beri nama Proyek-Remaster. Lalu, Pilih folder tersebut, lalu klik tombol Next di pojok kanan atas aplikasi Cubic.
+
+3. Memilih File ISO Ubuntu Asli
+
+Pada kolom Original ISO, klik dan arahkan ke file ISO Ubuntu asli yang sudah kamu siapkan.  Pada kolom nama file keluaran (Output ISO volume ID/Filename), ubah namanya menjadi format tugasmu:
+Ubuntu-Custom-[NIM].iso (Ganti [NIM] dengan Nomor Induk Mahasiswamu yang asli).  Jika sudah, klik Next lagi dan tunggu sampai Cubic selesai mengekstrak isi ISO tersebut. Setelah selesai diekstrak, Cubic akan otomatis membukakan sebuah kotak terminal hitam khusus (lingkungan chroot).  
 
 
    
