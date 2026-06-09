@@ -51,6 +51,8 @@ Pada kotak isian di layar awal Cubic, klik tombol browse (ikon folder/titik tiga
 Pada kolom Original ISO, klik dan arahkan ke file ISO Ubuntu asli yang sudah kamu siapkan.  Pada kolom nama file keluaran (Output ISO volume ID/Filename), ubah namanya menjadi format tugasmu:
 Ubuntu-Custom-[NIM].iso (Ganti [NIM] dengan Nomor Induk Mahasiswamu yang asli).  Jika sudah, klik Next lagi dan tunggu sampai Cubic selesai mengekstrak isi ISO tersebut. Setelah selesai diekstrak, Cubic akan otomatis membukakan sebuah kotak terminal hitam khusus (lingkungan chroot).  
 
+
+
 Ketika file iso ubuntu belum duplikasi :
 
 1. Buka Terminal
@@ -60,6 +62,17 @@ Ketika file iso ubuntu belum duplikasi :
 ```
 cp /media/sf_C_DRIVE/Users/Lenovo/Downloads/ubuntu-26.04-desktop-amd64.iso ~/Downloads/
 ```
+
+* Prosesnya :
+
+1. PIlih File iso
+
+<img width="470" height="374" alt="image" src="https://github.com/user-attachments/assets/fffa9c94-5ab2-4a00-a68b-436d3683dfcc" />
+
+2. Proses Mengekstrak File
+
+<img width="454" height="340" alt="image" src="https://github.com/user-attachments/assets/60afd467-00b9-4049-b5d9-7d84bf7471c9" />
+
 
 
    
