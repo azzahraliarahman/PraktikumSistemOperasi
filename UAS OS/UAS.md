@@ -1,5 +1,5 @@
 
-# Laporan Panduan Membuat Custom Ubuntu ISO dengan Cubic
+# Laporan Panduan Membuat Custom Ubuntu ISO dengan Cubic & Remastering Sistem Operasi Linux
 
 ## Unduh Berkas Checksum Resmi via Terminal
 
@@ -97,11 +97,49 @@ apt install -y vlc gimp
 ```
 apt install -y wget gpg && wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /usr/share/keyrings/packages.microsoft.gpg && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/keys/microsoft.asc main" > /etc/apt/sources.list.dist0/vscode.list && apt update
 ```
+<img width="446" height="39" alt="image" src="https://github.com/user-attachments/assets/6c77dd1a-166b-4b52-9b21-8faca9d4556f" />
+
 2. Instal VS Code, Apache2, dan PHP
 
 ```
 apt install -y code apache2 php libapache2-mod-php
 ```
+## Membuat Script Informasi Hardware
+
+membuat Bash Script otomatis yang bisa mengecek spesifikasi hardware.
+
+1. Masuk ke Folder Profile Sistem
+
+```
+cd /etc/profile.d
+```
+2. Buat File Script Baru Menggunakan Cat
+
+```
+cat << 'EOF' > cek_hardware.sh
+```
+3. Isi Konten Script-nya
+
+```
+#!/bin/bash
+echo "=============================================="
+echo "      SISTEM INFORMASI HARDWARE CUSTOM        "
+echo "=============================================="
+echo "Tanggal Cek   : $(date)"
+echo "Nama Hostname : $(hostname)"
+echo "Versi OS      : $(grep 'PRETTY_NAME' /etc/os-release | cut -d'=' -f2 | tr -d '\"')"
+echo "Model CPU     : $(lscpu | grep 'Model name' | cut -d':' -f2 | sed -e 's/^[ \t]*//')"
+echo "Total Memori  : $(free -h | grep 'Mem:' | awk '{print $2}')"
+echo "Sisa Disk (/) : $(df -h / | awk 'NR==2 {print $4}')"
+echo "=============================================="
+EOF
+```
+4. Hak Akses Eksekusi
+
+```
+chmod +x cek_hardware.sh
+```
+
 
 
 
