@@ -73,6 +73,36 @@ cp /media/sf_C_DRIVE/Users/Lenovo/Downloads/ubuntu-26.04-desktop-amd64.iso ~/Dow
 
 <img width="454" height="340" alt="image" src="https://github.com/user-attachments/assets/60afd467-00b9-4049-b5d9-7d84bf7471c9" />
 
+3. Layar Hitam yang muncul setelah ekstrak file
+
+<img width="457" height="355" alt="image" src="https://github.com/user-attachments/assets/90ce2e27-0b4b-4a6a-8bcb-bb9b23b9e302" />
+
+## Kustomisasi Sistem
+
+1. Update Repositori Sistem
+
+```
+apt update
+```
+2. Instal Aplikasi (VLC & GIMP)
+
+```
+apt install -y vlc gimp
+```
+
+## menginstal VS Code serta paket web server (Apache2 & PHP).
+
+1. Tambahkan Repositori VS Code
+
+```
+apt install -y wget gpg && wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /usr/share/keyrings/packages.microsoft.gpg && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/keys/microsoft.asc main" > /etc/apt/sources.list.dist0/vscode.list && apt update
+```
+2. Instal VS Code, Apache2, dan PHP
+
+```
+apt install -y code apache2 php libapache2-mod-php
+```
+
 
 
    
