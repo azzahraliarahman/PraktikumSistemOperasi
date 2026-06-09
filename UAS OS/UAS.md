@@ -1,5 +1,5 @@
 
-#Laporan Panduan Membuat Custom Ubuntu ISO dengan Cubic
+# Laporan Panduan Membuat Custom Ubuntu ISO dengan Cubic
 
 ## Unduh Berkas Checksum Resmi via Terminal
 
@@ -30,9 +30,14 @@ sudo apt update
 sudo apt install cubic -y
 ```
 
+## Buka Cubic
 
+1. Tulis
 
-
+```
+cubic
+```
+2. Setelah aplikasinya terbuka, kamu akan melihat tampilan awal Cubic yang meminta Project Directory (seperti gambar Figure 1 di halaman 5 modulmu).  
 
 
 
