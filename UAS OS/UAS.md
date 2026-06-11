@@ -1,6 +1,9 @@
 
 # Laporan UAS Remastering
 
+## Download Ubuntu dekstop 24.04 LTS pada https://releases.ubuntu.com/24.04/
+
+
 ## Unduh Berkas Checksum Resmi via Terminal
 
 1. Buka Terminal di Ubuntu kamu (tekan Ctrl + Alt + T bersamaan).
