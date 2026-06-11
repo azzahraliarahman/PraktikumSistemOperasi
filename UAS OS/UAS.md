@@ -1,7 +1,11 @@
 
 # Laporan UAS Remastering
 
+
+
 ## Download Ubuntu dekstop 24.04 LTS pada https://releases.ubuntu.com/24.04/
+
+<img width="493" height="413" alt="image" src="https://github.com/user-attachments/assets/c5d2141d-ef39-4298-bc4b-01a9a8a0425a" />
 
 
 ## Unduh Berkas Checksum Resmi via Terminal
