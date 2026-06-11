@@ -1,5 +1,5 @@
 
-# Laporan Panduan Membuat Custom Ubuntu ISO dengan Cubic & Remastering Sistem Operasi Linux
+# Laporan UAS Remastering
 
 ## Unduh Berkas Checksum Resmi via Terminal
 
