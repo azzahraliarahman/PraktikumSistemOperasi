@@ -76,6 +76,8 @@ _file instalasi paket Debian (.deb) ditarik langsung dari server Microsoft mengg
 wget -O vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
 apt install ./vscode.deb -y
 ```
+<img width="478" height="314" alt="image" src="https://github.com/user-attachments/assets/8525b2fc-cb34-4d5b-9569-d110acab8bb5" />
+
 
 3 Pembuatan Aplikasi Kustom (Bash Script Informasi Hardware)
 
@@ -111,6 +113,11 @@ _Bash Script otomatis untuk mengecek spesifikasi hardware._
   ```
   chmod +x cek_hardware.sh
   ```
+
+  ### Proses Kustomisasi
+
+  <img width="487" height="388" alt="image" src="https://github.com/user-attachments/assets/01a69e38-4cdb-41fd-8743-6ee9b21a82b6" />
+
 
   
 
