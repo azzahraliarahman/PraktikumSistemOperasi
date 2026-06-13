@@ -2,14 +2,15 @@
 # Laporan UAS Remastering
 
 
+## 1 Persiapan Sistem dasar
 
-## Download Ubuntu dekstop 24.04 LTS pada https://releases.ubuntu.com/24.04/
+### Download Ubuntu dekstop 24.04 LTS pada https://releases.ubuntu.com/24.04/
 
 <img width="493" height="413" alt="image" src="https://github.com/user-attachments/assets/c5d2141d-ef39-4298-bc4b-01a9a8a0425a" />
 
 
 
-## Instal Aplikasi Cubic
+### Instal Aplikasi Cubic
 
 <img width="607" height="472" alt="image" src="https://github.com/user-attachments/assets/09d46f74-ed4c-4c06-be09-2dfe32e8c58b" />
 
@@ -24,7 +25,7 @@ sudo apt install cubic -y
 
 
 
-##  Memulai proyek Remastering Baru
+###  Memulai proyek Remastering Baru
 
 1. Buka aplikasi cubic
 
@@ -57,7 +58,7 @@ Ubuntu-Custom-[NIM].iso (Ganti [NIM] dengan Nomor Induk Mahasiswamu yang asli). 
 
 <img width="457" height="355" alt="image" src="https://github.com/user-attachments/assets/90ce2e27-0b4b-4a6a-8bcb-bb9b23b9e302" />
 
-## Kustomisasi dan Instalasi Aplikasi
+## 2. Kustomisasi dan Instalasi Aplikasi
 
 1 Instalasi Aplikasi Dasar dan Web Server
 
@@ -114,11 +115,8 @@ _Bash Script otomatis untuk mengecek spesifikasi hardware._
   chmod +x cek_hardware.sh
   ```
 
-  ### Proses Kustomisasi
-
-  <img width="487" height="388" alt="image" src="https://github.com/user-attachments/assets/01a69e38-4cdb-41fd-8743-6ee9b21a82b6" />
-
-
+  ## 3. Kustomisasi tampilan
   
 
+ 
 
