@@ -169,6 +169,9 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 <img width="463" height="380" alt="image" src="https://github.com/user-attachments/assets/1fbabe9d-6e09-4e77-8087-11557259c202" />
 
+<img width="475" height="343" alt="image" src="https://github.com/user-attachments/assets/a725a15e-127c-4253-be84-bbb9ebe5918d" />
+
+
 
 
 
