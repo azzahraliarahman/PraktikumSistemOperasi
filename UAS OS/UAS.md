@@ -160,6 +160,8 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/
 <img width="73" height="86" alt="image" src="https://github.com/user-attachments/assets/7dd67bf5-301e-4f64-9746-0ba08a73b62c" />
 <img width="634" height="455" alt="image" src="https://github.com/user-attachments/assets/cd3fb0d9-b50b-479f-b931-80629fc15e75" />
 
+## Pengujian dan Dokumentasi
+
 
 
 
