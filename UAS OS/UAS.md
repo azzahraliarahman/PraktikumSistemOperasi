@@ -116,6 +116,38 @@ _Bash Script otomatis untuk mengecek spesifikasi hardware._
   ```
 
   ## 3. Kustomisasi tampilan
+
+  1. Pemasangan Aset Visual Sistem
+
+  File gambar latar belakang (wallpaper) kustom dipindahkan ke dalam direktori background bawaan sistem,  dilanjutkan dengan instalasi paket ikon pihak ketiga (Papirus) melalui repositori.
+
+  ```
+  mv latar.jpg /usr/share/backgrounds/wallpaper-uas.jpg
+  apt install papirus-icon-theme -y
+  ```
+  2. Konfigurasi GSettings Schema Override
+
+  Dibuat sebuah file modifikasi konfigurasi (99-kustom-uas.gschema.override) pada direktori inti glib-2.0/schemas/ untuk menimpa nilai default dari Desktop Environment Ubuntu (GNOME). Perubahan mencakup pengaturan parameter wallpaper, pengaktifan tema gelap (Dark Mode), dan penggantian paket ikon sistem.
+
+ ```
+cat << 'EOF' > /usr/share/glib-2.0/schemas/99-kustom-uas.gschema.override
+[org.gnome.desktop.interface]
+color-scheme='prefer-dark'
+gtk-theme='Yaru-dark'
+icon-theme='Papirus-Dark'
+
+[org.gnome.desktop.background]
+picture-uri='file:///usr/share/backgrounds/wallpaper-uas.jpg'
+picture-uri-dark='file:///usr/share/backgrounds/wallpaper-uas.jpg'
+EOF
+```
+3. Kompilasi Skema Visual
+
+```
+glib-compile-schemas /usr/share/glib-2.0/schemas/
+```
+
+## Pembuatan File ISO baru
   
 
  
