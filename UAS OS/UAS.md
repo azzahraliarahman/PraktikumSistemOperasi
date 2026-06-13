@@ -167,6 +167,9 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 ## Pengujian dan Dokumentasi
 
+<img width="463" height="380" alt="image" src="https://github.com/user-attachments/assets/1fbabe9d-6e09-4e77-8087-11557259c202" />
+
+
 
 
 
