@@ -62,7 +62,8 @@ Ubuntu-Custom-[NIM].iso (Ganti [NIM] dengan Nomor Induk Mahasiswamu yang asli). 
 
 ### Layar Hitam yang muncul setelah ekstrak file
 
-<img width="457" height="355" alt="image" src="https://github.com/user-attachments/assets/90ce2e27-0b4b-4a6a-8bcb-bb9b23b9e302" />
+<img width="424" height="350" alt="Screenshot 2026-06-13 115441" src="https://github.com/user-attachments/assets/df9e7e77-f5e2-4b79-8b75-9584a6247b8d" />
+
 
 ## 2. Kustomisasi dan Instalasi Aplikasi
 
