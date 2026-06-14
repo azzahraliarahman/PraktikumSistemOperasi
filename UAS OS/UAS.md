@@ -116,7 +116,7 @@ _Bash Script otomatis untuk mengecek spesifikasi hardware._
   3. Memberikan hak akses eksekusi (executable) agar script dapat dijalankan oleh sistem:
 
   ```
-  chmod +x cek_hardware.sh
+  chmod +x cek_hardware
   ```
 
   ## 3. Kustomisasi tampilan
