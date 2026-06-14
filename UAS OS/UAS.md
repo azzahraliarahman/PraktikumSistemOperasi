@@ -60,9 +60,6 @@ Ubuntu-Custom-[NIM].iso (Ganti [NIM] dengan Nomor Induk Mahasiswamu yang asli). 
 
 <img width="454" height="340" alt="image" src="https://github.com/user-attachments/assets/60afd467-00b9-4049-b5d9-7d84bf7471c9" />
 
-### Layar Hitam yang muncul setelah ekstrak file
-
-<img width="424" height="350" alt="Screenshot 2026-06-13 115441" src="https://github.com/user-attachments/assets/df9e7e77-f5e2-4b79-8b75-9584a6247b8d" />
 
 
 ## 2. Kustomisasi dan Instalasi Aplikasi
@@ -172,6 +169,8 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/
 <img width="463" height="380" alt="image" src="https://github.com/user-attachments/assets/1fbabe9d-6e09-4e77-8087-11557259c202" />
 
 <img width="475" height="343" alt="image" src="https://github.com/user-attachments/assets/a725a15e-127c-4253-be84-bbb9ebe5918d" />
+
+<img width="470" height="269" alt="Screenshot 2026-06-15 015836" src="https://github.com/user-attachments/assets/0ec6a3d4-6fac-4111-8d40-7b7073a2e547" />
 
 
 
