@@ -98,7 +98,7 @@ _Bash Script otomatis untuk mengecek spesifikasi hardware._
   2. Membuat file dan menyuntikkan baris kode menggunakan perintah cat:
 
   ```
-  cat << 'EOF' > cek_hardware
+  cat << 'EOF' > cek_hardware.sh
   #!/bin/bash
   echo "=============================================="
   echo "      SISTEM INFORMASI HARDWARE CUSTOM        "
@@ -116,7 +116,7 @@ _Bash Script otomatis untuk mengecek spesifikasi hardware._
   3. Memberikan hak akses eksekusi (executable) agar script dapat dijalankan oleh sistem:
 
   ```
-  chmod +x cek_hardware
+  chmod +x cek_hardware.sh
   ```
 
   ## 3. Kustomisasi tampilan
